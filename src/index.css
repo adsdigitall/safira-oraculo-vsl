@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ── Tarot Reader & Mystic Theme System ──────────────────────── */
+:root {
+  --font-sans: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mystic: 'Cinzel', serif;
+
+  --bg-cosmic: #07040d;
+  --bg-deep-purple: #0f071f;
+  --bg-card-violet: rgba(22, 11, 43, 0.85);
+  
+  --gold-glow: #f59e0b;
+  --gold-accent: #fbbf24;
+  --gold-border: rgba(245, 158, 11, 0.35);
+
+  --purple-glow: #a855f7;
+  --purple-border: rgba(168, 85, 247, 0.3);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-cosmic);
+  background-image: 
+    radial-gradient(circle at 20% 15%, rgba(147, 51, 234, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 80% 60%, rgba(245, 158, 11, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(219, 39, 119, 0.15) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: #f1f5f9;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-mystic {
+  font-family: var(--font-mystic);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-mystic);
+}
+
+/* 🔮 Mystic Glow Effects & Borders */
+.glow-mystic {
+  box-shadow: 0 0 35px -5px rgba(168, 85, 247, 0.4);
+}
+
+.glow-mystic-strong {
+  box-shadow: 0 0 50px 0px rgba(168, 85, 247, 0.6), 0 0 25px rgba(245, 158, 11, 0.3);
+}
+
+.glow-gold {
+  box-shadow: 0 0 35px -5px rgba(245, 158, 11, 0.4);
+}
+
+.glow-gold-btn {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.6), 0 0 45px rgba(168, 85, 247, 0.4);
+}
+
+/* Glassmorphism Tarot Cards */
+.mystic-card {
+  background: rgba(19, 9, 38, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.mystic-card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mystic-card-hover:hover {
+  background: rgba(31, 15, 61, 0.95);
+  border-color: rgba(245, 158, 11, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
+}
+
+.mystic-nav {
+  background: rgba(9, 4, 18, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Shimmer animation for CTA buttons */
+@keyframes goldShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.btn-shimmer-gold {
+  background: linear-gradient(90deg, #f59e0b 0%, #fbbf24 30%, #fff 50%, #fbbf24 70%, #f59e0b 100%);
+  background-size: 200% 100%;
+  animation: goldShimmer 3.5s infinite linear;
+}
+
+/* Pulse Glow for Oracle Status */
+@keyframes mysticPulse {
+  0%, 100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.8)); }
+  50% { opacity: 0.7; transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.9)); }
+}
+
+.pulse-mystic {
+  animation: mysticPulse 2.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar for Mystic Theme */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090412;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2a134d;
+  border-radius: 4px;
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3b1c6b;
+}
+
+/* Golden Border Gradient */
+.border-gold-gradient {
+  border-image: linear-gradient(135deg, #f59e0b, #a855f7, #ec4899) 1;
+}
