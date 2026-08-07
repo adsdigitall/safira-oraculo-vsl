@@ -56,10 +56,11 @@ export default function App() {
   const [materialSelecionado, setMaterialSelecionado] = useState(null);
   const [modalAdmin, setModalAdmin] = useState(false);
 
-  // Modo Admin (?admin=true ou #admin na URL)
+  // Modo Admin (?admin, ?admin=true, #admin ou /admin na URL)
   const isAdmin = typeof window !== 'undefined' && (
     window.location.search.includes('admin') || 
-    window.location.hash.includes('admin')
+    window.location.hash.includes('admin') ||
+    window.location.pathname.includes('admin')
   );
 
   // 1. SINCRONIZAÇÃO EM TEMPO REAL ENTRE ABAS E JANELAS DIVERENTES (BroadCast & LocalStorage Event)
