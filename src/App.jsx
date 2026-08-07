@@ -29,6 +29,16 @@ function lerJson(chave, fallback) {
   }
 }
 
+function formatarUrl(rawUrl) {
+  if (!rawUrl) return '';
+  let url = rawUrl.trim();
+  if (url === '#' || url.includes('SEU-LINK')) return '';
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = 'https://' + url;
+  }
+  return url;
+}
+
 export default function App() {
   const [config, setConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
@@ -76,7 +86,6 @@ export default function App() {
       }
     };
 
-    // Evento nativo de alteração do localStorage entre abas
     const handleStorage = (e) => {
       if (e.key === STORAGE.config) {
         carregarConfigAtualizada();
@@ -84,7 +93,6 @@ export default function App() {
     };
     window.addEventListener('storage', handleStorage);
 
-    // BroadcastChannel para sincronizar sem reload
     let bc;
     try {
       bc = new BroadcastChannel('safira_config_channel');
@@ -177,31 +185,28 @@ export default function App() {
     mostrarToast('Ainda bloqueado', config.avisoBloqueado, 'aviso');
   }, [config.avisoBloqueado, mostrarToast]);
 
-  // Função central de abertura do checkout sincronizado
+  // Função central de abertura do checkout sincronizado (com auto-formatação de URL)
   const irParaCheckout = useCallback((urlEspecifica) => {
-    let destino = urlEspecifica;
+    let destino = formatarUrl(urlEspecifica);
     
-    // Se a URL do item for inválida/placeholder, força o checkoutUrl configurado no Admin!
-    if (!destino || destino.includes('SEU-LINK') || destino === '#') {
-      destino = config.checkoutUrl || config.whatsappLink;
+    if (!destino) {
+      destino = formatarUrl(config.checkoutUrl) || formatarUrl(config.whatsappLink);
     }
 
-    if (destino && destino.startsWith('http') && !destino.includes('SEU-LINK')) {
+    if (destino) {
       window.open(destino, '_blank');
-    } else if (config.checkoutUrl && config.checkoutUrl.startsWith('http') && !config.checkoutUrl.includes('SEU-LINK')) {
-      window.open(config.checkoutUrl, '_blank');
     } else {
       mostrarToast(
         'Checkout não configurado',
-        'Defina seu link de checkout no Painel Admin.',
+        'Insira seu link no Painel Admin clicando em Editar Página.',
         'aviso'
       );
     }
   }, [config.checkoutUrl, config.whatsappLink, mostrarToast]);
 
   function selecionarMaterial(material) {
-    const customUrl = material?.url;
-    if (customUrl && customUrl.startsWith('http') && !customUrl.includes('SEU-LINK')) {
+    const customUrl = formatarUrl(material?.url);
+    if (customUrl) {
       irParaCheckout(customUrl);
     } else {
       irParaCheckout(config.checkoutUrl);
@@ -221,18 +226,21 @@ export default function App() {
   }
 
   const salvarEAtualizarConfig = (novaConfig) => {
-    // 1. Atualiza o estado da aba atual
-    setConfig(novaConfig);
+    // Formata o checkoutUrl global se colado sem https://
+    const configFormatada = {
+      ...novaConfig,
+      checkoutUrl: formatarUrl(novaConfig.checkoutUrl),
+    };
 
-    // 2. Persiste no localStorage
+    setConfig(configFormatada);
+
     try {
-      localStorage.setItem(STORAGE.config, JSON.stringify(novaConfig));
+      localStorage.setItem(STORAGE.config, JSON.stringify(configFormatada));
     } catch (e) {}
 
-    // 3. Notifica outras abas abertas em tempo real via BroadcastChannel
     try {
       const bc = new BroadcastChannel('safira_config_channel');
-      bc.postMessage({ type: 'CONFIG_UPDATED', config: novaConfig });
+      bc.postMessage({ type: 'CONFIG_UPDATED', config: configFormatada });
       bc.close();
     } catch (e) {}
 
