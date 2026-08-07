@@ -9,7 +9,7 @@ export const CONFIG_PADRAO = {
   logoUrl: '',
 
   // ─── Rastreamento (Pixel) ────────────────────────────────
-  pixelId: '', // Ex: 1234567890 (Meta Pixel Facebook)
+  pixelId: '1374470023595160', // Meta Pixel Facebook registrado pelo usuário
 
   // ─── Links de conversão ──────────────────────────────────
   checkoutUrl: 'https://pay.cakto.com.br/SEU-LINK-DE-CHECKOUT',
