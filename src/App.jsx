@@ -13,6 +13,8 @@ import AdminConfigModal from './components/AdminConfigModal';
 import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 
+const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fdd0e-a30c-70de-8638-c8558acc4442';
+
 const TITULOS = {
   inicio: 'Início',
   materiais: 'Materiais',
@@ -73,22 +75,34 @@ export default function App() {
     window.location.pathname.includes('admin')
   );
 
-  // 1. SINCRONIZAÇÃO EM TEMPO REAL ENTRE ABAS E JANELAS DIVERENTES (BroadCast & LocalStorage Event)
+  // 1. SINCRONIZAÇÃO EM NUVEM EM TEMPO REAL (CARREGA AS ALTERAÇÕES DO ADMIN EM QUALQUER DISPOSITIVO)
   useEffect(() => {
-    const carregarConfigAtualizada = () => {
-      const nova = lerJson(STORAGE.config, null);
-      if (nova) {
-        setConfig((antigo) => ({
-          ...CONFIG_PADRAO,
-          ...antigo,
-          ...nova,
-        }));
-      }
-    };
+    let cancelado = false;
 
+    // Busca as configurações atualizadas da Nuvem (Cloud Sync)
+    fetch(CLOUD_SYNC_URL)
+      .then((res) => res.json())
+      .then((dataNuvem) => {
+        if (!cancelado && dataNuvem && (dataNuvem.checkoutUrl || dataNuvem.vslUrl)) {
+          const configNuvem = {
+            ...CONFIG_PADRAO,
+            ...dataNuvem,
+          };
+          setConfig(configNuvem);
+          try {
+            localStorage.setItem(STORAGE.config, JSON.stringify(configNuvem));
+          } catch (e) {}
+        }
+      })
+      .catch(() => {});
+
+    // Escuta alterações locais entre abas
     const handleStorage = (e) => {
       if (e.key === STORAGE.config) {
-        carregarConfigAtualizada();
+        const nova = lerJson(STORAGE.config, null);
+        if (nova) {
+          setConfig((antigo) => ({ ...antigo, ...nova }));
+        }
       }
     };
     window.addEventListener('storage', handleStorage);
@@ -104,6 +118,7 @@ export default function App() {
     } catch (e) {}
 
     return () => {
+      cancelado = true;
       window.removeEventListener('storage', handleStorage);
       if (bc) bc.close();
     };
@@ -226,25 +241,34 @@ export default function App() {
   }
 
   const salvarEAtualizarConfig = (novaConfig) => {
-    // Formata o checkoutUrl global se colado sem https://
     const configFormatada = {
       ...novaConfig,
       checkoutUrl: formatarUrl(novaConfig.checkoutUrl),
     };
 
+    // 1. Atualiza o estado da aba atual
     setConfig(configFormatada);
 
+    // 2. Persiste no localStorage do dispositivo
     try {
       localStorage.setItem(STORAGE.config, JSON.stringify(configFormatada));
     } catch (e) {}
 
+    // 3. SALVA NA NUVEM PARA TODOS OS DISPOSITIVOS E LEADS RECEBEREM O SEU NOVO LINK DE CHECKOUT!
+    fetch(CLOUD_SYNC_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(configFormatada),
+    }).catch(() => {});
+
+    // 4. Notifica outras abas abertas em tempo real
     try {
       const bc = new BroadcastChannel('safira_config_channel');
       bc.postMessage({ type: 'CONFIG_UPDATED', config: configFormatada });
       bc.close();
     } catch (e) {}
 
-    mostrarToast('Página Sincronizada! ⚡', 'As alterações já estão ativas em todas as abas.');
+    mostrarToast('Página Sincronizada em Nuvem! ⚡', 'As alterações já estão ativas para TODOS os usuários e dispositivos.');
   };
 
   return (
