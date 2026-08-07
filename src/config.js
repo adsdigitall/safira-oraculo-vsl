@@ -20,7 +20,7 @@ export const CONFIG_PADRAO = {
   ctaSidebar: 'Solicitar Materiais',
 
   // ─── VSL (tela "Início") ─────────────────────────────────
-  vslUrl: 'https://play.tynk.ai/p/ab96290d-0eaa-4757-a7bd-47aee4fe76ee',
+  vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
   vslDuracaoSegundos: 150,
 
   vslTitle: '🔥 VÁRIAS PESSOAS ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR',
