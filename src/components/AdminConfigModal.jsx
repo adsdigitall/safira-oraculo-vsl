@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2 } from 'lucide-react';
+import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign } from 'lucide-react';
 
 export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig, onResetDefaults }) {
   const [localConfig, setLocalConfig] = useState(config);
@@ -21,8 +21,27 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
     }, 1200);
   };
 
+  const handleUpdatePrice = (val) => {
+    let valorFormatado = val;
+    // Se o usuário digitar apenas número ex "40" ou "65", formata como R$ 40,00
+    if (/^\d+$/.test(val.trim())) {
+      valorFormatado = `R$ ${val.trim()},00`;
+    }
+
+    const novosPlanos = (localConfig.planos || []).map((plano, i) => {
+      if (i === 0) return { ...plano, valor: valorFormatado };
+      return plano;
+    });
+
+    setLocalConfig({
+      ...localConfig,
+      planosTotal: valorFormatado,
+      planosAVista: valorFormatado,
+      planos: novosPlanos,
+    });
+  };
+
   const handleUpdateCheckoutGlobal = (val) => {
-    // Atualiza a checkoutUrl global e sincroniza os materiais que usavam a URL anterior
     const materiaisAtualizados = (localConfig.materials || []).map((m) => {
       if (!m.url || m.url.includes('SEU-LINK') || m.url === localConfig.checkoutUrl) {
         return { ...m, url: val };
@@ -75,7 +94,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               <h3 className="text-base font-bold text-white font-mystic">
                 Painel Admin (Configurações & Sincronização)
               </h3>
-              <p className="text-xs text-purple-200/70">Edite os links de checkout, pixels de rastreamento e materiais</p>
+              <p className="text-xs text-purple-200/70">Edite o valor da oferta, os links de checkout e o Meta Pixel</p>
             </div>
           </div>
 
@@ -93,27 +112,47 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
           {savedSuccess && (
             <div className="p-3 bg-emerald-500/20 border border-emerald-500/40 rounded-xl text-emerald-300 text-xs font-bold flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-              <span>Configurações salvas e 100% sincronizadas na página!</span>
+              <span>Configurações salvas e 100% sincronizadas na nuvem para todos os dispositivos!</span>
             </div>
           )}
 
-          {/* 1. RASTREAMENTO: META PIXEL FACEBOOK */}
+          {/* 1. CAMPO DE EDIÇÃO DO VALOR DA OFERTA / BÔNUS */}
+          <div className="p-4 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-purple-950 to-purple-900/60 space-y-2">
+            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
+              <DollarSign className="w-4 h-4 text-amber-400" />
+              Valor / Preço dos Materiais & Oferta (ex: R$ 40,00, R$ 65,00, R$ 97,00)
+            </label>
+            <div className="flex items-center gap-3">
+              <input
+                type="text"
+                value={localConfig.planosTotal || 'R$ 60,00'}
+                onChange={(e) => handleUpdatePrice(e.target.value)}
+                placeholder="R$ 60,00"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/40 text-amber-300 font-extrabold text-sm focus:outline-none focus:border-amber-400 transition"
+              />
+            </div>
+            <p className="text-[11px] text-purple-200/70">
+              Altera automaticamente o valor exibido na aba de solicitação dos materiais e botão de checkout.
+            </p>
+          </div>
+
+          {/* 2. RASTREAMENTO: META PIXEL FACEBOOK */}
           <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/20 bg-purple-950/60">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <Code2 className="w-4 h-4 text-amber-400" />
-              ID do Meta Pixel Facebook (Opcional - Marcar PageView)
+              ID do Meta Pixel Facebook (Marcar PageView)
             </label>
             <input
               type="text"
               value={localConfig.pixelId || ''}
               onChange={(e) => setLocalConfig({ ...localConfig, pixelId: e.target.value })}
-              placeholder="Ex: 1234567890 (Cole apenas o ID do Pixel)"
+              placeholder="Ex: 1374470023595160"
               className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
             />
-            <p className="text-[10px] text-purple-200/60">Dispara automaticamente o evento PageView para rastrear visitantes.</p>
+            <p className="text-[10px] text-purple-200/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
           </div>
 
-          {/* 2. LINK DA VSL E CHECKOUT PRINCIPAL */}
+          {/* 3. LINK DA VSL E CHECKOUT PRINCIPAL */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
@@ -132,7 +171,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
                 <CreditCard className="w-4 h-4 text-amber-400" />
-                Link de Checkout Principal (Sincronizado)
+                Link de Checkout Principal
               </label>
               <input
                 type="text"
@@ -144,7 +183,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             </div>
           </div>
 
-          {/* 3. GERENCIADOR DE MATERIAIS & LINKS INDIVIDUAIS */}
+          {/* 4. GERENCIADOR DE MATERIAIS & LINKS INDIVIDUAIS */}
           <div className="space-y-3 pt-2 border-t border-amber-500/20">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
