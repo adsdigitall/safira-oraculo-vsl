@@ -15,6 +15,7 @@ import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe372-bd36-7f3c-b70b-b0b84fca9a26';
+const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
 const VERCEL_SYNC_URL = '/api/sync';
 
 // TUDO do quiz (textos + artes) vem por padrão do código, EXCETO a foto da
@@ -98,8 +99,11 @@ export default function App() {
   useEffect(() => {
     let cancelado = false;
 
-    const aplicarNuvem = (dataNuvem) => {
-      if (cancelado || !dataNuvem || typeof dataNuvem !== 'object' || dataNuvem.error) return;
+    const aplicarNuvem = (rawPayload) => {
+      if (cancelado || !rawPayload || typeof rawPayload !== 'object' || rawPayload.error) return;
+      const dataNuvem = rawPayload.data || rawPayload;
+      if (!dataNuvem || typeof dataNuvem !== 'object' || dataNuvem.error) return;
+
       const limpoNuvem = {};
       Object.keys(dataNuvem).forEach((k) => {
         if (dataNuvem[k] !== undefined && dataNuvem[k] !== null && dataNuvem[k] !== '') {
@@ -122,17 +126,10 @@ export default function App() {
       });
     };
 
-    // Tenta primeiro /api/sync (Servidor Vercel dedicado)
-    fetch(VERCEL_SYNC_URL)
-      .then((res) => res.json())
-      .then((data) => aplicarNuvem(data))
-      .catch(() => {});
-
-    // Tenta também a nuvem JSONBlob primária
-    fetch(CLOUD_SYNC_URL)
-      .then((res) => res.json())
-      .then((data) => aplicarNuvem(data))
-      .catch(() => {});
+    // Tenta em paralelo os 3 endpoints de sincronização
+    fetch(VERCEL_SYNC_URL).then((res) => res.json()).then(aplicarNuvem).catch(() => {});
+    fetch(RESTFUL_SYNC_URL).then((res) => res.json()).then(aplicarNuvem).catch(() => {});
+    fetch(CLOUD_SYNC_URL).then((res) => res.json()).then(aplicarNuvem).catch(() => {});
 
     const handleStorage = (e) => {
       if (e.key === STORAGE.config) {
@@ -299,11 +296,17 @@ export default function App() {
       localStorage.setItem(STORAGE.config, JSON.stringify(configFormatada));
     } catch (e) {}
 
-    // 3. Salva no Servidor Vercel Dedicated API + Nuvem de backup
+    // 3. Salva no Servidor Vercel Dedicated API + Nuvem de backup RESTful + JSONBlob
     fetch(VERCEL_SYNC_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(configFormatada),
+    }).catch(() => {});
+
+    fetch(RESTFUL_SYNC_URL, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'safira_config', data: configFormatada }),
     }).catch(() => {});
 
     fetch(CLOUD_SYNC_URL, {
