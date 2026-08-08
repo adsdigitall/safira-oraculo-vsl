@@ -176,8 +176,21 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     );
   };
 
+  const aspectConfig = config.vslAspectRatio || '16:9';
+
+  let aspectStyle = 'aspect-video max-h-[380px]';
+  let outerWidthStyle = 'max-w-2xl';
+
+  if (aspectConfig === '4:5') {
+    aspectStyle = 'aspect-[4/5] max-h-[520px]';
+    outerWidthStyle = 'max-w-md';
+  } else if (aspectConfig === '9:16') {
+    aspectStyle = 'aspect-[9/16] max-h-[620px]';
+    outerWidthStyle = 'max-w-sm';
+  }
+
   return (
-    <div className="w-full max-w-2xl mx-auto space-y-3">
+    <div className={`w-full ${outerWidthStyle} mx-auto space-y-3`}>
       
       {/* Headline de Urgência Dinâmica com NOME DA CIDADE DO LEAD */}
       <div className="bg-gradient-to-r from-red-950/80 via-[#1c1210] to-amber-950/80 border border-amber-500/40 rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold text-amber-200 shadow-lg glow-gold animate-pulse">
@@ -187,10 +200,10 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
         </span>
       </div>
 
-      {/* Compact Video Box */}
+      {/* Video Box com Proporção Dinâmica (16:9, 4:5 ou 9:16) */}
       <div 
         onClick={handleStart}
-        className="relative aspect-video w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic max-h-[380px]"
+        className={`relative ${aspectStyle} w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto`}
       >
         {renderVideo()}
       </div>

@@ -22,6 +22,7 @@ export const CONFIG_PADRAO = {
   // ─── VSL (tela "Início") ─────────────────────────────────
   vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
   vslDuracaoSegundos: 150,
+  vslAspectRatio: '16:9', // '16:9', '4:5' ou '9:16'
 
   vslTitle: '🔥 VÁRIAS PESSOAS ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR',
   vslLinhas: [

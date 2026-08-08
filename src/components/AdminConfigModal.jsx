@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image } from 'lucide-react';
+import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image, Maximize2 } from 'lucide-react';
 
 export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig, onResetDefaults }) {
   const [localConfig, setLocalConfig] = useState(config);
@@ -94,7 +94,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               <h3 className="text-base font-bold text-white font-mystic">
                 Painel Admin (Configurações & Sincronização)
               </h3>
-              <p className="text-xs text-[#cbb8b3]/70">Edite a foto do quiz, o valor da oferta, os links de checkout e o Meta Pixel</p>
+              <p className="text-xs text-[#cbb8b3]/70">Edite a foto do quiz, o valor da oferta, formato do vídeo, checkouts e Pixel</p>
             </div>
           </div>
 
@@ -169,7 +169,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             </p>
           </div>
 
-          {/* 2. RASTREAMENTO: META PIXEL FACEBOOK */}
+          {/* 3. RASTREAMENTO: META PIXEL FACEBOOK */}
           <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/20 bg-[#1c1210]/60">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <Code2 className="w-4 h-4 text-amber-400" />
@@ -185,7 +185,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             <p className="text-[10px] text-[#cbb8b3]/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
           </div>
 
-          {/* 3. LINK DA VSL E CHECKOUT PRINCIPAL */}
+          {/* 4. LINK DA VSL E CHECKOUT PRINCIPAL */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
@@ -216,7 +216,40 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             </div>
           </div>
 
-          {/* 4. GERENCIADOR DE MATERIAIS & LINKS INDIVIDUAIS */}
+          {/* 5. PROPORÇÃO DA TELINHA DO VÍDEO (ASPECT RATIO) */}
+          <div className="p-3.5 rounded-xl border border-amber-500/30 bg-[#1c1210]/70 space-y-2">
+            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
+              <Maximize2 className="w-4 h-4 text-amber-400" />
+              Proporção da Telinha do Vídeo (Para Testar Qual Converte Melhor)
+            </label>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {[
+                { id: '16:9', label: '16:9 (Paisagem)', desc: 'Horizontal padrão (380px)' },
+                { id: '4:5', label: '4:5 (Vertical 4:5)', desc: 'Ideal Feed / Instagram' },
+                { id: '9:16', label: '9:16 (Reels/TikTok)', desc: 'Tela cheia vertical' },
+              ].map((fmt) => {
+                const ativo = (localConfig.vslAspectRatio || '16:9') === fmt.id;
+                return (
+                  <button
+                    key={fmt.id}
+                    type="button"
+                    onClick={() => setLocalConfig({ ...localConfig, vslAspectRatio: fmt.id })}
+                    className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
+                      ativo
+                        ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-md font-bold'
+                        : 'bg-[#2a1e1c]/40 border-amber-500/20 text-[#cbb8b3]/70 hover:border-amber-400/40 hover:text-white'
+                    }`}
+                  >
+                    <span className="text-xs font-bold font-mystic">{fmt.label}</span>
+                    <span className="text-[10px] opacity-75 mt-0.5">{fmt.desc}</span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* 6. GERENCIADOR DE MATERIAIS & LINKS INDIVIDUAIS */}
           <div className="space-y-3 pt-2 border-t border-amber-500/20">
             <div className="flex items-center justify-between">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
