@@ -1,15 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image, Maximize2 } from 'lucide-react';
+import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image, Maximize2, Copy } from 'lucide-react';
 
 export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig, onResetDefaults }) {
   const [localConfig, setLocalConfig] = useState(config);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   useEffect(() => {
     setLocalConfig(config);
   }, [config, isOpen]);
 
   if (!isOpen) return null;
+
+  const handleCopyAdLink = () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : 'https://triagem.site';
+    const params = new URLSearchParams();
+    if (localConfig.vslUrl) params.set('vsl', localConfig.vslUrl);
+    if (localConfig.quizHeroUrl) params.set('hero', localConfig.quizHeroUrl);
+    if (localConfig.vslAspectRatio && localConfig.vslAspectRatio !== '16:9') params.set('aspect', localConfig.vslAspectRatio);
+
+    const finalUrl = `${baseUrl}?${params.toString()}`;
+    navigator.clipboard.writeText(finalUrl).then(() => {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }).catch(() => {});
+  };
 
   const handleSave = (e) => {
     e.preventDefault();
@@ -305,14 +320,26 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
           </div>
 
           {/* Footer Controls */}
-          <div className="pt-4 border-t border-amber-500/20 flex items-center justify-between gap-3">
-            <button
-              type="button"
-              onClick={onResetDefaults}
-              className="px-3 py-2 rounded-xl bg-[#1c1210] text-[#d8c3bd] hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-amber-500/20 transition"
-            >
-              <RefreshCw className="w-3.5 h-3.5" /> Restaurar Padrão
-            </button>
+          <div className="pt-4 border-t border-amber-500/20 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={onResetDefaults}
+                className="px-3 py-2 rounded-xl bg-[#1c1210] text-[#d8c3bd] hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-amber-500/20 transition"
+              >
+                <RefreshCw className="w-3.5 h-3.5" /> Restaurar Padrão
+              </button>
+
+              <button
+                type="button"
+                onClick={handleCopyAdLink}
+                className="px-3.5 py-2 rounded-xl bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-bold flex items-center gap-1.5 border border-amber-400/40 transition"
+                title="Gera uma URL direta com vídeo e foto embutidos para usar em anúncios de forma 100% garantida"
+              >
+                <Copy className="w-3.5 h-3.5 text-amber-400" />
+                <span>{copiedLink ? 'Link Copiado! ⚡' : 'Copiar URL p/ Anúncios'}</span>
+              </button>
+            </div>
 
             <button
               type="submit"

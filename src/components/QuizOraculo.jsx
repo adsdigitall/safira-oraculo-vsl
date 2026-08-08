@@ -193,7 +193,15 @@ export default function QuizOraculo({ config, onConcluir }) {
             </h1>
             <div className="quiz-hero relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
               {config.quizHeroUrl ? (
-                <img src={config.quizHeroUrl} alt="" className="h-full w-full object-cover" />
+                <img
+                  src={config.quizHeroUrl}
+                  alt="Personagem"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="h-full w-full object-cover"
+                  onError={(e) => { e.target.style.display = 'none'; }}
+                />
               ) : (
                 <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-b from-[#2a1c1a]/80 to-[#120b0b]/80 px-3 text-[#a39a97]">
                   <span className="text-4xl">🔮</span>

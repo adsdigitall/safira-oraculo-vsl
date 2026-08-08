@@ -57,13 +57,41 @@ function formatarUrl(rawUrl) {
   return url;
 }
 
+function lerParametrosUrl() {
+  if (typeof window === 'undefined') return {};
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const overrides = {};
+    
+    const vsl = params.get('vslUrl') || params.get('vsl') || params.get('video');
+    if (vsl) overrides.vslUrl = formatarUrl(vsl);
+
+    const hero = params.get('quizHeroUrl') || params.get('hero') || params.get('foto');
+    if (hero) overrides.quizHeroUrl = formatarUrl(hero);
+
+    const aspect = params.get('vslAspectRatio') || params.get('aspect');
+    if (aspect) overrides.vslAspectRatio = aspect;
+
+    const preco = params.get('preco') || params.get('price');
+    if (preco) overrides.planosTotal = preco;
+
+    const checkout = params.get('checkoutUrl') || params.get('checkout');
+    if (checkout) overrides.checkoutUrl = formatarUrl(checkout);
+
+    return overrides;
+  } catch (e) {
+    return {};
+  }
+}
+
 export default function App() {
   const [config, setConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
-    if (!salvo) return CONFIG_PADRAO;
+    const urlOverrides = lerParametrosUrl();
+    const base = salvo ? { ...CONFIG_PADRAO, ...salvo } : CONFIG_PADRAO;
     return forcarQuizDoCodigo({
-      ...CONFIG_PADRAO,
-      ...salvo,
+      ...base,
+      ...urlOverrides,
     });
   });
 
@@ -114,10 +142,12 @@ export default function App() {
       if (Object.keys(limpoNuvem).length === 0) return;
 
       setConfig((antigo) => {
+        const urlOverrides = lerParametrosUrl();
         const combinada = forcarQuizDoCodigo({
           ...CONFIG_PADRAO,
           ...antigo,
           ...limpoNuvem,
+          ...urlOverrides,
         });
         try {
           localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
