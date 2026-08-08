@@ -44,7 +44,7 @@ export default function Sidebar({
 
   return (
     <nav
-      className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col gap-1 border-r border-amber-500/30 bg-[#0e061b] px-4 py-6 transition-transform duration-300 ease-out md:sticky md:top-0 md:z-20 md:h-screen md:w-56 md:translate-x-0 md:bg-[#0e061b]/95 md:backdrop-blur ${
+      className={`glass-nav fixed inset-y-0 left-0 z-40 flex w-64 flex-col gap-1 px-4 py-6 transition-transform duration-300 ease-out md:sticky md:top-0 md:z-20 md:h-screen md:w-56 md:translate-x-0 ${
         aberta ? 'translate-x-0' : '-translate-x-full'
       }`}
     >

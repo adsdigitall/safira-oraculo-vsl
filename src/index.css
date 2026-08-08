@@ -2,8 +2,15 @@
 
 /* ── Tarot Reader & Mystic Theme System ──────────────────────── */
 :root {
-  --font-sans: 'Outfit', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mystic: 'Cinzel', serif;
+  --font-sans: 'Cormorant Garamond', 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mystic: 'Cormorant Garamond', 'Cinzel', serif;
+  --font-script: 'Great Vibes', 'Cormorant Garamond', cursive;
+
+  /* Paleta cristalina (feita à mão / vidro branco) */
+  --cx-ink: #2e2747;
+  --cx-ink-soft: #615a80;
+  --cx-champ: #9a7b3f;
+  --cx-champ-soft: #c9b489;
 
   --bg-cosmic: #07040d;
   --bg-deep-purple: #0f071f;
@@ -27,11 +34,17 @@ body {
   background-attachment: fixed;
   color: #f1f5f9;
   overflow-x: hidden;
+  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
 }
 
 .font-mystic {
   font-family: var(--font-mystic);
+}
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
 
 h1, h2, h3, h4 {
@@ -61,6 +74,119 @@ h1, h2, h3, h4 {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+/* Liquid glass para a área de membros (cards e navegação) */
+.glass-card {
+  position: relative;
+  background: linear-gradient(155deg, rgba(120, 90, 200, 0.14), rgba(24, 12, 52, 0.10)) !important;
+  backdrop-filter: blur(18px) saturate(155%);
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+.glass-nav {
+  background: linear-gradient(160deg, rgba(40, 22, 80, 0.55), rgba(14, 6, 27, 0.55)) !important;
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+/* Aurora ambiente fixa no fundo da área de membros */
+.app-aurora {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.app-aurora span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  animation: auroraFloat 20s ease-in-out infinite;
+}
+.app-aurora .a1 { width: 44vw; height: 44vw; top: -10%; left: -8%; background: #7c3aed; }
+.app-aurora .a2 { width: 38vw; height: 38vw; bottom: -12%; right: -8%; background: #f59e0b; animation-delay: -7s; }
+.app-aurora .a3 { width: 30vw; height: 30vw; top: 40%; left: 55%; background: #db2777; animation-delay: -12s; }
+
+/* ═══════════════════════════════════════════════════════════════
+   TEMA EMBER (quiz) — carvão escuro + brasa quente + dourado
+   (paleta "7 mensagens": fundo preto, brilho vermelho/laranja, gold)
+   ═══════════════════════════════════════════════════════════════ */
+.quiz-crystal {
+  color: #ffffff;
+  /* Reserva simétrica da barra de rolagem: impede o conteúdo de "pular"
+     para os lados quando a etapa muda de altura. */
+  scrollbar-gutter: stable both-edges;
+  background:
+    radial-gradient(circle at 50% -5%, rgba(200, 70, 20, 0.30) 0%, transparent 42%),
+    radial-gradient(circle at 12% 88%, rgba(150, 30, 25, 0.24) 0%, transparent 48%),
+    radial-gradient(circle at 88% 78%, rgba(90, 25, 45, 0.22) 0%, transparent 48%),
+    linear-gradient(160deg, #150c0b 0%, #0d0808 55%, #120a0b 100%);
+}
+/* Painéis de vidro escuro */
+.quiz-crystal .lg {
+  background: linear-gradient(155deg, rgba(42, 30, 28, 0.72), rgba(20, 14, 13, 0.66));
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.quiz-crystal .lg::before {
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 34%);
+}
+/* Opções — cards escuros (estilo 7 mensagens) */
+.quiz-crystal .quiz-opcao {
+  background: linear-gradient(160deg, rgba(40, 29, 27, 0.92), rgba(24, 17, 16, 0.92));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+.quiz-crystal .quiz-opcao:hover {
+  background: linear-gradient(160deg, rgba(52, 37, 33, 0.96), rgba(32, 22, 20, 0.96));
+  border-color: rgba(245, 158, 11, 0.55);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.55), 0 0 22px rgba(245, 158, 11, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+.quiz-crystal .quiz-opcao--ativa {
+  background: linear-gradient(160deg, rgba(245, 158, 11, 0.9), rgba(217, 119, 6, 0.9));
+  color: #1c1206;
+  border-color: #fbbf24;
+}
+/* Caixa do ícone da opção */
+.quiz-opcao__ic {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+/* Estrelas douradas */
+.quiz-crystal .quiz-star {
+  background: #fbbf24;
+  box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.6);
+}
+/* Cartas de cristal saltam no escuro (halo suave) */
+.quiz-crystal .quiz-carta__back--img,
+.quiz-crystal .quiz-carta__front--img,
+.quiz-crystal .quiz-carta__mini {
+  background-color: #0d0620;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6), 0 0 22px rgba(255, 255, 255, 0.14);
+}
+.quiz-crystal .quiz-carta--bloqueada .quiz-carta__back {
+  filter: grayscale(0.5) brightness(0.55) saturate(0.5);
+  opacity: 0.8;
+}
+/* Anel de diagnóstico no escuro */
+.quiz-crystal .diag-ring__bg { stroke: rgba(255, 255, 255, 0.1); }
+.quiz-crystal .diag-check { border-color: rgba(255, 255, 255, 0.3); color: #fff; }
+.quiz-crystal .quiz-carta__nome {
+  color: #fde68a;
+  background: linear-gradient(to top, rgba(10, 6, 6, 0.9), transparent);
 }
 
 .mystic-card-hover {
@@ -125,4 +251,348 @@ h1, h2, h3, h4 {
 /* Golden Border Gradient */
 .border-gold-gradient {
   border-image: linear-gradient(135deg, #f59e0b, #a855f7, #ec4899) 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   QUIZ DE ENTRADA — Liquid Glass Edition
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Superfície Liquid Glass reutilizável ────────────────────── */
+.lg {
+  position: relative;
+  background: linear-gradient(155deg, rgba(78, 52, 140, 0.30), rgba(24, 12, 52, 0.20));
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 26px;
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -14px 40px rgba(10, 4, 26, 0.35);
+  overflow: hidden;
+}
+/* Reflexo especular (o "brilho de vidro") */
+.lg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 32%);
+}
+
+/* Botão de vidro interativo */
+.lg-btn {
+  position: relative;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  color: #fff;
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.lg-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.09));
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 22px rgba(245, 158, 11, 0.28);
+}
+.lg-btn:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+@keyframes quizFadeIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.quiz-fade {
+  animation: quizFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Fundo ambiente (aurora que o vidro refrata) ─────────────── */
+.quiz-aurora {
+  position: absolute;
+  inset: -20%;
+  overflow: hidden;
+  z-index: 0;
+}
+.quiz-aurora span {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: 0.45;
+  mix-blend-mode: screen;
+  animation: auroraFloat 18s ease-in-out infinite;
+}
+.quiz-aurora .b1 { width: 50vw; height: 50vw; top: -10%; left: -10%; background: #b93415; }
+.quiz-aurora .b2 { width: 44vw; height: 44vw; bottom: -14%; right: -8%; background: #e0670f; animation-delay: -5s; }
+.quiz-aurora .b3 { width: 36vw; height: 36vw; top: 36%; left: 42%; background: #7a1330; animation-delay: -9s; }
+@keyframes auroraFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(6%, 8%) scale(1.12); }
+  66%      { transform: translate(-5%, -6%) scale(0.92); }
+}
+
+/* Estrelas piscando no fundo */
+@keyframes quizTwinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50%      { opacity: 1;    transform: scale(1.2); }
+}
+.quiz-star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 9999px;
+  background: #fff7db;
+  box-shadow: 0 0 8px 2px rgba(255, 247, 219, 0.8);
+  animation: quizTwinkle 2.5s infinite ease-in-out;
+}
+
+/* Botões de opção (perguntas) — vidro líquido */
+.quiz-opcao {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.04));
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  box-shadow: 0 8px 22px rgba(10, 4, 30, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.quiz-opcao:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.07));
+  border-color: rgba(251, 191, 36, 0.55);
+  box-shadow: 0 14px 28px rgba(10, 4, 30, 0.5), 0 0 22px rgba(245, 158, 11, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+.quiz-opcao:active {
+  transform: translateY(-1px) scale(0.995);
+}
+.quiz-opcao--ativa {
+  background: linear-gradient(160deg, rgba(251, 191, 36, 0.85), rgba(217, 119, 6, 0.85));
+  color: #1a1030;
+  border-color: #fde68a;
+  box-shadow: 0 12px 26px rgba(245, 158, 11, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* ── Loader de diagnóstico (anel + checklist) ────────────────── */
+.diag-ring { transform: rotate(-90deg); }
+.diag-ring__bg { stroke: rgba(255, 255, 255, 0.12); }
+.diag-ring__fill {
+  stroke: url(#diagGrad);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.2s linear;
+  filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.7));
+}
+.diag-passo {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.diag-passo--pendente { opacity: 0.35; }
+.diag-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  flex: none;
+}
+.diag-passo--ok .diag-check {
+  background: linear-gradient(160deg, #34d399, #059669);
+  border-color: #6ee7b7;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.6);
+}
+
+/* Pontinhos de "revelando" */
+@keyframes quizBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(-9px); opacity: 1; }
+}
+.quiz-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: #f59e0b;
+  animation: quizBounce 1s infinite ease-in-out;
+}
+
+/* Transição — linhas surgindo + barra carregando */
+@keyframes quizSurge {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.quiz-linha-surge {
+  opacity: 0;
+  animation: quizSurge 0.6s ease-out forwards;
+}
+@keyframes quizCarregar {
+  from { width: 4%; }
+  to   { width: 100%; }
+}
+.quiz-barra-carregando {
+  width: 4%;
+  animation: quizCarregar 3.3s ease-in-out forwards;
+}
+.quiz-barra-carregando::after {
+  content: '100%';
+}
+
+/* Mini cartas decorativas no placeholder da intro */
+.quiz-mini-carta {
+  width: 26px;
+  height: 40px;
+  border-radius: 5px;
+  background: linear-gradient(160deg, #f5d061 0%, #b8860b 60%, #8a6508 100%);
+  box-shadow: inset 0 0 0 2px rgba(90, 60, 5, 0.6), 0 3px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Cartas de tarot com flip 3D */
+.quiz-carta {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  perspective: 1000px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+.quiz-carta:not(:disabled):hover {
+  transform: translateY(-7px) scale(1.03);
+  filter: drop-shadow(0 10px 18px rgba(245, 158, 11, 0.45));
+}
+.quiz-carta__inner {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.quiz-carta--virada .quiz-carta__inner {
+  transform: rotateY(180deg);
+}
+.quiz-carta__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+/* Verso dourado ornamentado (SVG gravado, estilo baralho real) */
+.quiz-carta__back {
+  background: #c8991f;
+  border: 1px solid #5c3f08;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45), inset 0 0 18px rgba(120, 82, 8, 0.5);
+}
+.quiz-carta__back--img {
+  background-color: #0d0620;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+.quiz-carta__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.quiz-carta__emblema {
+  position: relative;
+  z-index: 1;
+  font-size: 1.7rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
+}
+.quiz-carta__ornament {
+  font-size: 1.8rem;
+  color: #5c3f08;
+}
+/* Frente revelada (fundo escuro místico) */
+.quiz-carta__front,
+.quiz-carta__front-mini {
+  background: linear-gradient(160deg, #2a134d 0%, #120627 100%);
+  border: 1px solid rgba(245, 158, 11, 0.7);
+  box-shadow: 0 0 22px rgba(245, 158, 11, 0.4), inset 0 0 12px rgba(168, 85, 247, 0.35);
+}
+.quiz-carta__front {
+  transform: rotateY(180deg);
+}
+/* Frente com imagem real preenche a carta toda (arte já traz nº e nome) */
+.quiz-carta__front--img {
+  padding: 0;
+  background-color: #0d0620;
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 22px rgba(255, 255, 255, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+/* Número da ordem de escolha (topo) */
+.quiz-carta__num {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: linear-gradient(160deg, #fbbf24, #d97706);
+  color: #1a1030;
+  font-size: 12px;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+/* Nome sobre a arte revelada */
+.quiz-carta__nome {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3px 2px;
+  text-align: center;
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fde68a;
+  background: linear-gradient(to top, rgba(10, 4, 26, 0.9), transparent);
+}
+/* Brilho dourado radiante atrás da carta escolhida */
+.quiz-carta__glow {
+  position: absolute;
+  inset: -30%;
+  z-index: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.6) 0%, rgba(245, 158, 11, 0.25) 40%, transparent 70%);
+  animation: cartaGlow 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes cartaGlow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%      { opacity: 1;   transform: scale(1.08); }
+}
+/* Não escolhidas (após atingir o limite) — apagam em roxo, como no modelo */
+.quiz-carta--bloqueada {
+  cursor: not-allowed;
+}
+.quiz-carta--bloqueada .quiz-carta__back {
+  filter: brightness(0.5) saturate(0.5) sepia(0.3) hue-rotate(220deg);
+  opacity: 0.85;
+}
+.quiz-carta:disabled {
+  cursor: default;
 }

@@ -40,7 +40,7 @@ export default function BonusSection({ config, onDesbloquear }) {
               key={idx}
               type="button"
               onClick={onDesbloquear}
-              className="group flex w-full items-start gap-4 rounded-2xl border border-amber-500/30 bg-purple-950/70 p-4 text-left transition-all hover:scale-[1.01] hover:border-amber-400 hover:shadow-lg hover:shadow-amber-950/50 sm:p-5 mystic-card-hover"
+              className="glass-card group flex w-full items-start gap-4 rounded-2xl border border-amber-500/30 p-4 text-left transition-all hover:scale-[1.01] hover:border-amber-400 hover:shadow-lg hover:shadow-amber-950/50 sm:p-5 mystic-card-hover"
             >
               <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-amber-500/20 text-amber-300 border border-amber-400/40 sm:h-14 sm:w-14">
                 <Icone className="h-6 w-6 text-amber-400 sm:h-7 sm:w-7" />

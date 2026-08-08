@@ -12,8 +12,20 @@ import MaterialRequestModal from './components/MaterialRequestModal';
 import AdminConfigModal from './components/AdminConfigModal';
 import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
+import QuizOraculo from './components/QuizOraculo';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fdd0e-a30c-70de-8638-c8558acc4442';
+
+// As artes das cartas do quiz vêm SEMPRE do código (config.js), nunca da
+// nuvem/localStorage — senão uma config antiga salva apaga os caminhos das imagens.
+const CHAVES_CARTAS = ['quizCartas', 'quizCartasReveladas'];
+function forcarCartasDoCodigo(cfg) {
+  const forcado = { ...cfg };
+  CHAVES_CARTAS.forEach((k) => {
+    forcado[k] = CONFIG_PADRAO[k];
+  });
+  return forcado;
+}
 
 const TITULOS = {
   inicio: 'Início',
@@ -45,10 +57,10 @@ export default function App() {
   const [config, setConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
     if (!salvo) return CONFIG_PADRAO;
-    return {
+    return forcarCartasDoCodigo({
       ...CONFIG_PADRAO,
       ...salvo,
-    };
+    });
   });
 
   const [solicitacoes, setSolicitacoes] = useState(() => lerJson(STORAGE.requests, []));
@@ -60,6 +72,10 @@ export default function App() {
       return false;
     }
   });
+
+  // Em memória apenas: ao recarregar a página, o lead volta pro quiz.
+  // O progresso da leitura (STORAGE.quizEstado) é que faz continuar de onde parou.
+  const [quizConcluido, setQuizConcluido] = useState(false);
 
   const [secao, setSecao] = useState('inicio');
   const [menuAberto, setMenuAberto] = useState(true);
@@ -92,11 +108,11 @@ export default function App() {
           });
 
           setConfig((antigo) => {
-            const combinada = {
+            const combinada = forcarCartasDoCodigo({
               ...CONFIG_PADRAO,
               ...antigo,
               ...limpoNuvem,
-            };
+            });
             try {
               localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
             } catch (e) {}
@@ -205,6 +221,10 @@ export default function App() {
     });
   }, [mostrarToast]);
 
+  const concluirQuiz = useCallback(() => {
+    setQuizConcluido(true);
+  }, []);
+
   const avisarBloqueado = useCallback(() => {
     mostrarToast('Ainda bloqueado', config.avisoBloqueado, 'aviso');
   }, [config.avisoBloqueado, mostrarToast]);
@@ -282,9 +302,23 @@ export default function App() {
     mostrarToast('Configurações Salvas! ⚡', 'Suas alterações foram gravadas e ativadas com sucesso.');
   };
 
+  // Funil do quiz roda ANTES da área de membros.
+  // Ignorado no modo admin (pra editar) e se o quiz estiver desativado.
+  const mostrarQuiz = config.quizAtivo && !quizConcluido && !isAdmin;
+  if (mostrarQuiz) {
+    return <QuizOraculo config={config} onConcluir={concluirQuiz} />;
+  }
+
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-[#07040d] text-[#ffffff] md:flex-row font-sans selection:bg-amber-500 selection:text-slate-950">
-      
+    <div className="relative flex min-h-[100dvh] flex-col bg-[#07040d] text-[#ffffff] md:flex-row font-sans selection:bg-amber-500 selection:text-slate-950">
+
+      {/* Aurora ambiente (o vidro refrata) */}
+      <div className="app-aurora" aria-hidden>
+        <span className="a1" />
+        <span className="a2" />
+        <span className="a3" />
+      </div>
+
       {/* Topbar para Celular */}
       <MobileTopbar
         config={config}
@@ -315,25 +349,27 @@ export default function App() {
       />
 
       {/* Área Principal de Conteúdo */}
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10">
-        
+      <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10">
+
         {secao === 'inicio' && (
-          <div className="animate-fadeIn flex flex-1 flex-col justify-center pb-10 space-y-4">
-            <VSLPlayer config={config} liberado={liberado} onConcluir={concluirVsl} />
+          <div className="animate-fadeIn flex flex-1 flex-col justify-center pb-10">
+            <div className="lg space-y-4 p-4 md:p-6">
+              <VSLPlayer config={config} liberado={liberado} onConcluir={concluirVsl} />
 
-            <h1 className="mt-2 text-xl font-bold font-mystic text-amber-300 md:text-2xl">
-              {config.vslTitle}
-            </h1>
+              <h1 className="mt-2 text-xl font-bold font-mystic text-amber-300 md:text-2xl">
+                {config.vslTitle}
+              </h1>
 
-            <div className="mt-2 space-y-2 text-sm text-purple-200/90 md:text-base">
-              {(config.vslLinhas || []).map((linha, i) => (
-                <p key={i}>
-                  {linha.forte && (
-                    <span className="font-bold text-amber-300">{linha.forte} </span>
-                  )}
-                  {linha.texto}
-                </p>
-              ))}
+              <div className="mt-2 space-y-2 text-sm text-purple-100/90 md:text-base">
+                {(config.vslLinhas || []).map((linha, i) => (
+                  <p key={i}>
+                    {linha.forte && (
+                      <span className="font-bold text-amber-300">{linha.forte} </span>
+                    )}
+                    {linha.texto}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         )}

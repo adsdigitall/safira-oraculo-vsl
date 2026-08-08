@@ -49,7 +49,7 @@ export default function MateriaisSection({
           {lista.map((item) => (
             <div
               key={item.id}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-amber-500/30 bg-purple-950/70 p-4 transition-all hover:border-amber-400/60 hover:shadow-lg mystic-card-hover space-y-3"
+              className="glass-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-amber-500/30 p-4 transition-all hover:border-amber-400/60 hover:shadow-lg mystic-card-hover space-y-3"
             >
               <div className="space-y-1.5">
                 <div className="flex items-start justify-between gap-2">

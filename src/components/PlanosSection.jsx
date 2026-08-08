@@ -14,7 +14,7 @@ export default function PlanosSection({ config, onComprar }) {
         {(config.planos || []).map((item, idx) => (
           <div
             key={item.nome || idx}
-            className="rounded-2xl border border-amber-500/30 bg-purple-950/70 p-4 space-y-1.5 mystic-card"
+            className="glass-card rounded-2xl border border-amber-500/30 p-4 space-y-1.5"
           >
             <div className="flex items-center justify-between gap-3">
               <span className="text-sm font-bold font-mystic text-white">{item.nome}</span>
