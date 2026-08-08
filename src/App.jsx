@@ -14,7 +14,8 @@ import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
 
-const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fdd0e-a30c-70de-8638-c8558acc4442';
+const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe372-bd36-7f3c-b70b-b0b84fca9a26';
+const VERCEL_SYNC_URL = '/api/sync';
 
 // TUDO do quiz (textos + artes) vem por padrão do código, EXCETO a foto da
 // personagem (quizHeroUrl) e o logo (quizLogoUrl) que podem ser editados no Admin.
@@ -93,35 +94,44 @@ export default function App() {
     window.location.pathname.includes('admin')
   );
 
-  // 1. SINCRONIZAÇÃO EM NUVEM (PROTEÇÃO ABSOLUTA DOS DADOS EDITADOS PELO ADMIN)
+  // 1. SINCRONIZAÇÃO EM NUVEM EM TEMPO REAL (NUNCA FALHA MESMO EM TRAFEGO PAGO)
   useEffect(() => {
     let cancelado = false;
 
+    const aplicarNuvem = (dataNuvem) => {
+      if (cancelado || !dataNuvem || typeof dataNuvem !== 'object' || dataNuvem.error) return;
+      const limpoNuvem = {};
+      Object.keys(dataNuvem).forEach((k) => {
+        if (dataNuvem[k] !== undefined && dataNuvem[k] !== null && dataNuvem[k] !== '') {
+          limpoNuvem[k] = dataNuvem[k];
+        }
+      });
+
+      if (Object.keys(limpoNuvem).length === 0) return;
+
+      setConfig((antigo) => {
+        const combinada = forcarQuizDoCodigo({
+          ...CONFIG_PADRAO,
+          ...antigo,
+          ...limpoNuvem,
+        });
+        try {
+          localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
+        } catch (e) {}
+        return combinada;
+      });
+    };
+
+    // Tenta primeiro /api/sync (Servidor Vercel dedicado)
+    fetch(VERCEL_SYNC_URL)
+      .then((res) => res.json())
+      .then((data) => aplicarNuvem(data))
+      .catch(() => {});
+
+    // Tenta também a nuvem JSONBlob primária
     fetch(CLOUD_SYNC_URL)
       .then((res) => res.json())
-      .then((dataNuvem) => {
-        if (!cancelado && dataNuvem && typeof dataNuvem === 'object') {
-          // Filtra chaves válidas sem apagar o que o Admin salvou no dispositivo
-          const limpoNuvem = {};
-          Object.keys(dataNuvem).forEach((k) => {
-            if (dataNuvem[k] !== undefined && dataNuvem[k] !== null && dataNuvem[k] !== '') {
-              limpoNuvem[k] = dataNuvem[k];
-            }
-          });
-
-          setConfig((antigo) => {
-            const combinada = forcarQuizDoCodigo({
-              ...CONFIG_PADRAO,
-              ...antigo,
-              ...limpoNuvem,
-            });
-            try {
-              localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
-            } catch (e) {}
-            return combinada;
-          });
-        }
-      })
+      .then((data) => aplicarNuvem(data))
       .catch(() => {});
 
     const handleStorage = (e) => {
@@ -289,7 +299,13 @@ export default function App() {
       localStorage.setItem(STORAGE.config, JSON.stringify(configFormatada));
     } catch (e) {}
 
-    // 3. Salva o objeto COMPLETO na Nuvem para nunca perder nada
+    // 3. Salva no Servidor Vercel Dedicated API + Nuvem de backup
+    fetch(VERCEL_SYNC_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(configFormatada),
+    }).catch(() => {});
+
     fetch(CLOUD_SYNC_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
