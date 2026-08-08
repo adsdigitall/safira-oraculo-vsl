@@ -73,7 +73,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     if (url.includes('<iframe')) {
       return (
         <div 
-          className="relative w-full h-full overflow-hidden rounded-2xl [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0 [&_iframe]:object-cover pointer-events-auto" 
+          className="relative w-full h-full overflow-hidden rounded-2xl [&_iframe]:absolute [&_iframe]:inset-0 [&_iframe]:w-full [&_iframe]:h-full [&_iframe]:border-0 [&_iframe]:object-cover [&_iframe]:max-w-full [&_iframe]:max-h-full [&_div]:w-full [&_div]:h-full [&_div]:max-w-full [&_div]:max-h-full [&_div]:overflow-hidden pointer-events-auto" 
           dangerouslySetInnerHTML={{ __html: url }} 
         />
       );
@@ -92,7 +92,8 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
         <iframe
           src={embedUrl}
           title="Vídeo Explicativo VSL"
-          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
+          scrolling="no"
+          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto overflow-hidden"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
           allowFullScreen
         ></iframe>
@@ -105,7 +106,8 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
         <iframe
           src={`https://player.vimeo.com/video/${vimeoId}?autoplay=${isPlaying ? 1 : 0}&playsinline=1`}
           title="Vídeo Explicativo VSL"
-          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
+          scrolling="no"
+          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto overflow-hidden"
           allow="autoplay; fullscreen; picture-in-picture; accelerometer; gyroscope"
           allowFullScreen
         ></iframe>
@@ -123,7 +125,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           controls
           autoPlay
           preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
+          className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto overflow-hidden"
           onPlay={handleStart}
           onEnded={() => onConcluir && onConcluir()}
         >
@@ -137,7 +139,8 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
         <iframe
           src={url}
           title="Vídeo VSL Safira Oráculo"
-          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
+          scrolling="no"
+          className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto overflow-hidden"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
           allowFullScreen
         ></iframe>
@@ -180,7 +183,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
             controls
             autoPlay
             preload="metadata"
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
+            className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto overflow-hidden"
             onPlay={handleStart}
             onEnded={() => onConcluir && onConcluir()}
           >
@@ -193,15 +196,15 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
 
   const aspectConfig = config.vslAspectRatio || '16:9';
 
-  let aspectStyle = 'aspect-[16/9] max-h-[min(50vh,400px)]';
+  let aspectStyle = 'aspect-[16/9]';
   let outerWidthStyle = 'max-w-2xl';
 
   if (aspectConfig === '4:5') {
-    aspectStyle = 'aspect-[4/5] max-h-[min(60vh,500px)]';
+    aspectStyle = 'aspect-[4/5]';
     outerWidthStyle = 'max-w-[340px] sm:max-w-md';
   } else if (aspectConfig === '9:16') {
-    aspectStyle = 'aspect-[9/16] max-h-[min(70vh,560px)]';
-    outerWidthStyle = 'max-w-[310px] sm:max-w-xs';
+    aspectStyle = 'aspect-[9/16]';
+    outerWidthStyle = 'max-w-[min(310px,80vw)] sm:max-w-xs';
   }
 
   return (
@@ -218,7 +221,8 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       {/* Video Box com Proporção Dinâmica (16:9, 4:5 ou 9:16) - FIXO, SEM SCROLL, CONTEÚDO ENCAIXADO */}
       <div 
         onClick={handleStart}
-        className={`relative ${aspectStyle} w-full max-w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto touch-manipulation select-none`}
+        className={`relative ${aspectStyle} w-full max-w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto touch-manipulation select-none flex items-center justify-center`}
+        style={{ overflow: 'hidden' }}
       >
         {renderVideo()}
       </div>
