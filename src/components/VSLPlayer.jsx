@@ -58,8 +58,13 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     return () => clearInterval(interval);
   }, [isPlaying, config.vslDuracaoSegundos, liberado, onConcluir]);
 
+  const videoRef = useRef(null);
+
   const handleStart = () => {
     setIsPlaying(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {});
+    }
   };
 
   const renderVideo = () => {
@@ -78,17 +83,17 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       let embedUrl = url;
       if (url.includes('watch?v=')) {
         const videoId = url.split('watch?v=')[1]?.split('&')[0];
-        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0`;
+        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0&playsinline=1`;
       } else if (url.includes('youtu.be/')) {
         const videoId = url.split('youtu.be/')[1]?.split('?')[0];
-        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0`;
+        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=${isPlaying ? 1 : 0}&rel=0&playsinline=1`;
       }
       return (
         <iframe
           src={embedUrl}
           title="Vídeo Explicativo VSL"
           className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
           allowFullScreen
         ></iframe>
       );
@@ -98,38 +103,42 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       const vimeoId = url.split('vimeo.com/')[1]?.split('?')[0];
       return (
         <iframe
-          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=${isPlaying ? 1 : 0}`}
+          src={`https://player.vimeo.com/video/${vimeoId}?autoplay=${isPlaying ? 1 : 0}&playsinline=1`}
           title="Vídeo Explicativo VSL"
           className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
-          allow="autoplay; fullscreen; picture-in-picture"
+          allow="autoplay; fullscreen; picture-in-picture; accelerometer; gyroscope"
           allowFullScreen
         ></iframe>
       );
     }
 
-    if (url.startsWith('http://') || url.startsWith('https://')) {
-      if (url.endsWith('.mp4')) {
-        return (
-          <video
-            src={url}
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
-            controls
-            autoPlay
-            onPlay={handleStart}
-            onEnded={() => onConcluir && onConcluir()}
-          >
-            Seu navegador não suporta vídeos.
-          </video>
-        );
-      }
+    if (url.endsWith('.mp4') || url.includes('.mp4?')) {
+      return (
+        <video
+          ref={videoRef}
+          src={url}
+          playsInline
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          controls
+          autoPlay
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
+          onPlay={handleStart}
+          onEnded={() => onConcluir && onConcluir()}
+        >
+          Seu navegador não suporta vídeos.
+        </video>
+      );
+    }
 
-      // Tynk AI / Player Hospedado / VTurb / ConverteAI
+    if (url.startsWith('http://') || url.startsWith('https://')) {
       return (
         <iframe
           src={url}
           title="Vídeo VSL Safira Oráculo"
           className="absolute inset-0 w-full h-full rounded-2xl border-0 object-cover pointer-events-auto"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
           allowFullScreen
         ></iframe>
       );
@@ -163,10 +172,15 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           </div>
         ) : (
           <video
-            src={url || "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"}
-            className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
+            ref={videoRef}
+            src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+            playsInline
+            webkit-playsinline="true"
+            x5-playsinline="true"
             controls
             autoPlay
+            preload="metadata"
+            className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto"
             onPlay={handleStart}
             onEnded={() => onConcluir && onConcluir()}
           >
@@ -179,19 +193,19 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
 
   const aspectConfig = config.vslAspectRatio || '16:9';
 
-  let aspectStyle = 'aspect-[16/9] max-h-[min(45vh,380px)]';
+  let aspectStyle = 'aspect-[16/9] max-h-[min(50vh,400px)]';
   let outerWidthStyle = 'max-w-2xl';
 
   if (aspectConfig === '4:5') {
-    aspectStyle = 'aspect-[4/5] max-h-[min(52vh,460px)]';
-    outerWidthStyle = 'max-w-sm sm:max-w-md';
+    aspectStyle = 'aspect-[4/5] max-h-[min(60vh,500px)]';
+    outerWidthStyle = 'max-w-[340px] sm:max-w-md';
   } else if (aspectConfig === '9:16') {
-    aspectStyle = 'aspect-[9/16] max-h-[min(58vh,490px)]';
-    outerWidthStyle = 'max-w-[270px] sm:max-w-xs';
+    aspectStyle = 'aspect-[9/16] max-h-[min(70vh,560px)]';
+    outerWidthStyle = 'max-w-[310px] sm:max-w-xs';
   }
 
   return (
-    <div className={`w-full ${outerWidthStyle} mx-auto space-y-3`}>
+    <div className={`w-full max-w-full ${outerWidthStyle} mx-auto space-y-3 overflow-x-hidden px-1`}>
       
       {/* Headline de Urgência Dinâmica com NOME DA CIDADE DO LEAD */}
       <div className="bg-gradient-to-r from-red-950/80 via-[#1c1210] to-amber-950/80 border border-amber-500/40 rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold text-amber-200 shadow-lg glow-gold animate-pulse">
@@ -204,7 +218,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       {/* Video Box com Proporção Dinâmica (16:9, 4:5 ou 9:16) - FIXO, SEM SCROLL, CONTEÚDO ENCAIXADO */}
       <div 
         onClick={handleStart}
-        className={`relative ${aspectStyle} w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto touch-manipulation select-none`}
+        className={`relative ${aspectStyle} w-full max-w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto touch-manipulation select-none`}
       >
         {renderVideo()}
       </div>

@@ -402,7 +402,7 @@ export default function App() {
       />
 
       {/* Área Principal de Conteúdo */}
-      <main className="relative z-10 mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10">
+      <main className="relative z-10 mx-auto flex w-full max-w-3xl max-w-full flex-1 flex-col px-4 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10 overflow-x-hidden">
 
         {secao === 'inicio' && (
           <div className="animate-fadeIn flex flex-1 flex-col justify-center pb-10">
