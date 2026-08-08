@@ -149,6 +149,26 @@ export default function QuizOraculo({ config, onConcluir }) {
     return 0;
   }, [etapa, indicePergunta, perguntas.length]);
 
+  // Preload da foto da personagem no navegador em altíssima prioridade
+  useEffect(() => {
+    if (!config.quizHeroUrl) return;
+    const existing = document.querySelector(`link[rel="preload"][href="${config.quizHeroUrl}"]`);
+    if (existing) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = config.quizHeroUrl;
+    link.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(link);
+
+    return () => {
+      try {
+        if (link.parentNode) link.parentNode.removeChild(link);
+      } catch (e) {}
+    };
+  }, [config.quizHeroUrl]);
+
   const logo = config.quizLogoUrl || config.logoUrl;
   const perguntaAtual = perguntas[indicePergunta];
 
@@ -196,6 +216,8 @@ export default function QuizOraculo({ config, onConcluir }) {
                 <img
                   src={config.quizHeroUrl}
                   alt="Personagem"
+                  width="300"
+                  height="375"
                   loading="eager"
                   fetchPriority="high"
                   decoding="async"

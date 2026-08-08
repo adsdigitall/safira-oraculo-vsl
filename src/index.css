@@ -365,6 +365,8 @@ h1, h2, h3, h4 {
   aspect-ratio: 4 / 5;
   width: auto;
   max-width: 100%;
+  contain-intrinsic-size: 240px 300px;
+  background-color: rgba(28, 18, 16, 0.6);
 }
 .quiz-crystal .quiz-selo {
   font-size: clamp(1.7rem, 4.6vh, 3rem);
