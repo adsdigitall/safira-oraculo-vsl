@@ -23,7 +23,7 @@ export default function MateriaisSection({
           <Package className="h-6 w-6 text-amber-400" />
           {config.materiaisTitulo || 'Materiais & Oferendas do Altar'}
         </h1>
-        <p className="mt-1.5 text-xs sm:text-sm text-purple-200/80 leading-relaxed">
+        <p className="mt-1.5 text-xs sm:text-sm text-[#cbb8b3]/80 leading-relaxed">
           {config.materiaisSubtitulo || 'Não cobro pela mão de obra. O valor refere-se apenas aos materiais do santuário. Liberação imediata após a solicitação.'}
         </p>
       </div>
@@ -35,13 +35,13 @@ export default function MateriaisSection({
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
           placeholder="Buscar material do altar..."
-          className="w-full rounded-xl border border-amber-500/30 bg-purple-950/80 py-2 pr-4 pl-9 text-xs text-amber-100 placeholder-purple-300/50 outline-none focus:border-amber-400 transition"
+          className="w-full rounded-xl border border-amber-500/30 bg-[#1c1210]/80 py-2 pr-4 pl-9 text-xs text-amber-100 placeholder-[#d8c3bd]/50 outline-none focus:border-amber-400 transition"
         />
       </div>
 
       {/* Grade Compacta de Materiais */}
       {lista.length === 0 ? (
-        <p className="rounded-xl border border-amber-500/20 bg-purple-950/50 p-6 text-center text-xs text-purple-200/60">
+        <p className="rounded-xl border border-amber-500/20 bg-[#1c1210]/50 p-6 text-center text-xs text-[#cbb8b3]/60">
           Nenhum material encontrado com esse nome.
         </p>
       ) : (
@@ -61,7 +61,7 @@ export default function MateriaisSection({
                   </span>
                 </div>
 
-                <p className="text-[11px] leading-relaxed text-purple-200/80">
+                <p className="text-[11px] leading-relaxed text-[#cbb8b3]/80">
                   {item.description}
                 </p>
               </div>
@@ -69,10 +69,10 @@ export default function MateriaisSection({
               <button
                 type="button"
                 onClick={() => onSelecionarMaterial(item)}
-                className="w-full py-2.5 px-3 rounded-xl btn-shimmer-gold text-purple-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all duration-200"
+                className="w-full py-2.5 px-3 rounded-xl btn-shimmer-gold text-[#1c1210] font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition-all duration-200"
               >
                 <span>Solicitar Este Material</span>
-                <Sparkles className="h-3.5 w-3.5 fill-purple-950" />
+                <Sparkles className="h-3.5 w-3.5 fill-[#1c1210]" />
               </button>
             </div>
           ))}

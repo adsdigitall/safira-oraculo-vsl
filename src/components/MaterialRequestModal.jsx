@@ -59,24 +59,24 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-purple-950/85 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1c1210]/85 backdrop-blur-md animate-fadeIn">
       <div className="relative w-full max-w-lg mystic-card rounded-2xl border-2 border-amber-500/40 shadow-2xl overflow-hidden glow-mystic-strong">
         
         {/* Modal Header */}
-        <div className="p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-amber-950 border-b border-amber-500/30 flex items-center justify-between">
+        <div className="p-5 bg-gradient-to-r from-[#1c1210] via-[#2a1e1c] to-amber-950 border-b border-amber-500/30 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-xl">
               🔮
             </div>
             <div>
               <h3 className="text-base font-bold text-white font-mystic">Solicitar Ritual / Velas</h3>
-              <p className="text-xs text-purple-200/70">Envie seus dados para consagrar no altar</p>
+              <p className="text-xs text-[#cbb8b3]/70">Envie seus dados para consagrar no altar</p>
             </div>
           </div>
 
           <button
             onClick={handleCloseModal}
-            className="p-1.5 rounded-xl bg-purple-900/80 text-amber-300 hover:text-white"
+            className="p-1.5 rounded-xl bg-[#2a1e1c]/80 text-amber-300 hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
@@ -91,12 +91,12 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
 
             <div className="space-y-1">
               <h4 className="text-xl font-bold text-white font-mystic">Ritual Solicitado com Sucesso!</h4>
-              <p className="text-xs text-purple-200/80">
+              <p className="text-xs text-[#cbb8b3]/80">
                 Seu nome e o da pessoa amada já foram registrados no nosso altar.
               </p>
             </div>
 
-            <div className="bg-purple-950/90 p-4 rounded-xl border border-amber-500/30 text-xs text-purple-200 font-mono space-y-1 inline-block text-left w-full">
+            <div className="bg-[#1c1210]/90 p-4 rounded-xl border border-amber-500/30 text-xs text-[#cbb8b3] font-mono space-y-1 inline-block text-left w-full">
               <div className="flex justify-between">
                 <span>Protocolo de Luz:</span>
                 <strong className="text-amber-300">#{protocol}</strong>
@@ -119,7 +119,7 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
 
             <button
               onClick={handleCloseModal}
-              className="w-full py-3 rounded-xl btn-shimmer-gold text-purple-950 font-extrabold text-xs transition"
+              className="w-full py-3 rounded-xl btn-shimmer-gold text-[#1c1210] font-extrabold text-xs transition"
             >
               Concluído & Acompanhar Status
             </button>
@@ -137,7 +137,7 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
                 value={formData.requestType}
                 onChange={(e) => setFormData({ ...formData, requestType: e.target.value })}
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
               />
             </div>
 
@@ -151,7 +151,7 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
                 value={formData.userName}
                 onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
                 placeholder="Ex: Maria Silva"
               />
             </div>
@@ -166,7 +166,7 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
                 value={formData.whatsapp}
                 onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
                 required
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition"
                 placeholder="(47) 99999-9999"
               />
             </div>
@@ -180,19 +180,19 @@ export default function MaterialRequestModal({ isOpen, onClose, selectedMaterial
                 rows={2}
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                className="w-full px-3.5 py-2 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition resize-none"
+                className="w-full px-3.5 py-2 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white text-xs font-medium focus:outline-none focus:border-amber-400 transition resize-none"
                 placeholder="Nome dele(a), data de nascimento ou pedido especial..."
               />
             </div>
 
-            <div className="bg-purple-950/90 p-3 rounded-xl border border-amber-500/30 text-[11px] text-purple-200/80 flex items-center gap-2">
+            <div className="bg-[#1c1210]/90 p-3 rounded-xl border border-amber-500/30 text-[11px] text-[#cbb8b3]/80 flex items-center gap-2">
               <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
               <span>O trabalho no altar é iniciado logo após a confirmação do Pix dos materiais.</span>
             </div>
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl btn-shimmer-gold text-purple-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/60 transition-all"
+              className="w-full py-3 rounded-xl btn-shimmer-gold text-[#1c1210] font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-950/60 transition-all"
             >
               <Send className="w-4 h-4" />
               <span className="uppercase font-mystic">ENVIAR SOLICITAÇÃO AO ALTAR</span>

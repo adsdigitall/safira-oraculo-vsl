@@ -27,7 +27,7 @@ export default function BonusSection({ config, onDesbloquear }) {
           <Gift className="h-6 w-6 text-amber-400" />
           {config.bonusTitulo || 'Bônus Exclusivos de Acompanhamento'}
         </h1>
-        <p className="mt-1.5 text-xs sm:text-sm text-purple-200/80">
+        <p className="mt-1.5 text-xs sm:text-sm text-[#cbb8b3]/80">
           {config.bonusSubtitulo || 'Liberados imediatamente após a confirmação do seu pedido na plataforma.'}
         </p>
       </div>
@@ -50,7 +50,7 @@ export default function BonusSection({ config, onDesbloquear }) {
                 <span className="text-sm sm:text-base font-bold font-mystic text-white group-hover:text-amber-300 transition">
                   {item.titulo}
                 </span>
-                <span className="text-xs text-purple-200/80 leading-relaxed">{item.descricao}</span>
+                <span className="text-xs text-[#cbb8b3]/80 leading-relaxed">{item.descricao}</span>
                 <span className="mt-1 inline-flex items-center gap-1 text-[11px] text-amber-400 font-semibold">
                   <Sparkles className="h-3 w-3" /> Incluído no seu pedido
                 </span>

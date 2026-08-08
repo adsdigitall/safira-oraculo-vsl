@@ -27,7 +27,7 @@ export default function SidebarMaterials({
       <div className="h-full flex flex-col mystic-card lg:rounded-2xl lg:border lg:border-amber-500/30 overflow-hidden glow-mystic">
         
         {/* Header da Barra Lateral */}
-        <div className="p-4 bg-gradient-to-b from-purple-950 to-[#0c0617] border-b border-amber-500/30 flex items-center justify-between">
+        <div className="p-4 bg-gradient-to-b from-[#1c1210] to-[#0c0617] border-b border-amber-500/30 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
               🔮
@@ -36,13 +36,13 @@ export default function SidebarMaterials({
               <h3 className="text-sm font-bold text-white font-mystic">
                 Solicitar Materiais
               </h3>
-              <p className="text-[11px] text-purple-200/70">Clique abaixo para solicitar pelo WhatsApp</p>
+              <p className="text-[11px] text-[#cbb8b3]/70">Clique abaixo para solicitar pelo WhatsApp</p>
             </div>
           </div>
 
           <button 
             onClick={onCloseMobile} 
-            className="lg:hidden p-1.5 rounded-lg bg-purple-900/80 text-amber-300 hover:text-white"
+            className="lg:hidden p-1.5 rounded-lg bg-[#2a1e1c]/80 text-amber-300 hover:text-white"
           >
             ✕
           </button>
@@ -53,7 +53,7 @@ export default function SidebarMaterials({
           {materialsList.map((item) => (
             <div
               key={item.id}
-              className="bg-purple-950/70 rounded-xl p-3.5 border border-amber-500/20 hover:border-amber-400/60 transition-all space-y-2 group"
+              className="bg-[#1c1210]/70 rounded-xl p-3.5 border border-amber-500/20 hover:border-amber-400/60 transition-all space-y-2 group"
             >
               <div className="flex items-center justify-between gap-2">
                 <h4 className="text-xs font-bold text-white font-mystic group-hover:text-amber-300 transition">
@@ -65,7 +65,7 @@ export default function SidebarMaterials({
               </div>
 
               {item.description && (
-                <p className="text-[11px] text-purple-200/80 leading-relaxed">
+                <p className="text-[11px] text-[#cbb8b3]/80 leading-relaxed">
                   {item.description}
                 </p>
               )}
@@ -86,14 +86,14 @@ export default function SidebarMaterials({
         </div>
 
         {/* Footer Direto com WhatsApp Geral */}
-        <div className="p-4 bg-purple-950/90 border-t border-amber-500/30">
+        <div className="p-4 bg-[#1c1210]/90 border-t border-amber-500/30">
           <a
             href={whatsappSupportLink || "https://wa.me/5547996338716?text=Ol%C3%A1%20Morgana%2C%20quero%20solicitar%20os%20materiais%20do%20portal"}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full py-3 px-4 rounded-xl btn-shimmer-gold text-purple-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg glow-gold-btn"
+            className="w-full py-3 px-4 rounded-xl btn-shimmer-gold text-[#1c1210] font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg glow-gold-btn"
           >
-            <Sparkles className="w-4 h-4 fill-purple-950" />
+            <Sparkles className="w-4 h-4 fill-[#1c1210]" />
             <span className="uppercase font-mystic">FALAR COM A MORGANA NO WHATSAPP</span>
           </a>
         </div>

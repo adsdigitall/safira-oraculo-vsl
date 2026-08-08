@@ -81,11 +81,11 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-purple-950/85 backdrop-blur-md animate-fadeIn">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#1c1210]/85 backdrop-blur-md animate-fadeIn">
       <div className="relative w-full max-w-2xl mystic-card rounded-2xl border-2 border-amber-500/40 shadow-2xl flex flex-col max-h-[90vh] overflow-hidden glow-mystic-strong">
         
         {/* Header */}
-        <div className="p-5 bg-gradient-to-r from-purple-950 via-purple-900 to-amber-950 border-b border-amber-500/30 flex items-center justify-between">
+        <div className="p-5 bg-gradient-to-r from-[#1c1210] via-[#2a1e1c] to-amber-950 border-b border-amber-500/30 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300">
               <Lock className="w-5 h-5 text-amber-400" />
@@ -94,13 +94,13 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               <h3 className="text-base font-bold text-white font-mystic">
                 Painel Admin (Configurações & Sincronização)
               </h3>
-              <p className="text-xs text-purple-200/70">Edite o valor da oferta, os links de checkout e o Meta Pixel</p>
+              <p className="text-xs text-[#cbb8b3]/70">Edite o valor da oferta, os links de checkout e o Meta Pixel</p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-xl bg-purple-900/80 text-amber-300 hover:text-white"
+            className="p-1.5 rounded-xl bg-[#2a1e1c]/80 text-amber-300 hover:text-white"
           >
             <X className="w-5 h-5" />
           </button>
@@ -117,7 +117,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
           )}
 
           {/* 1. CAMPO DE EDIÇÃO DO VALOR DA OFERTA / BÔNUS */}
-          <div className="p-4 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-purple-950 to-purple-900/60 space-y-2">
+          <div className="p-4 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-[#1c1210] to-[#2a1e1c]/60 space-y-2">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <DollarSign className="w-4 h-4 text-amber-400" />
               Valor / Preço dos Materiais & Oferta (ex: R$ 40,00, R$ 65,00, R$ 97,00)
@@ -128,16 +128,16 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                 value={localConfig.planosTotal || 'R$ 60,00'}
                 onChange={(e) => handleUpdatePrice(e.target.value)}
                 placeholder="R$ 60,00"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/40 text-amber-300 font-extrabold text-sm focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/40 text-amber-300 font-extrabold text-sm focus:outline-none focus:border-amber-400 transition"
               />
             </div>
-            <p className="text-[11px] text-purple-200/70">
+            <p className="text-[11px] text-[#cbb8b3]/70">
               Altera automaticamente o valor exibido na aba de solicitação dos materiais e botão de checkout.
             </p>
           </div>
 
           {/* 2. RASTREAMENTO: META PIXEL FACEBOOK */}
-          <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/20 bg-purple-950/60">
+          <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/20 bg-[#1c1210]/60">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <Code2 className="w-4 h-4 text-amber-400" />
               ID do Meta Pixel Facebook (Marcar PageView)
@@ -147,9 +147,9 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               value={localConfig.pixelId || ''}
               onChange={(e) => setLocalConfig({ ...localConfig, pixelId: e.target.value })}
               placeholder="Ex: 1374470023595160"
-              className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
             />
-            <p className="text-[10px] text-purple-200/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
+            <p className="text-[10px] text-[#cbb8b3]/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
           </div>
 
           {/* 3. LINK DA VSL E CHECKOUT PRINCIPAL */}
@@ -164,7 +164,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                 value={localConfig.vslUrl || ''}
                 onChange={(e) => setLocalConfig({ ...localConfig, vslUrl: e.target.value })}
                 placeholder="https://play.tynk.ai/p/..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
               />
             </div>
 
@@ -178,7 +178,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                 value={localConfig.checkoutUrl || ''}
                 onChange={(e) => handleUpdateCheckoutGlobal(e.target.value)}
                 placeholder="https://pay.cakto.com.br/SUA-OFERTA"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-purple-950/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
               />
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               {(localConfig.materials || []).map((mat, idx) => (
                 <div
                   key={mat.id || idx}
-                  className="p-3.5 rounded-xl border border-amber-500/30 bg-purple-950/80 space-y-2 relative"
+                  className="p-3.5 rounded-xl border border-amber-500/30 bg-[#1c1210]/80 space-y-2 relative"
                 >
                   <div className="flex items-center justify-between gap-2">
                     <input
@@ -211,7 +211,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                       value={mat.title || ''}
                       onChange={(e) => handleUpdateMaterial(idx, 'title', e.target.value)}
                       placeholder="Nome do Material"
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-purple-900/60 border border-amber-500/30 text-white font-bold text-xs focus:outline-none"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-[#2a1e1c]/60 border border-amber-500/30 text-white font-bold text-xs focus:outline-none"
                     />
                     <button
                       type="button"
@@ -230,7 +230,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                       value={mat.url || ''}
                       onChange={(e) => handleUpdateMaterial(idx, 'url', e.target.value)}
                       placeholder={localConfig.checkoutUrl || "https://pay.cakto.com.br/LINK-ESPECIFICO"}
-                      className="w-full px-2.5 py-1.5 rounded-lg bg-purple-900/40 border border-amber-500/20 text-white font-mono text-[11px] focus:outline-none"
+                      className="w-full px-2.5 py-1.5 rounded-lg bg-[#2a1e1c]/40 border border-amber-500/20 text-white font-mono text-[11px] focus:outline-none"
                     />
                   </div>
                 </div>
@@ -243,14 +243,14 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             <button
               type="button"
               onClick={onResetDefaults}
-              className="px-3 py-2 rounded-xl bg-purple-950 text-purple-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-amber-500/20 transition"
+              className="px-3 py-2 rounded-xl bg-[#1c1210] text-[#d8c3bd] hover:text-white text-xs font-semibold flex items-center gap-1.5 border border-amber-500/20 transition"
             >
               <RefreshCw className="w-3.5 h-3.5" /> Restaurar Padrão
             </button>
 
             <button
               type="submit"
-              className="px-5 py-3 rounded-xl btn-shimmer-gold text-purple-950 font-extrabold text-xs flex items-center gap-2 shadow-lg glow-gold-btn transition uppercase tracking-wide font-mystic"
+              className="px-5 py-3 rounded-xl btn-shimmer-gold text-[#1c1210] font-extrabold text-xs flex items-center gap-2 shadow-lg glow-gold-btn transition uppercase tracking-wide font-mystic"
             >
               <Save className="w-4 h-4" /> SALVAR & SINCRONIZAR PÁGINA
             </button>

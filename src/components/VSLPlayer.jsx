@@ -136,10 +136,10 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     }
 
     return (
-      <div className="relative w-full h-full flex items-center justify-center bg-purple-950/90 rounded-2xl overflow-hidden group">
+      <div className="relative w-full h-full flex items-center justify-center bg-[#1c1210]/90 rounded-2xl overflow-hidden group">
         {!isPlaying ? (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gradient-to-t from-[#07040d] via-purple-950/80 to-purple-900/40 p-4 sm:p-6 text-center">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-500/20 via-purple-950/90 to-[#07040d] z-0"></div>
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-gradient-to-t from-[#07040d] via-[#1c1210]/80 to-[#2a1e1c]/40 p-4 sm:p-6 text-center">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-500/20 via-[#1c1210]/90 to-[#07040d] z-0"></div>
 
             <div className="relative z-10 flex flex-col items-center max-w-sm">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/50 text-amber-300 text-[11px] sm:text-xs font-bold uppercase tracking-wider mb-3 animate-pulse glow-gold">
@@ -148,16 +148,16 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
 
               <button
                 onClick={handleStart}
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-purple-600 flex items-center justify-center text-purple-950 shadow-2xl hover:scale-105 transition-all duration-300 mb-3 glow-mystic-strong group/btn"
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-br from-amber-400 via-amber-500 to-[#b93415] flex items-center justify-center text-[#1c1210] shadow-2xl hover:scale-105 transition-all duration-300 mb-3 glow-mystic-strong group/btn"
                 aria-label="Iniciar VSL"
               >
-                <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-purple-950 ml-1 group-hover/btn:scale-110 transition" />
+                <Play className="w-8 h-8 sm:w-10 sm:h-10 fill-[#1c1210] ml-1 group-hover/btn:scale-110 transition" />
               </button>
 
               <p className="text-white text-sm sm:text-base font-bold font-mystic drop-shadow-md">
                 🔮 Safira Oráculo — Leitura & Instruções
               </p>
-              <p className="text-purple-200/80 text-[11px] mt-0.5">Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais</p>
+              <p className="text-[#cbb8b3]/80 text-[11px] mt-0.5">Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais</p>
             </div>
           </div>
         ) : (
@@ -180,7 +180,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     <div className="w-full max-w-2xl mx-auto space-y-3">
       
       {/* Headline de Urgência Dinâmica com NOME DA CIDADE DO LEAD */}
-      <div className="bg-gradient-to-r from-red-950/80 via-purple-950 to-amber-950/80 border border-amber-500/40 rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold text-amber-200 shadow-lg glow-gold animate-pulse">
+      <div className="bg-gradient-to-r from-red-950/80 via-[#1c1210] to-amber-950/80 border border-amber-500/40 rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold text-amber-200 shadow-lg glow-gold animate-pulse">
         <span className="flex items-center justify-center gap-1.5 font-mystic tracking-wide">
           <Flame className="w-4 h-4 text-amber-400 shrink-0" />
           <span>VÁRIAS PESSOAS EM {cidade} ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR</span>
@@ -190,14 +190,14 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       {/* Compact Video Box */}
       <div 
         onClick={handleStart}
-        className="relative aspect-video w-full rounded-2xl overflow-hidden bg-purple-950 border-2 border-amber-500/40 shadow-2xl glow-mystic max-h-[380px]"
+        className="relative aspect-video w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic max-h-[380px]"
       >
         {renderVideo()}
       </div>
 
       {/* Headline de Status e Botão de Liberação na Metade do Vídeo */}
       {!liberado ? (
-        <div className="bg-purple-950/90 border border-amber-500/30 rounded-xl p-3.5 text-xs space-y-3 shadow-md">
+        <div className="bg-[#1c1210]/90 border border-amber-500/30 rounded-xl p-3.5 text-xs space-y-3 shadow-md">
           <div className="flex items-center justify-between text-[11px] font-bold text-amber-300">
             <span className="flex items-center gap-1.5 leading-snug">
               <Clock className="w-4 h-4 text-amber-400 shrink-0" /> 
@@ -206,7 +206,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           </div>
 
           {isPlaying && (
-            <div className="w-full h-2 rounded-full bg-purple-900 overflow-hidden border border-amber-500/20">
+            <div className="w-full h-2 rounded-full bg-[#2a1e1c] overflow-hidden border border-amber-500/20">
               <div 
                 className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-500"
                 style={{ width: `${progresso}%` }}

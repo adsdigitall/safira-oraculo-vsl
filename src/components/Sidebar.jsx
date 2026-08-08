@@ -61,7 +61,7 @@ export default function Sidebar({
             <span className="text-lg leading-tight font-extrabold tracking-tight text-amber-300 font-mystic block text-center md:text-xl">
               🔮 {config.productName || 'Safira Oráculo'}
             </span>
-            <span className="text-[10px] text-purple-200/70 font-medium block">
+            <span className="text-[10px] text-[#cbb8b3]/70 font-medium block">
               {config.subTitle || 'Especialista em Relacionamento Amoroso'}
             </span>
           </div>
@@ -79,7 +79,7 @@ export default function Sidebar({
 
       {/* Dica digitada */}
       {digitado && (
-        <div className="mb-3 rounded-xl border border-amber-500/30 bg-purple-950/80 px-3 py-2.5 text-[12px] leading-snug text-amber-200 font-medium shadow-sm">
+        <div className="mb-3 rounded-xl border border-amber-500/30 bg-[#1c1210]/80 px-3 py-2.5 text-[12px] leading-snug text-amber-200 font-medium shadow-sm">
           {digitado}
           {digitado.length < dica.length && <span className="caret bg-amber-400" />}
         </div>
@@ -107,8 +107,8 @@ export default function Sidebar({
               ativo
                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm'
                 : bloqueado
-                  ? 'text-purple-300/40 hover:bg-purple-950/50 cursor-not-allowed'
-                  : 'text-purple-200/80 hover:bg-purple-950/80 hover:text-amber-200'
+                  ? 'text-[#d8c3bd]/40 hover:bg-[#1c1210]/50 cursor-not-allowed'
+                  : 'text-[#cbb8b3]/80 hover:bg-[#1c1210]/80 hover:text-amber-200'
             }`}
           >
             <Icone className="h-4 w-4 text-amber-400" /> {rotulo}
@@ -123,13 +123,13 @@ export default function Sidebar({
         onClick={handleCtaClick}
         className={`mt-4 flex w-full items-center justify-center gap-2 rounded-xl px-3.5 py-3 text-xs font-extrabold transition-all ${
           liberado
-            ? 'btn-shimmer-gold text-purple-950 shadow-lg glow-gold-btn animate-ctaPulse hover:scale-[1.02] active:scale-[0.98]'
-            : 'bg-purple-950/60 text-purple-300/50 border border-amber-500/20 cursor-not-allowed'
+            ? 'btn-shimmer-gold text-[#1c1210] shadow-lg glow-gold-btn animate-ctaPulse hover:scale-[1.02] active:scale-[0.98]'
+            : 'bg-[#1c1210]/60 text-[#d8c3bd]/50 border border-amber-500/20 cursor-not-allowed'
         }`}
       >
         {liberado ? (
           <>
-            <Sparkles className="h-4 w-4 fill-purple-950" />
+            <Sparkles className="h-4 w-4 fill-[#1c1210]" />
             {config.ctaSidebar || 'Solicitar Materiais'}
           </>
         ) : (
@@ -140,7 +140,7 @@ export default function Sidebar({
         )}
       </button>
 
-      <p className="mt-2 text-center text-[11px] leading-snug text-purple-300/50 font-medium">
+      <p className="mt-2 text-center text-[11px] leading-snug text-[#d8c3bd]/50 font-medium">
         Entrega em até 24h úteis
       </p>
     </nav>

@@ -46,16 +46,16 @@ export default function SocialProofToast() {
 
   return (
     <div className="fixed bottom-4 left-4 z-50 animate-bounceIn max-w-xs pointer-events-none">
-      <div className="mystic-card bg-purple-950/95 border border-amber-500/40 p-3 rounded-2xl shadow-2xl flex items-center gap-3 glow-gold">
+      <div className="mystic-card bg-[#1c1210]/95 border border-amber-500/40 p-3 rounded-2xl shadow-2xl flex items-center gap-3 glow-gold">
         <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300 shrink-0 text-base">
           {notificacaoAtual.icone}
         </div>
 
         <div className="flex-1 min-w-0">
           <p className="text-[11px] font-bold text-amber-300 font-mystic truncate">
-            {notificacaoAtual.nome} <span className="font-sans font-normal text-purple-200">{notificacaoAtual.acao}</span>
+            {notificacaoAtual.nome} <span className="font-sans font-normal text-[#cbb8b3]">{notificacaoAtual.acao}</span>
           </p>
-          <span className="text-[9px] text-purple-300/60 font-mono flex items-center gap-1">
+          <span className="text-[9px] text-[#d8c3bd]/60 font-mono flex items-center gap-1">
             <Clock className="w-2.5 h-2.5 text-amber-400" /> {notificacaoAtual.tempo} • Vaga Consagrada
           </span>
         </div>

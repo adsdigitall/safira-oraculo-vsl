@@ -20,15 +20,15 @@ export default function PlanosSection({ config, onComprar }) {
               <span className="text-sm font-bold font-mystic text-white">{item.nome}</span>
               <span className="shrink-0 text-sm font-extrabold text-amber-300 font-mono">{item.valor || valorOferta}</span>
             </div>
-            <p className="text-xs leading-relaxed text-purple-200/80">{item.descricao}</p>
+            <p className="text-xs leading-relaxed text-[#cbb8b3]/80">{item.descricao}</p>
           </div>
         ))}
       </div>
 
       {/* Main Checkout Box Dynamic Price */}
-      <div className="rounded-2xl border-2 border-amber-500/40 bg-gradient-to-br from-purple-950 via-purple-900 to-[#07040d] p-6 text-center shadow-2xl glow-mystic-strong space-y-4">
+      <div className="rounded-2xl border-2 border-amber-500/40 bg-gradient-to-br from-[#1c1210] via-[#2a1e1c] to-[#07040d] p-6 text-center shadow-2xl glow-mystic-strong space-y-4">
         <div className="space-y-1">
-          <p className="text-xs text-purple-200/70 uppercase tracking-wider font-semibold">Valor Único dos Materiais do Santuário:</p>
+          <p className="text-xs text-[#cbb8b3]/70 uppercase tracking-wider font-semibold">Valor Único dos Materiais do Santuário:</p>
           <p className="text-3xl font-extrabold text-amber-300 font-mystic">
             {valorOferta}
           </p>
@@ -38,12 +38,12 @@ export default function PlanosSection({ config, onComprar }) {
         <button
           type="button"
           onClick={onComprar}
-          className="w-full py-4 px-6 rounded-xl btn-shimmer-gold text-purple-950 text-base sm:text-lg font-extrabold shadow-xl glow-gold-btn transition-all hover:scale-[1.02] uppercase font-mystic"
+          className="w-full py-4 px-6 rounded-xl btn-shimmer-gold text-[#1c1210] text-base sm:text-lg font-extrabold shadow-xl glow-gold-btn transition-all hover:scale-[1.02] uppercase font-mystic"
         >
           {config.planosCta ? config.planosCta : `CONFIRMAR SOLICITAÇÃO DOS MATERIAIS (${valorOferta})`}
         </button>
 
-        <p className="flex items-center justify-center gap-1.5 text-xs text-purple-200/70">
+        <p className="flex items-center justify-center gap-1.5 text-xs text-[#cbb8b3]/70">
           <ShieldCheck className="h-4 w-4 text-emerald-400" />
           {config.planosGarantia || 'Pagamento 100% Seguro pela Plataforma · Liberação Imediata'}
         </p>

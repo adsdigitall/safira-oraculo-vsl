@@ -233,13 +233,13 @@ export default function QuizOraculo({ config, onConcluir }) {
                     key={i}
                     type="button"
                     onClick={() => responder(i)}
-                    className={`quiz-opcao flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-left text-base font-semibold md:text-lg ${
+                    className={`quiz-opcao flex items-center gap-3.5 rounded-2xl text-left font-semibold ${
                       ativa ? 'quiz-opcao--ativa' : ''
                     }`}
                   >
-                    <span className="quiz-opcao__ic text-2xl leading-none">{op.icone}</span>
+                    <span className="quiz-opcao__ic leading-none">{op.icone}</span>
                     <span className="flex-1">{op.rotulo}</span>
-                    <span className="text-lg opacity-40">›</span>
+                    <span className="quiz-opcao__seta opacity-40">›</span>
                   </button>
                 );
               })}

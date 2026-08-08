@@ -8,7 +8,7 @@ export default function MobileTopbar({ config, tituloSecao, onAbrirMenu, onAbrir
         type="button"
         onClick={onAbrirMenu}
         aria-label="Abrir menu"
-        className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-950/80 text-amber-300 border border-amber-500/30 transition-colors hover:bg-purple-900"
+        className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#1c1210]/80 text-amber-300 border border-amber-500/30 transition-colors hover:bg-[#2a1e1c]"
       >
         <Menu className="h-5 w-5" />
       </button>
@@ -30,7 +30,7 @@ export default function MobileTopbar({ config, tituloSecao, onAbrirMenu, onAbrir
           type="button"
           onClick={onAbrirAdmin}
           aria-label="Configurar página"
-          className="ml-auto flex h-9 w-9 items-center justify-center rounded-xl bg-purple-950/80 text-amber-300 border border-amber-500/30 transition-colors hover:bg-purple-900"
+          className="ml-auto flex h-9 w-9 items-center justify-center rounded-xl bg-[#1c1210]/80 text-amber-300 border border-amber-500/30 transition-colors hover:bg-[#2a1e1c]"
         >
           <Settings className="h-4 w-4" />
         </button>

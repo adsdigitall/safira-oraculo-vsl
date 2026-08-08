@@ -311,7 +311,7 @@ export default function App() {
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-[#07040d] text-[#ffffff] md:flex-row font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="relative flex min-h-[100dvh] flex-col bg-[#120a0b] text-[#ffffff] md:flex-row font-sans selection:bg-amber-500 selection:text-slate-950">
 
       {/* Aurora ambiente (o vidro refrata) */}
       <div className="app-aurora" aria-hidden>
@@ -361,7 +361,7 @@ export default function App() {
                 {config.vslTitle}
               </h1>
 
-              <div className="mt-2 space-y-2 text-sm text-purple-100/90 md:text-base">
+              <div className="mt-2 space-y-2 text-sm text-[#efe3df]/90 md:text-base">
                 {(config.vslLinhas || []).map((linha, i) => (
                   <p key={i}>
                     {linha.forte && (
@@ -389,7 +389,7 @@ export default function App() {
         {secao === 'planos' && <PlanosSection config={config} onComprar={() => irParaCheckout()} />}
 
         {/* Rodapé da Página */}
-        <footer className="mt-10 flex items-center justify-between gap-3 border-t border-amber-500/20 pt-4 text-[11px] text-purple-300/50">
+        <footer className="mt-10 flex items-center justify-between gap-3 border-t border-amber-500/20 pt-4 text-[11px] text-[#d8c3bd]/50">
           <span>
             © {new Date().getFullYear()} {config.productName}
           </span>
