@@ -365,11 +365,13 @@ export default function QuizOraculo({ config, onConcluir }) {
                         className={`quiz-carta__face quiz-carta__front ${revelada?.frente ? 'quiz-carta__front--img' : ''}`}
                         style={revelada?.frente ? { backgroundImage: `url(${revelada.frente})` } : undefined}
                       >
-                        {revelada && !revelada.frente && (
+                        {revelada && (
                           <>
                             <span className="quiz-carta__num">{ordem + 1}</span>
-                            <span className="text-3xl">{revelada.simbolo}</span>
-                            <span className="mt-1 px-0.5 text-center text-[9px] font-semibold uppercase tracking-wide text-[#fbbf24]">
+                            {!revelada.frente && (
+                              <span className="text-3xl sm:text-4xl my-auto">{revelada.simbolo}</span>
+                            )}
+                            <span className="quiz-carta__nome flex items-center justify-center font-mystic font-extrabold text-[10px] sm:text-xs text-amber-300 uppercase tracking-wide px-1 py-1 bg-[#120a0b]/90 border-t border-amber-500/40 w-full text-center mt-auto z-10 shadow-md">
                               {revelada.nome}
                             </span>
                           </>
@@ -406,21 +408,18 @@ export default function QuizOraculo({ config, onConcluir }) {
             <h2 className="quiz-titulo font-mystic font-bold text-white">
               {config.quizResultadoTitulo}
             </h2>
-            <div className="quiz-minis flex justify-center">
+            <div className="quiz-minis flex justify-center gap-3 sm:gap-5 my-4">
               {reveladas.slice(0, qtdCartas).map((rev, idx) => (
                 <div
                   key={idx}
-                  className="quiz-carta__front quiz-carta__mini relative flex flex-col items-center justify-center overflow-hidden rounded-xl"
+                  className="quiz-carta__front quiz-carta__mini relative flex flex-col items-center justify-between overflow-hidden rounded-xl border-2 border-amber-400/70 shadow-2xl glow-gold"
                   style={rev?.frente ? { backgroundImage: `url(${rev.frente})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
                 >
-                  {!rev?.frente && (
-                    <>
-                      <span className="text-2xl">{rev?.simbolo}</span>
-                      <span className="mt-1 px-0.5 text-center text-[8px] font-semibold uppercase text-[#fbbf24]">
-                        {rev?.nome}
-                      </span>
-                    </>
-                  )}
+                  <span className="quiz-carta__num">{idx + 1}</span>
+                  {!rev?.frente && <span className="text-4xl my-auto">{rev?.simbolo}</span>}
+                  <span className="quiz-carta__nome flex items-center justify-center font-mystic font-extrabold text-[10px] sm:text-xs text-amber-300 uppercase tracking-wide px-1 py-1.5 bg-[#120a0b]/95 border-t border-amber-500/40 w-full text-center mt-auto z-10 shadow-md">
+                    {rev?.nome}
+                  </span>
                 </div>
               ))}
             </div>

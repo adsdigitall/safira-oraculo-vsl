@@ -178,15 +178,15 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
 
   const aspectConfig = config.vslAspectRatio || '16:9';
 
-  let aspectStyle = 'aspect-video max-h-[380px]';
+  let aspectStyle = 'aspect-[16/9] max-h-[min(45vh,380px)]';
   let outerWidthStyle = 'max-w-2xl';
 
   if (aspectConfig === '4:5') {
-    aspectStyle = 'aspect-[4/5] max-h-[520px]';
-    outerWidthStyle = 'max-w-md';
+    aspectStyle = 'aspect-[4/5] max-h-[min(52vh,460px)]';
+    outerWidthStyle = 'max-w-sm sm:max-w-md';
   } else if (aspectConfig === '9:16') {
-    aspectStyle = 'aspect-[9/16] max-h-[620px]';
-    outerWidthStyle = 'max-w-sm';
+    aspectStyle = 'aspect-[9/16] max-h-[min(58vh,490px)]';
+    outerWidthStyle = 'max-w-[270px] sm:max-w-xs';
   }
 
   return (

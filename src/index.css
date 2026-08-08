@@ -378,7 +378,7 @@ h1, h2, h3, h4 {
   gap: clamp(0.4rem, 1.2vh, 0.75rem);
 }
 .quiz-crystal .quiz-carta__mini {
-  height: clamp(72px, 15vh, 130px);
+  height: clamp(125px, 23vh, 190px);
   aspect-ratio: 2 / 3;
   width: auto;
 }
