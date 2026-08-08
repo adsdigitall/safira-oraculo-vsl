@@ -172,20 +172,20 @@ export default function QuizOraculo({ config, onConcluir }) {
 
         {/* ── INTRO ─────────────────────────────────────── */}
         {etapa === 'intro' && (
-          <div className="quiz-fade lg mt-2 flex flex-col items-center p-6 text-center md:p-8">
-            <p className="font-script mb-1 text-4xl text-[#fbbf24] md:text-5xl">
+          <div className="quiz-fade lg quiz-painel flex flex-col items-center text-center">
+            <p className="font-script quiz-marca text-[#fbbf24]">
               {config.productName || 'Safira Oráculo'}
             </p>
-            <h1 className="mb-5 font-mystic text-3xl font-bold leading-tight text-white md:text-4xl">
+            <h1 className="quiz-titulo font-mystic font-bold leading-tight text-white">
               {config.quizIntroTitulo}
             </h1>
-            <div className="relative mb-5 w-full overflow-hidden rounded-2xl border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
+            <div className="quiz-hero relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
               {config.quizHeroUrl ? (
-                <img src={config.quizHeroUrl} alt="" className="w-full object-cover" />
+                <img src={config.quizHeroUrl} alt="" className="h-full w-full object-cover" />
               ) : (
-                <div className="flex aspect-[4/5] w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-[#2a1c1a]/80 to-[#120b0b]/80 text-[#a39a97]">
-                  <span className="text-6xl">🔮</span>
-                  <p className="px-6 text-xs">
+                <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-gradient-to-b from-[#2a1c1a]/80 to-[#120b0b]/80 px-3 text-[#a39a97]">
+                  <span className="text-4xl">🔮</span>
+                  <p className="text-[10px] leading-snug">
                     Foto da sua personagem aqui
                     <br />
                     <span className="text-[#fbbf24]">(campo “quizHeroUrl”)</span>
@@ -193,19 +193,19 @@ export default function QuizOraculo({ config, onConcluir }) {
                 </div>
               )}
             </div>
-            <p className="mb-6 text-base leading-relaxed text-[#a39a97] md:text-lg">
+            <p className="quiz-apoio text-[#a39a97]">
               {config.quizIntroTexto}{' '}
               <span className="font-semibold text-[#fbbf24]">{config.quizIntroTextoForte}</span>
             </p>
             <button
               type="button"
               onClick={() => setEtapa('perguntas')}
-              className="btn-shimmer-gold glow-gold-btn w-full rounded-2xl px-8 py-4 text-base font-extrabold uppercase tracking-wide text-slate-950 transition-transform active:scale-95"
+              className="btn-shimmer-gold glow-gold-btn quiz-cta w-full rounded-2xl font-extrabold uppercase tracking-wide text-slate-950 transition-transform active:scale-95"
             >
               {config.quizIntroCta}
             </button>
             {config.quizIntroRodape && (
-              <p className="mt-4 text-xs text-[#7a7398]">✨ {config.quizIntroRodape}</p>
+              <p className="quiz-rodape text-[#7a7398]">✨ {config.quizIntroRodape}</p>
             )}
           </div>
         )}
@@ -249,12 +249,12 @@ export default function QuizOraculo({ config, onConcluir }) {
 
         {/* ── DIAGNÓSTICO ────────────────────────────────── */}
         {etapa === 'diagnostico' && (
-          <div className="quiz-fade lg flex flex-col items-center p-8 text-center">
-            <div className="space-y-3">
+          <div className="quiz-fade lg quiz-painel flex flex-col items-center text-center">
+            <div className="quiz-minis flex flex-col">
               {(config.quizTransicaoLinhas || []).map((linha, i) => (
                 <p
                   key={i}
-                  className="quiz-linha-surge text-base leading-relaxed text-[#a39a97] md:text-lg"
+                  className="quiz-linha-surge quiz-apoio text-[#a39a97]"
                   style={{ animationDelay: `${i * 0.4}s` }}
                 >
                   {linha}
@@ -262,7 +262,7 @@ export default function QuizOraculo({ config, onConcluir }) {
               ))}
             </div>
 
-            <div className="relative my-7 h-40 w-40">
+            <div className="quiz-anel relative">
               <svg viewBox="0 0 140 140" className="diag-ring h-full w-full">
                 <defs>
                   <linearGradient id="diagGrad" x1="0" y1="0" x2="1" y2="1">
@@ -283,12 +283,12 @@ export default function QuizOraculo({ config, onConcluir }) {
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="font-mystic text-4xl font-bold text-[#fbbf24]">{diagPct}%</span>
-                <span className="mt-1 text-3xl pulse-mystic">🔮</span>
+                <span className="quiz-anel__pct font-mystic font-bold text-[#fbbf24]">{diagPct}%</span>
+                <span className="quiz-anel__ic pulse-mystic">🔮</span>
               </div>
             </div>
 
-            <div className="w-full max-w-xs space-y-2 text-left">
+            <div className="quiz-minis flex w-full max-w-xs flex-col text-left">
               {diagPassos.map((passo, i) => {
                 const limiar = ((i + 1) / diagPassos.length) * 100;
                 const ok = diagPct >= limiar - 4;
@@ -298,12 +298,12 @@ export default function QuizOraculo({ config, onConcluir }) {
                     className={`diag-passo flex items-center gap-3 ${ok ? 'diag-passo--ok' : 'diag-passo--pendente'}`}
                   >
                     <span className="diag-check text-xs font-bold">{ok ? '✓' : ''}</span>
-                    <span className="text-base text-[#a39a97]">{passo}</span>
+                    <span className="quiz-apoio text-[#a39a97]">{passo}</span>
                   </div>
                 );
               })}
             </div>
-            <p className="mt-6 text-base font-semibold text-[#fbbf24]">{config.quizTransicaoCarregando}</p>
+            <p className="quiz-apoio font-semibold text-[#fbbf24]">{config.quizTransicaoCarregando}</p>
           </div>
         )}
 
@@ -386,19 +386,19 @@ export default function QuizOraculo({ config, onConcluir }) {
 
         {/* ── RESULTADO ─────────────────────────────────── */}
         {etapa === 'resultado' && (
-          <div className="quiz-fade lg flex flex-col items-center p-6 text-center md:p-8">
-            <div className="mb-4 text-6xl pulse-mystic">✨</div>
-            <span className="mb-4 rounded-full border border-[#f59e0b]/40 bg-[#f59e0b]/10 px-4 py-1 text-xs font-semibold uppercase tracking-widest text-[#fbbf24]">
+          <div className="quiz-fade lg quiz-painel flex flex-col items-center text-center">
+            <div className="quiz-selo pulse-mystic">✨</div>
+            <span className="quiz-tag rounded-full border border-[#f59e0b]/40 bg-[#f59e0b]/10 font-semibold uppercase tracking-widest text-[#fbbf24]">
               {config.quizResultadoTag}
             </span>
-            <h2 className="mb-4 font-mystic text-3xl font-bold text-white md:text-4xl">
+            <h2 className="quiz-titulo font-mystic font-bold text-white">
               {config.quizResultadoTitulo}
             </h2>
-            <div className="mb-6 flex justify-center gap-3">
+            <div className="quiz-minis flex justify-center">
               {reveladas.slice(0, qtdCartas).map((rev, idx) => (
                 <div
                   key={idx}
-                  className="quiz-carta__front quiz-carta__mini relative flex h-28 w-[74px] flex-col items-center justify-center overflow-hidden rounded-xl"
+                  className="quiz-carta__front quiz-carta__mini relative flex flex-col items-center justify-center overflow-hidden rounded-xl"
                   style={rev?.frente ? { backgroundImage: `url(${rev.frente})`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
                 >
                   {!rev?.frente && (
@@ -412,13 +412,11 @@ export default function QuizOraculo({ config, onConcluir }) {
                 </div>
               ))}
             </div>
-            <p className="mb-8 max-w-md text-base leading-relaxed text-[#a39a97] md:text-lg">
-              {config.quizResultadoTexto}
-            </p>
+            <p className="quiz-apoio max-w-md text-[#a39a97]">{config.quizResultadoTexto}</p>
             <button
               type="button"
               onClick={finalizar}
-              className="btn-shimmer-gold glow-gold-btn w-full rounded-2xl px-8 py-4 text-base font-extrabold uppercase tracking-wide text-slate-950 transition-transform active:scale-95"
+              className="btn-shimmer-gold glow-gold-btn quiz-cta w-full rounded-2xl font-extrabold uppercase tracking-wide text-slate-950 transition-transform active:scale-95"
             >
               {config.quizResultadoCta}
             </button>

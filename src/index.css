@@ -311,6 +311,72 @@ h1, h2, h3, h4 {
   animation: quizFadeIn 0.55s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* ── Painel que SEMPRE cabe na tela (intro e resultado) ────────
+   Tudo dimensionado em vh em vez de tamanhos fixos: do Android
+   pequeno (640px de altura) ao iPhone grande, o conteúdo encolhe
+   sozinho e o botão nunca cai abaixo da dobra. O clamp() segura
+   um mínimo legível e um máximo pra não inchar no desktop. */
+.quiz-crystal .quiz-painel {
+  padding: clamp(0.9rem, 2.4vh, 1.75rem) clamp(1rem, 4vw, 2rem);
+  gap: clamp(0.5rem, 1.5vh, 1rem);
+}
+.quiz-crystal .quiz-marca {
+  font-size: clamp(1.5rem, 4.4vh, 2.75rem);
+  line-height: 1.15;
+}
+.quiz-crystal .quiz-titulo {
+  font-size: clamp(1.15rem, 3.1vh, 2rem);
+  line-height: 1.2;
+}
+.quiz-crystal .quiz-apoio {
+  font-size: clamp(0.8rem, 1.85vh, 1.05rem);
+  line-height: 1.5;
+}
+.quiz-crystal .quiz-cta {
+  padding: clamp(0.7rem, 1.9vh, 1rem) 1.5rem;
+  font-size: clamp(0.8rem, 1.8vh, 1rem);
+}
+.quiz-crystal .quiz-rodape {
+  font-size: clamp(0.62rem, 1.35vh, 0.78rem);
+}
+/* Foto da personagem: retrato centralizado, altura presa à tela */
+.quiz-crystal .quiz-hero {
+  height: clamp(110px, 26vh, 300px);
+  aspect-ratio: 4 / 5;
+  width: auto;
+  max-width: 100%;
+}
+.quiz-crystal .quiz-selo {
+  font-size: clamp(1.7rem, 4.6vh, 3rem);
+  line-height: 1;
+}
+.quiz-crystal .quiz-tag {
+  padding: 0.22rem 0.85rem;
+  font-size: clamp(0.58rem, 1.3vh, 0.72rem);
+}
+.quiz-crystal .quiz-minis {
+  gap: clamp(0.4rem, 1.2vh, 0.75rem);
+}
+.quiz-crystal .quiz-carta__mini {
+  height: clamp(72px, 15vh, 130px);
+  aspect-ratio: 2 / 3;
+  width: auto;
+}
+/* Anel do diagnóstico */
+.quiz-crystal .quiz-anel {
+  width: clamp(100px, 21vh, 170px);
+  height: clamp(100px, 21vh, 170px);
+  margin: clamp(0.25rem, 1vh, 0.75rem) 0;
+}
+.quiz-crystal .quiz-anel__pct {
+  font-size: clamp(1.4rem, 4vh, 2.5rem);
+  line-height: 1.1;
+}
+.quiz-crystal .quiz-anel__ic {
+  font-size: clamp(1.1rem, 2.6vh, 1.9rem);
+  line-height: 1;
+}
+
 /* ── Fundo ambiente (aurora que o vidro refrata) ─────────────── */
 /* Fixa (não "absolute inset:-20%"): presa ao container rolável, a aurora
    estourava 20% pra baixo e criava rolagem fantasma na etapa das cartas. */
