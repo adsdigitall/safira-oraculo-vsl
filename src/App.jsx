@@ -14,7 +14,7 @@ import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
 
-const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe372-bd36-7f3c-b70b-b0b84fca9a26';
+const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe391-9be1-7dba-827b-901a3c5a1d0d';
 const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
 const VERCEL_SYNC_URL = '/api/sync';
 
@@ -142,6 +142,14 @@ export default function App() {
       if (Object.keys(limpoNuvem).length === 0) return;
 
       setConfig((antigo) => {
+        const timestampNuvem = limpoNuvem.updatedAt || 0;
+        const timestampAntigo = antigo.updatedAt || 0;
+
+        // Se o dado local tiver um timestamp MAIS NOVO do que a resposta da nuvem, ignora a nuvem!
+        if (timestampAntigo > 0 && timestampNuvem > 0 && timestampNuvem < timestampAntigo) {
+          return antigo;
+        }
+
         const urlOverrides = lerParametrosUrl();
         const combinada = forcarQuizDoCodigo({
           ...CONFIG_PADRAO,
@@ -309,13 +317,17 @@ export default function App() {
   }
 
   const salvarEAtualizarConfig = (novaConfig) => {
+    const agora = Date.now();
     const configFormatada = {
       ...CONFIG_PADRAO,
       ...config,
       ...novaConfig,
+      vslUrl: formatarUrl(novaConfig.vslUrl !== undefined ? novaConfig.vslUrl : config.vslUrl),
+      vslAspectRatio: novaConfig.vslAspectRatio || config.vslAspectRatio || '16:9',
       checkoutUrl: formatarUrl(novaConfig.checkoutUrl || config.checkoutUrl),
       quizHeroUrl: formatarUrl(novaConfig.quizHeroUrl !== undefined ? novaConfig.quizHeroUrl : config.quizHeroUrl),
       quizLogoUrl: formatarUrl(novaConfig.quizLogoUrl !== undefined ? novaConfig.quizLogoUrl : config.quizLogoUrl),
+      updatedAt: agora,
     };
 
     // 1. Atualiza o estado local
