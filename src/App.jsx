@@ -16,13 +16,14 @@ import QuizOraculo from './components/QuizOraculo';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fdd0e-a30c-70de-8638-c8558acc4442';
 
-// TUDO do quiz (textos + artes) vem SEMPRE do código (config.js), nunca da
-// nuvem/localStorage. O quiz não é editável no painel admin, então uma config
-// antiga salva no aparelho do lead só serviria pra congelar a versão velha
-// (texto e caminhos das imagens) mesmo depois de um novo deploy.
+// TUDO do quiz (textos + artes) vem por padrão do código, EXCETO a foto da
+// personagem (quizHeroUrl) e o logo (quizLogoUrl) que podem ser editados no Admin.
 function forcarQuizDoCodigo(cfg) {
   const forcado = { ...cfg };
   Object.keys(CONFIG_PADRAO).forEach((k) => {
+    if (k === 'quizHeroUrl' || k === 'quizLogoUrl') {
+      if (cfg[k] !== undefined && cfg[k] !== null) return;
+    }
     if (k.startsWith('quiz')) forcado[k] = CONFIG_PADRAO[k];
   });
   return forcado;
@@ -48,7 +49,7 @@ function formatarUrl(rawUrl) {
   if (!rawUrl) return '';
   let url = rawUrl.trim();
   if (url === '#' || url.includes('SEU-LINK')) return '';
-  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+  if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/') && !url.startsWith('data:')) {
     url = 'https://' + url;
   }
   return url;
@@ -276,6 +277,8 @@ export default function App() {
       ...config,
       ...novaConfig,
       checkoutUrl: formatarUrl(novaConfig.checkoutUrl || config.checkoutUrl),
+      quizHeroUrl: formatarUrl(novaConfig.quizHeroUrl !== undefined ? novaConfig.quizHeroUrl : config.quizHeroUrl),
+      quizLogoUrl: formatarUrl(novaConfig.quizLogoUrl !== undefined ? novaConfig.quizLogoUrl : config.quizLogoUrl),
     };
 
     // 1. Atualiza o estado local

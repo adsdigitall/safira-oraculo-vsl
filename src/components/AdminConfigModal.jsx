@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign } from 'lucide-react';
+import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image } from 'lucide-react';
 
 export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig, onResetDefaults }) {
   const [localConfig, setLocalConfig] = useState(config);
@@ -94,7 +94,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               <h3 className="text-base font-bold text-white font-mystic">
                 Painel Admin (Configurações & Sincronização)
               </h3>
-              <p className="text-xs text-[#cbb8b3]/70">Edite o valor da oferta, os links de checkout e o Meta Pixel</p>
+              <p className="text-xs text-[#cbb8b3]/70">Edite a foto do quiz, o valor da oferta, os links de checkout e o Meta Pixel</p>
             </div>
           </div>
 
@@ -116,7 +116,40 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             </div>
           )}
 
-          {/* 1. CAMPO DE EDIÇÃO DO VALOR DA OFERTA / BÔNUS */}
+          {/* 1. FOTO DA PERSONAGEM DO QUIZ (HERO BANNER INÍCIO DO QUIZ) */}
+          <div className="p-4 rounded-xl border border-amber-500/30 bg-gradient-to-r from-[#2a1e1c]/80 via-[#1c1210] to-[#2a1e1c]/80 space-y-3 shadow-md">
+            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
+              <Image className="w-4 h-4 text-amber-400" />
+              Foto da Personagem / Capa (Início do Quiz)
+            </label>
+            
+            <div className="flex flex-col sm:flex-row gap-3 items-center">
+              <input
+                type="text"
+                value={localConfig.quizHeroUrl || ''}
+                onChange={(e) => setLocalConfig({ ...localConfig, quizHeroUrl: e.target.value })}
+                placeholder="https://exemplo.com/sua-foto.jpg ou cole a URL da imagem"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/40 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition placeholder:text-amber-200/30"
+              />
+
+              {localConfig.quizHeroUrl && (
+                <div className="relative w-14 h-14 rounded-xl overflow-hidden border-2 border-amber-400/60 shrink-0 bg-black/50 shadow-lg group">
+                  <img
+                    src={localConfig.quizHeroUrl}
+                    alt="Prévia"
+                    className="w-full h-full object-cover"
+                    onError={(e) => { e.target.style.display = 'none'; }}
+                  />
+                </div>
+              )}
+            </div>
+
+            <p className="text-[11px] text-[#cbb8b3]/70 leading-relaxed">
+              Insira a URL da foto da sua especialista ou personagem. Essa foto é atualizada imediatamente no destaque inicial do Quiz.
+            </p>
+          </div>
+
+          {/* 2. CAMPO DE EDIÇÃO DO VALOR DA OFERTA / BÔNUS */}
           <div className="p-4 rounded-xl border border-amber-500/30 bg-gradient-to-r from-amber-950/40 via-[#1c1210] to-[#2a1e1c]/60 space-y-2">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <DollarSign className="w-4 h-4 text-amber-400" />
