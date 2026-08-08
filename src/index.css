@@ -312,11 +312,14 @@ h1, h2, h3, h4 {
 }
 
 /* ── Fundo ambiente (aurora que o vidro refrata) ─────────────── */
+/* Fixa (não "absolute inset:-20%"): presa ao container rolável, a aurora
+   estourava 20% pra baixo e criava rolagem fantasma na etapa das cartas. */
 .quiz-aurora {
-  position: absolute;
-  inset: -20%;
+  position: fixed;
+  inset: 0;
   overflow: hidden;
   z-index: 0;
+  pointer-events: none;
 }
 .quiz-aurora span {
   position: absolute;
@@ -595,4 +598,27 @@ h1, h2, h3, h4 {
 }
 .quiz-carta:disabled {
   cursor: default;
+}
+/* Celular: 8 cartas em 2 linhas de 4 — encolhe os detalhes p/ caber na tela */
+@media (max-width: 639px) {
+  .quiz-carta__face {
+    border-radius: 7px;
+  }
+  .quiz-carta__num {
+    top: -7px;
+    width: 17px;
+    height: 17px;
+    font-size: 10px;
+  }
+  .quiz-carta__emblema {
+    font-size: 1.15rem;
+  }
+  .quiz-carta__ornament {
+    font-size: 1.2rem;
+  }
+  .quiz-carta__nome {
+    padding: 2px 1px;
+    font-size: 6.5px;
+    letter-spacing: 0.02em;
+  }
 }

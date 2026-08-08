@@ -16,13 +16,14 @@ import QuizOraculo from './components/QuizOraculo';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fdd0e-a30c-70de-8638-c8558acc4442';
 
-// As artes das cartas do quiz vêm SEMPRE do código (config.js), nunca da
-// nuvem/localStorage — senão uma config antiga salva apaga os caminhos das imagens.
-const CHAVES_CARTAS = ['quizCartas', 'quizCartasReveladas'];
-function forcarCartasDoCodigo(cfg) {
+// TUDO do quiz (textos + artes) vem SEMPRE do código (config.js), nunca da
+// nuvem/localStorage. O quiz não é editável no painel admin, então uma config
+// antiga salva no aparelho do lead só serviria pra congelar a versão velha
+// (texto e caminhos das imagens) mesmo depois de um novo deploy.
+function forcarQuizDoCodigo(cfg) {
   const forcado = { ...cfg };
-  CHAVES_CARTAS.forEach((k) => {
-    forcado[k] = CONFIG_PADRAO[k];
+  Object.keys(CONFIG_PADRAO).forEach((k) => {
+    if (k.startsWith('quiz')) forcado[k] = CONFIG_PADRAO[k];
   });
   return forcado;
 }
@@ -57,7 +58,7 @@ export default function App() {
   const [config, setConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
     if (!salvo) return CONFIG_PADRAO;
-    return forcarCartasDoCodigo({
+    return forcarQuizDoCodigo({
       ...CONFIG_PADRAO,
       ...salvo,
     });
@@ -108,7 +109,7 @@ export default function App() {
           });
 
           setConfig((antigo) => {
-            const combinada = forcarCartasDoCodigo({
+            const combinada = forcarQuizDoCodigo({
               ...CONFIG_PADRAO,
               ...antigo,
               ...limpoNuvem,

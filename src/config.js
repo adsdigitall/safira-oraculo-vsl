@@ -187,12 +187,12 @@ export const CONFIG_PADRAO = {
   // Etapas do diagnóstico (marcam conforme a % avança).
   quizDiagPassos: [
     'Lendo a energia das suas respostas',
-    'Cruzando os seus sentimentos com o baralho',
+    'Cruzando os seus sentimentos com os cristais',
     'Identificando o bloqueio principal',
     'Selecionando as suas 8 cartas',
   ],
 
-  quizCartasTitulo: 'O baralho está aberto para você:',
+  quizCartasTitulo: 'Os cristais estão abertos para você:',
   quizCartasSubtitulo: 'Não pense muito, apenas sinta.',
   quizCartasInstrucao: 'Escolha 3 cartas, uma de cada vez, na ordem que o seu instinto mandar:',
   // Os 8 VERSOS (iscas) — só decoração dourada de frente pra baixo.

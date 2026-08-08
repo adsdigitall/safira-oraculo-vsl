@@ -310,16 +310,21 @@ export default function QuizOraculo({ config, onConcluir }) {
         {/* ── CARTAS ────────────────────────────────────── */}
         {etapa === 'cartas' && (
           <div className="quiz-fade flex flex-col items-center">
-            <h2 className="mb-2 text-center font-mystic text-2xl font-bold text-white md:text-3xl">
+            <h2 className="mb-1.5 text-center font-mystic text-xl font-bold text-white sm:mb-2 sm:text-2xl md:text-3xl">
               {config.quizCartasTitulo}
             </h2>
-            <p className="mb-1 text-center text-lg font-semibold text-[#fbbf24]">{config.quizCartasSubtitulo}</p>
-            <p className="mb-2 max-w-sm text-center text-base text-[#a39a97]">{config.quizCartasInstrucao}</p>
-            <p className="mb-5 text-xs font-semibold uppercase tracking-widest text-[#fbbf24]">
+            <p className="mb-1 text-center text-base font-semibold text-[#fbbf24] sm:text-lg">
+              {config.quizCartasSubtitulo}
+            </p>
+            <p className="mb-1.5 max-w-sm text-center text-sm text-[#a39a97] sm:mb-2 sm:text-base">
+              {config.quizCartasInstrucao}
+            </p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#fbbf24] sm:mb-5">
               {cartasEscolhidas.length} / {qtdCartas} escolhidas
             </p>
 
-            <div className="grid w-full grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {/* 4 por linha já no celular: as 8 cartas cabem na tela sem rolar */}
+            <div className="grid w-full grid-cols-4 gap-2 sm:gap-4">
               {cartas.map((carta, i) => {
                 const escolhida = cartasEscolhidas.includes(i);
                 const ordem = cartasEscolhidas.indexOf(i);
