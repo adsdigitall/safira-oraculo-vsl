@@ -1,72 +1,110 @@
 // ─────────────────────────────────────────────────────────────
 //  Efeito sonoro das cartas — sintetizado via Web Audio API.
-//  Vibração: grave abafado com tremolo, tipo celular vibrando na
-//  mesa. Curto e discreto — não é um "efeito", é uma resposta ao
-//  toque. Sem os agudos de vidro, que ficavam ásperos no celular.
+//  Flutter de papel + batida grave de ressonância + brilho de cristais.
+//  Otimizado para ser claramente audível em qualquer celular/alto-falante.
 // ─────────────────────────────────────────────────────────────
 
 let ctx = null;
 
-function getCtx() {
+export function prepararAudio() {
   if (typeof window === 'undefined') return null;
-  const AudioCtx = window.AudioContext || window.webkitAudioContext;
-  if (!AudioCtx) return null;
-  if (!ctx) ctx = new AudioCtx();
-  if (ctx.state === 'suspended') ctx.resume().catch(() => {});
-  return ctx;
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+    if (!ctx) ctx = new AudioCtx();
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
+    return ctx;
+  } catch (e) {
+    return null;
+  }
 }
 
 export function tocarSomCarta() {
   try {
-    const ac = getCtx();
+    const ac = prepararAudio();
     if (!ac) return;
     const agora = ac.currentTime;
-    const dur = 0.32;
 
-    // Corpo grave que cai de leve — a "massa" da vibração
+    // 1. Textura de deslize de papel (Ruído rosa/branco filtrado com sweep)
+    const bufferSize = ac.sampleRate * 0.22;
+    const noiseBuffer = ac.createBuffer(1, bufferSize, ac.sampleRate);
+    const output = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      output[i] = Math.random() * 2 - 1;
+    }
+
+    const noiseSrc = ac.createBufferSource();
+    noiseSrc.buffer = noiseBuffer;
+
+    const noiseFilter = ac.createBiquadFilter();
+    noiseFilter.type = 'bandpass';
+    noiseFilter.frequency.setValueAtTime(600, agora);
+    noiseFilter.frequency.exponentialRampToValueAtTime(2400, agora + 0.18);
+    noiseFilter.Q.value = 2.5;
+
+    const noiseGain = ac.createGain();
+    noiseGain.gain.setValueAtTime(0.0001, agora);
+    noiseGain.gain.exponentialRampToValueAtTime(0.35, agora + 0.03);
+    noiseGain.gain.exponentialRampToValueAtTime(0.0001, agora + 0.2);
+
+    noiseSrc.connect(noiseFilter);
+    noiseFilter.connect(noiseGain);
+    noiseGain.connect(ac.destination);
+    noiseSrc.start(agora);
+
+    // 2. Corpo do flip (Sweep de triângulo audível 240Hz -> 480Hz)
     const osc = ac.createOscillator();
     osc.type = 'triangle';
-    osc.frequency.setValueAtTime(76, agora);
-    osc.frequency.linearRampToValueAtTime(54, agora + dur);
+    osc.frequency.setValueAtTime(220, agora);
+    osc.frequency.exponentialRampToValueAtTime(440, agora + 0.24);
 
-    // Passa-baixa bem fechado: tira a aspereza, sobra só o ronco
-    const filtro = ac.createBiquadFilter();
-    filtro.type = 'lowpass';
-    filtro.frequency.setValueAtTime(320, agora);
-    filtro.Q.value = 0.7;
+    const bodyFilter = ac.createBiquadFilter();
+    bodyFilter.type = 'lowpass';
+    bodyFilter.frequency.setValueAtTime(1400, agora);
+    bodyFilter.Q.value = 1.2;
 
-    // Tremolo em série (0..1) = textura de vibração.
-    // Em série, e não somado ao ganho do envelope, pra não passar
-    // por zero e estalar.
-    const tremolo = ac.createGain();
-    tremolo.gain.value = 0.5;
-    const lfo = ac.createOscillator();
-    lfo.type = 'sine';
-    lfo.frequency.setValueAtTime(33, agora);
-    lfo.frequency.linearRampToValueAtTime(24, agora + dur);
-    const lfoGanho = ac.createGain();
-    lfoGanho.gain.value = 0.5;
+    const bodyGain = ac.createGain();
+    bodyGain.gain.setValueAtTime(0.0001, agora);
+    bodyGain.gain.exponentialRampToValueAtTime(0.45, agora + 0.02);
+    bodyGain.gain.exponentialRampToValueAtTime(0.0001, agora + 0.28);
 
-    // Envelope: ataque macio (sem clique) e cauda curta
-    const env = ac.createGain();
-    env.gain.setValueAtTime(0.0001, agora);
-    env.gain.exponentialRampToValueAtTime(0.5, agora + 0.025);
-    env.gain.exponentialRampToValueAtTime(0.0001, agora + dur);
-
-    lfo.connect(lfoGanho).connect(tremolo.gain);
-    osc.connect(filtro).connect(tremolo).connect(env).connect(ac.destination);
-
+    osc.connect(bodyFilter);
+    bodyFilter.connect(bodyGain);
+    bodyGain.connect(ac.destination);
     osc.start(agora);
-    lfo.start(agora);
-    osc.stop(agora + dur);
-    lfo.stop(agora + dur);
+    osc.stop(agora + 0.28);
 
-    // Vibração real no aparelho, quando o navegador deixa (Android).
-    // Um toque curto, casado com o som.
+    // 3. Brilho místico de cristais ("trin-trin" sutil e harmonioso)
+    const freqs = [1318.5, 1760.0, 2349.3, 3135.9]; // E6, A6, D7, G7
+    freqs.forEach((freq, idx) => {
+      const delay = 0.06 + idx * 0.04;
+      const t = agora + delay;
+
+      const cOsc = ac.createOscillator();
+      cOsc.type = 'sine';
+      cOsc.frequency.setValueAtTime(freq, t);
+
+      const cGain = ac.createGain();
+      cGain.gain.setValueAtTime(0.0001, t);
+      cGain.gain.exponentialRampToValueAtTime(0.18 - idx * 0.03, t + 0.012);
+      cGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.22);
+
+      cOsc.connect(cGain);
+      cGain.connect(ac.destination);
+      cOsc.start(t);
+      cOsc.stop(t + 0.24);
+    });
+
+    // 4. Vibração tátil no celular (se suportado)
     try {
-      if (navigator.vibrate) navigator.vibrate(18);
+      if (typeof navigator !== 'undefined' && navigator.vibrate) {
+        navigator.vibrate([25, 40, 25]);
+      }
     } catch (e) {}
   } catch (e) {
-    // Áudio indisponível — segue sem som.
+    // Áudio indisponível — descarte silencioso
   }
 }
+

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import confetti from 'canvas-confetti';
-import { tocarSomCarta } from '../lib/somCartas';
+import { tocarSomCarta, prepararAudio } from '../lib/somCartas';
 import CartaVerso from './CartaVerso';
 import { STORAGE } from '../config';
 
@@ -70,9 +70,15 @@ export default function QuizOraculo({ config, onConcluir }) {
     onConcluir();
   }, [onConcluir]);
 
+  const iniciarPerguntas = useCallback(() => {
+    prepararAudio();
+    setEtapa('perguntas');
+  }, []);
+
   // ── Perguntas ────────────────────────────────────────────
   const responder = useCallback(
     (opcaoIndex) => {
+      prepararAudio();
       const novas = [...respostas];
       novas[indicePergunta] = opcaoIndex;
       setRespostas(novas);
@@ -105,15 +111,21 @@ export default function QuizOraculo({ config, onConcluir }) {
   // ── Cartas ───────────────────────────────────────────────
   const escolherCarta = useCallback(
     (cartaIndex) => {
+      if (cartasEscolhidas.includes(cartaIndex) || cartasEscolhidas.length >= qtdCartas) return;
+      
+      // Toca o som imediatamente no manipulador de evento síncrono do clique
+      if (somAtivo) {
+        tocarSomCarta();
+      }
+
       setCartasEscolhidas((atuais) => {
         if (atuais.includes(cartaIndex) || atuais.length >= qtdCartas) return atuais;
-        if (somAtivo) tocarSomCarta();
         const novas = [...atuais, cartaIndex];
         if (novas.length === qtdCartas) setTimeout(() => setEtapa('revelando'), 850);
         return novas;
       });
     },
-    [qtdCartas, somAtivo]
+    [cartasEscolhidas, qtdCartas, somAtivo]
   );
 
   // ── Revelando → Resultado ────────────────────────────────
@@ -199,7 +211,7 @@ export default function QuizOraculo({ config, onConcluir }) {
             </p>
             <button
               type="button"
-              onClick={() => setEtapa('perguntas')}
+              onClick={iniciarPerguntas}
               className="btn-shimmer-gold glow-gold-btn quiz-cta w-full rounded-2xl font-extrabold uppercase tracking-wide text-slate-950 transition-transform active:scale-95"
             >
               {config.quizIntroCta}
