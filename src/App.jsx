@@ -167,14 +167,21 @@ export default function App() {
 
       setConfig((antigo) => {
         const vslLocal = antigo.vslUrl;
+        const aspectLocal = antigo.vslAspectRatio;
+
         const vslNuvem = limpoNuvem.vslUrl;
+        const aspectNuvem = limpoNuvem.vslAspectRatio;
 
         const timestampNuvem = limpoNuvem.updatedAt || 0;
         const timestampAntigo = antigo.updatedAt || 0;
 
-        // Se tínhamos um VSL local salvo e o dado da nuvem veio sem vslUrl ou é mais antigo, preserva o VSL local!
+        // Se tínhamos um VSL/Aspect local salvo e o dado da nuvem veio sem ele ou é mais antigo, preserva o local!
         if (vslLocal && (!vslNuvem || (timestampAntigo > 0 && timestampNuvem < timestampAntigo))) {
           limpoNuvem.vslUrl = vslLocal;
+        }
+
+        if (aspectLocal && (!aspectNuvem || (timestampAntigo > 0 && timestampNuvem < timestampAntigo))) {
+          limpoNuvem.vslAspectRatio = aspectLocal;
         }
 
         const urlOverrides = lerParametrosUrl();
