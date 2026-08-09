@@ -351,22 +351,22 @@ export default function QuizOraculo({ config, onConcluir }) {
 
         {/* ── CARTAS ────────────────────────────────────── */}
         {etapa === 'cartas' && (
-          <div className="quiz-fade flex flex-col items-center">
-            <h2 className="mb-1.5 text-center font-mystic text-xl font-bold text-white sm:mb-2 sm:text-2xl md:text-3xl">
+          <div className="quiz-fade flex flex-col items-center w-full max-w-full px-0.5 sm:px-2">
+            <h2 className="mb-1 text-center font-mystic text-xl font-bold text-white sm:mb-2 sm:text-2xl md:text-3xl">
               {config.quizCartasTitulo}
             </h2>
-            <p className="mb-1 text-center text-base font-semibold text-[#fbbf24] sm:text-lg">
+            <p className="mb-0.5 text-center text-sm font-semibold text-[#fbbf24] sm:text-base md:text-lg">
               {config.quizCartasSubtitulo}
             </p>
-            <p className="mb-1.5 max-w-sm text-center text-sm text-[#a39a97] sm:mb-2 sm:text-base">
+            <p className="mb-1 max-w-sm text-center text-xs text-[#a39a97] sm:mb-2 sm:text-sm">
               {config.quizCartasInstrucao}
             </p>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#fbbf24] sm:mb-5">
+            <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#fbbf24] sm:mb-4">
               {cartasEscolhidas.length} / {qtdCartas} escolhidas
             </p>
 
-            {/* 4 por linha já no celular: as 8 cartas cabem na tela sem rolar */}
-            <div className="grid w-full grid-cols-4 gap-2 sm:gap-4">
+            {/* 8 Cartas em formato vertical / retrato (4 colunas x 2 linhas), responsivas e centralizadas */}
+            <div className="grid w-full max-w-md sm:max-w-xl md:max-w-2xl grid-cols-4 gap-1.5 sm:gap-3 md:gap-4 mx-auto justify-items-center">
               {cartas.map((carta, i) => {
                 const escolhida = cartasEscolhidas.includes(i);
                 const ordem = cartasEscolhidas.indexOf(i);
