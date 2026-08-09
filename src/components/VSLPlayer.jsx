@@ -194,7 +194,19 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     );
   };
 
-  const aspectConfig = config.vslAspectRatio || '16:9';
+  let aspectConfig = config.vslAspectRatio || '16:9';
+
+  // Auto-detecta formato quando o link contiver parâmetros de aspect ratio explícitos
+  const urlLower = (config.vslUrl || '').toLowerCase();
+  if (urlLower.includes('aspect-ratio:540/720') || urlLower.includes('540/720')) {
+    if (!config.vslAspectRatio) {
+      aspectConfig = '4:5';
+    }
+  } else if (urlLower.includes('9:16') || urlLower.includes('9/16') || urlLower.includes('/shorts/')) {
+    if (!config.vslAspectRatio) {
+      aspectConfig = '9:16';
+    }
+  }
 
   let aspectStyle = 'aspect-[16/9]';
   let outerWidthStyle = 'max-w-2xl';

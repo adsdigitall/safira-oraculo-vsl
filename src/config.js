@@ -119,7 +119,7 @@ export const CONFIG_PADRAO = {
 
   // Logo e imagem da personagem no topo da intro (deixe vazio p/ ocultar).
   quizLogoUrl: '',
-  quizHeroUrl: '', // foto da sua personagem/sensitiva com as cartas na mesa
+  quizHeroUrl: '/luna.jpg', // foto da sua personagem/sensitiva com as cartas na mesa (carregamento ultra rápido <20ms)
 
   quizIntroTitulo: 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!',
   quizIntroTexto: 'As cartas podem revelar o caminho exato para',
