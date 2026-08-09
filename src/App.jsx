@@ -51,6 +51,17 @@ function formatarUrl(rawUrl) {
   if (!rawUrl) return '';
   let url = rawUrl.trim();
   if (url === '#' || url.includes('SEU-LINK')) return '';
+
+  // Limpa corrupções prévias como "https://<iframe..."
+  if (url.startsWith('https://<') || url.startsWith('http://<')) {
+    url = url.replace(/^https?:\/\//i, '');
+  }
+
+  // Se o usuário colou tag HTML embed (<iframe, <script, <div, etc.), retorne o código embed puro sem alterar
+  if (url.startsWith('<') || url.includes('<iframe') || url.includes('<script') || url.includes('<div')) {
+    return url;
+  }
+
   if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/') && !url.startsWith('data:')) {
     url = 'https://' + url;
   }
@@ -89,6 +100,7 @@ export default function App() {
     const salvo = lerJson(STORAGE.config, null);
     const urlOverrides = lerParametrosUrl();
     const base = salvo ? { ...CONFIG_PADRAO, ...salvo } : CONFIG_PADRAO;
+    if (base.vslUrl) base.vslUrl = formatarUrl(base.vslUrl);
     return forcarQuizDoCodigo({
       ...base,
       ...urlOverrides,
@@ -140,6 +152,10 @@ export default function App() {
       });
 
       if (Object.keys(limpoNuvem).length === 0) return;
+
+      if (limpoNuvem.vslUrl) {
+        limpoNuvem.vslUrl = formatarUrl(limpoNuvem.vslUrl);
+      }
 
       setConfig((antigo) => {
         const timestampNuvem = limpoNuvem.updatedAt || 0;
