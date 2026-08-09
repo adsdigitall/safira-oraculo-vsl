@@ -52,13 +52,21 @@ function formatarUrl(rawUrl) {
   let url = rawUrl.trim();
   if (url === '#' || url.includes('SEU-LINK')) return '';
 
+  // Se o usuário colou uma tag <iframe ... src="...">, extrai automaticamente a URL direta limpa!
+  if (url.includes('<iframe') && url.includes('src=')) {
+    const match = url.match(/src=["']([^"']+)["']/i);
+    if (match && match[1]) {
+      url = match[1].trim();
+    }
+  }
+
   // Limpa corrupções prévias como "https://<iframe..."
   if (url.startsWith('https://<') || url.startsWith('http://<')) {
     url = url.replace(/^https?:\/\//i, '');
   }
 
-  // Se o usuário colou tag HTML embed (<iframe, <script, <div, etc.), retorne o código embed puro sem alterar
-  if (url.startsWith('<') || url.includes('<iframe') || url.includes('<script') || url.includes('<div')) {
+  // Se o usuário colou qualquer outra tag HTML embed (<script, <div, etc.), retorne o código embed puro
+  if (url.startsWith('<') || url.includes('<iframe') || url.includes('<script')) {
     return url;
   }
 
@@ -158,12 +166,15 @@ export default function App() {
       }
 
       setConfig((antigo) => {
+        const vslLocal = antigo.vslUrl;
+        const vslNuvem = limpoNuvem.vslUrl;
+
         const timestampNuvem = limpoNuvem.updatedAt || 0;
         const timestampAntigo = antigo.updatedAt || 0;
 
-        // Se o dado local tiver um timestamp MAIS NOVO do que a resposta da nuvem, ignora a nuvem!
-        if (timestampAntigo > 0 && timestampNuvem > 0 && timestampNuvem < timestampAntigo) {
-          return antigo;
+        // Se tínhamos um VSL local salvo e o dado da nuvem veio sem vslUrl ou é mais antigo, preserva o VSL local!
+        if (vslLocal && (!vslNuvem || (timestampAntigo > 0 && timestampNuvem < timestampAntigo))) {
+          limpoNuvem.vslUrl = vslLocal;
         }
 
         const urlOverrides = lerParametrosUrl();
