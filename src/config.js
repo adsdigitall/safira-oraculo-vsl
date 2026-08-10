@@ -53,6 +53,15 @@ export const CONFIG_PADRAO = {
       vslAspectRatio: '16:9',
       planosTotal: 'R$ 60,00',
     },
+    {
+      id: 'v4',
+      slug: '4',
+      nome: 'VSL 4 — Teste D',
+      vslUrl: 'https://play-v2.tynk.ai/ab/102d94a9-3961-49f6-b6fb-58f59adcc0a8',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
+      vslAspectRatio: '4:5',
+      planosTotal: 'R$ 40,00',
+    },
   ],
 
   vslTitle: '🔥 VÁRIAS PESSOAS ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR',
