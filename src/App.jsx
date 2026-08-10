@@ -409,13 +409,26 @@ export default function App() {
 
   const salvarEAtualizarConfig = (novaConfig) => {
     const agora = Date.now();
+
+    // Formata e isola cada variação individualmente
+    const variacoesTratadas = (novaConfig.variacoes || config.variacoes || []).map((v) => ({
+      ...v,
+      vslUrl: formatarUrl(v.vslUrl),
+      checkoutUrl: formatarUrl(v.checkoutUrl),
+    }));
+
+    // A variação 0 (VSL 1) é a fonte oficial para o site principal (sem ?v=)
+    const v1 = variacoesTratadas[0];
+
     const configFormatada = {
       ...CONFIG_PADRAO,
       ...config,
       ...novaConfig,
-      vslUrl: formatarUrl(novaConfig.vslUrl !== undefined ? novaConfig.vslUrl : config.vslUrl),
-      vslAspectRatio: novaConfig.vslAspectRatio || config.vslAspectRatio || '16:9',
-      checkoutUrl: formatarUrl(novaConfig.checkoutUrl || config.checkoutUrl),
+      variacoes: variacoesTratadas,
+      vslUrl: v1?.vslUrl ? formatarUrl(v1.vslUrl) : formatarUrl(novaConfig.vslUrl || config.vslUrl),
+      checkoutUrl: v1?.checkoutUrl ? formatarUrl(v1.checkoutUrl) : formatarUrl(novaConfig.checkoutUrl || config.checkoutUrl),
+      vslAspectRatio: v1?.vslAspectRatio || novaConfig.vslAspectRatio || config.vslAspectRatio || '4:5',
+      planosTotal: v1?.planosTotal || novaConfig.planosTotal || config.planosTotal || 'R$ 40,00',
       quizHeroUrl: formatarUrl(novaConfig.quizHeroUrl !== undefined ? novaConfig.quizHeroUrl : config.quizHeroUrl),
       quizLogoUrl: formatarUrl(novaConfig.quizLogoUrl !== undefined ? novaConfig.quizLogoUrl : config.quizLogoUrl),
       updatedAt: agora,

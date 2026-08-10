@@ -306,14 +306,6 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                     type="button"
                     onClick={() => {
                       setIndexVariacaoAtiva(idx);
-                      // Aplica a variação selecionada como ativa no formulário principal
-                      setLocalConfig({
-                        ...localConfig,
-                        vslUrl: v.vslUrl || localConfig.vslUrl,
-                        checkoutUrl: v.checkoutUrl || localConfig.checkoutUrl,
-                        vslAspectRatio: v.vslAspectRatio || localConfig.vslAspectRatio,
-                        planosTotal: v.planosTotal || localConfig.planosTotal,
-                      });
                     }}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mystic transition flex items-center gap-1.5 shrink-0 ${
                       ativa
@@ -410,44 +402,39 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                     />
                   </div>
                 </div>
+
+                {/* Proporção do vídeo por variação */}
+                <div className="pt-2">
+                  <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1 font-mystic mb-1.5">
+                    <Maximize2 className="w-3.5 h-3.5 text-amber-400" />
+                    Proporção do Vídeo desta Variação
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    {[
+                      { id: '16:9', label: '16:9 (Paisagem)' },
+                      { id: '4:5', label: '4:5 (Vertical 4:5)' },
+                      { id: '9:16', label: '9:16 (Reels/TikTok)' },
+                    ].map((fmt) => {
+                      const ativo = (variacaoAtual.vslAspectRatio || '16:9') === fmt.id;
+                      return (
+                        <button
+                          key={fmt.id}
+                          type="button"
+                          onClick={() => handleUpdateVariacao(indexVariacaoAtiva, 'vslAspectRatio', fmt.id)}
+                          className={`p-2 rounded-lg border text-center transition text-xs font-bold font-mystic ${
+                            ativo
+                              ? 'bg-amber-500/30 border-amber-400 text-amber-300'
+                              : 'bg-[#2a1e1c]/40 border-amber-500/20 text-[#cbb8b3]/70 hover:text-white'
+                          }`}
+                        >
+                          {fmt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             )}
-          </div>
-
-          {/* 5. PROPORÇÃO DA TELINHA DO VÍDEO (ASPECT RATIO) */}
-          <div className="p-3.5 rounded-xl border border-amber-500/30 bg-[#1c1210]/70 space-y-2">
-            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
-              <Maximize2 className="w-4 h-4 text-amber-400" />
-              Proporção da Telinha do Vídeo (Para Testar Qual Converte Melhor)
-            </label>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              {[
-                { id: '16:9', label: '16:9 (Paisagem)', desc: 'Horizontal padrão (380px)' },
-                { id: '4:5', label: '4:5 (Vertical 4:5)', desc: 'Ideal Feed / Instagram' },
-                { id: '9:16', label: '9:16 (Reels/TikTok)', desc: 'Tela cheia vertical' },
-              ].map((fmt) => {
-                const ativo = (localConfig.vslAspectRatio || '16:9') === fmt.id;
-                return (
-                  <button
-                    key={fmt.id}
-                    type="button"
-                    onClick={() => {
-                      setLocalConfig({ ...localConfig, vslAspectRatio: fmt.id });
-                      handleUpdateVariacao(indexVariacaoAtiva, 'vslAspectRatio', fmt.id);
-                    }}
-                    className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
-                      ativo
-                        ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-md font-bold'
-                        : 'bg-[#2a1e1c]/40 border-amber-500/20 text-[#cbb8b3]/70 hover:border-amber-400/40 hover:text-white'
-                    }`}
-                  >
-                    <span className="text-xs font-bold font-mystic">{fmt.label}</span>
-                    <span className="text-[10px] opacity-75 mt-0.5">{fmt.desc}</span>
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
           {/* 6. GERENCIADOR DE MATERIAIS & LINKS INDIVIDUAIS */}
