@@ -363,7 +363,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="space-y-1">
                     <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1 font-mystic">
                       <Video className="w-3.5 h-3.5 text-amber-400" />
@@ -389,6 +389,24 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                       onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'checkoutUrl', e.target.value)}
                       placeholder="https://pay.cakto.com.br/SUA-OFERTA"
                       className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210] border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1 font-mystic">
+                      <DollarSign className="w-3.5 h-3.5 text-amber-400" />
+                      Preço desta Variação
+                    </label>
+                    <input
+                      type="text"
+                      value={variacaoAtual.planosTotal || 'R$ 40,00'}
+                      onChange={(e) => {
+                        let val = e.target.value;
+                        if (/^\d+$/.test(val.trim())) val = `R$ ${val.trim()},00`;
+                        handleUpdateVariacao(indexVariacaoAtiva, 'planosTotal', val);
+                      }}
+                      placeholder="R$ 40,00"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210] border border-amber-500/30 text-amber-300 font-extrabold text-xs focus:outline-none focus:border-amber-400 transition"
                     />
                   </div>
                 </div>

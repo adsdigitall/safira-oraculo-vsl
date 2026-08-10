@@ -130,6 +130,11 @@ function aplicarVariacaoDaUrl(cfg, urlOverrides) {
       url: checkout || m.url,
     }));
 
+    const novosPlanos = (cfg.planos || CONFIG_PADRAO.planos || []).map((plano, i) => {
+      if (i === 0) return { ...plano, valor: preco };
+      return plano;
+    });
+
     return {
       ...cfg,
       vslUrl: vsl,
@@ -138,6 +143,7 @@ function aplicarVariacaoDaUrl(cfg, urlOverrides) {
       vslAspectRatio: varEncontrada.vslAspectRatio || cfg.vslAspectRatio,
       planosTotal: preco,
       planosAVista: preco,
+      planos: novosPlanos,
       materials: materiaisAtualizados,
     };
   }
