@@ -12,34 +12,34 @@ export const CONFIG_PADRAO = {
   pixelId: '1374470023595160', // Meta Pixel Facebook registrado pelo usuário
 
   // ─── Links de conversão ──────────────────────────────────
-  checkoutUrl: 'https://pay.cakto.com.br/SEU-LINK-DE-CHECKOUT',
-  whatsappLink: 'https://pay.cakto.com.br/SEU-LINK-DE-CHECKOUT',
+  checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
+  whatsappLink: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
 
   // ─── Barra lateral ───────────────────────────────────────
   dicaSidebar: 'Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais',
   ctaSidebar: 'Solicitar Materiais',
 
   // ─── VSL (tela "Início") ─────────────────────────────────
-  vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+  vslUrl: 'https://play-v2.tynk.ai/ab/102d94a9-3961-49f6-b6fb-58f59adcc0a8',
   vslDuracaoSegundos: 150,
-  vslAspectRatio: '16:9', // '16:9', '4:5' ou '9:16'
+  vslAspectRatio: '4:5', // '16:9', '4:5' ou '9:16'
 
   // ─── Gerenciador de Variações VSL (A/B Test Multi-Checkout) ─
   variacoes: [
     {
       id: 'v1',
       slug: '1',
-      nome: 'VSL 1 — Principal',
-      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      nome: 'VSL 1 — Principal (Rodando)',
+      vslUrl: 'https://play-v2.tynk.ai/ab/102d94a9-3961-49f6-b6fb-58f59adcc0a8',
       checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
-      vslAspectRatio: '16:9',
+      vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
     },
     {
       id: 'v2',
       slug: '2',
       nome: 'VSL 2 — Teste B',
-      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      vslUrl: 'https://play-v2.tynk.ai/ab/102d94a9-3961-49f6-b6fb-58f59adcc0a8',
       checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '9:16',
       planosTotal: 'R$ 40,00',
@@ -48,9 +48,9 @@ export const CONFIG_PADRAO = {
       id: 'v3',
       slug: '3',
       nome: 'VSL 3 — Teste C',
-      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      vslUrl: 'https://play-v2.tynk.ai/ab/102d94a9-3961-49f6-b6fb-58f59adcc0a8',
       checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
-      vslAspectRatio: '4:5',
+      vslAspectRatio: '16:9',
       planosTotal: 'R$ 60,00',
     },
   ],
