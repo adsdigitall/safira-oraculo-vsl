@@ -24,6 +24,37 @@ export const CONFIG_PADRAO = {
   vslDuracaoSegundos: 150,
   vslAspectRatio: '16:9', // '16:9', '4:5' ou '9:16'
 
+  // ─── Gerenciador de Variações VSL (A/B Test Multi-Checkout) ─
+  variacoes: [
+    {
+      id: 'v1',
+      slug: '1',
+      nome: 'VSL 1 — Principal',
+      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
+      vslAspectRatio: '16:9',
+      planosTotal: 'R$ 40,00',
+    },
+    {
+      id: 'v2',
+      slug: '2',
+      nome: 'VSL 2 — Teste B',
+      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
+      vslAspectRatio: '9:16',
+      planosTotal: 'R$ 40,00',
+    },
+    {
+      id: 'v3',
+      slug: '3',
+      nome: 'VSL 3 — Teste C',
+      vslUrl: 'https://play.tynk.ai/p/7058aef1-f571-498a-90e6-4b26d41385c2',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl',
+      vslAspectRatio: '4:5',
+      planosTotal: 'R$ 60,00',
+    },
+  ],
+
   vslTitle: '🔥 VÁRIAS PESSOAS ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR',
   vslLinhas: [
     { texto: 'Siga os passos simples para a liberação do seu trabalho:' },

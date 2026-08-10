@@ -82,6 +82,10 @@ function lerParametrosUrl() {
     const params = new URLSearchParams(window.location.search);
     const overrides = {};
     
+    // Suporte a slug ou número de variação (?v=1, ?v=2, ?v=3, ?variacao=v2, ?c=3)
+    const varParam = params.get('v') || params.get('variacao') || params.get('c');
+    if (varParam) overrides.variationParam = varParam;
+
     const vsl = params.get('vslUrl') || params.get('vsl') || params.get('video');
     if (vsl) overrides.vslUrl = formatarUrl(vsl);
 
@@ -103,16 +107,56 @@ function lerParametrosUrl() {
   }
 }
 
+function aplicarVariacaoDaUrl(cfg, urlOverrides) {
+  if (!cfg) return cfg;
+  const varParam = urlOverrides?.variationParam;
+  if (!varParam) return cfg;
+
+  const variacoes = cfg.variacoes || CONFIG_PADRAO.variacoes || [];
+  const varEncontrada = variacoes.find(
+    (v) =>
+      String(v.slug) === String(varParam) ||
+      String(v.id) === String(varParam) ||
+      String(v.id) === `v${varParam}`
+  );
+
+  if (varEncontrada) {
+    const checkout = formatarUrl(varEncontrada.checkoutUrl || cfg.checkoutUrl);
+    const vsl = formatarUrl(varEncontrada.vslUrl || cfg.vslUrl);
+    const preco = varEncontrada.planosTotal || cfg.planosTotal;
+
+    const materiaisAtualizados = (cfg.materials || CONFIG_PADRAO.materials || []).map((m) => ({
+      ...m,
+      url: checkout || m.url,
+    }));
+
+    return {
+      ...cfg,
+      vslUrl: vsl,
+      checkoutUrl: checkout,
+      whatsappLink: checkout,
+      vslAspectRatio: varEncontrada.vslAspectRatio || cfg.vslAspectRatio,
+      planosTotal: preco,
+      planosAVista: preco,
+      materials: materiaisAtualizados,
+    };
+  }
+
+  return cfg;
+}
+
 export default function App() {
   const [config, setConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
     const urlOverrides = lerParametrosUrl();
     const base = salvo ? { ...CONFIG_PADRAO, ...salvo } : CONFIG_PADRAO;
     if (base.vslUrl) base.vslUrl = formatarUrl(base.vslUrl);
-    return forcarQuizDoCodigo({
+
+    const configurada = forcarQuizDoCodigo({
       ...base,
       ...urlOverrides,
     });
+    return aplicarVariacaoDaUrl(configurada, urlOverrides);
   });
 
   const [solicitacoes, setSolicitacoes] = useState(() => lerJson(STORAGE.requests, []));
@@ -191,10 +235,11 @@ export default function App() {
           ...limpoNuvem,
           ...urlOverrides,
         });
+        const finalComVariacao = aplicarVariacaoDaUrl(combinada, urlOverrides);
         try {
-          localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
+          localStorage.setItem(STORAGE.config, JSON.stringify(finalComVariacao));
         } catch (e) {}
-        return combinada;
+        return finalComVariacao;
       });
     };
 

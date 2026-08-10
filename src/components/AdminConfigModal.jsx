@@ -1,16 +1,92 @@
 import React, { useState, useEffect } from 'react';
-import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image, Maximize2, Copy } from 'lucide-react';
+import { X, Save, RefreshCw, Video, CreditCard, Lock, Plus, Trash2, Code2, Tag, CheckCircle2, DollarSign, Image, Maximize2, Copy, Layers } from 'lucide-react';
 
 export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig, onResetDefaults }) {
   const [localConfig, setLocalConfig] = useState(config);
   const [savedSuccess, setSavedSuccess] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
+  const [indexVariacaoAtiva, setIndexVariacaoAtiva] = useState(0);
 
   useEffect(() => {
     setLocalConfig(config);
   }, [config, isOpen]);
 
   if (!isOpen) return null;
+
+  const variacoesList = localConfig.variacoes || [
+    {
+      id: 'v1',
+      slug: '1',
+      nome: 'VSL 1 — Principal',
+      vslUrl: localConfig.vslUrl || '',
+      checkoutUrl: localConfig.checkoutUrl || '',
+      vslAspectRatio: localConfig.vslAspectRatio || '16:9',
+      planosTotal: localConfig.planosTotal || 'R$ 40,00',
+    },
+  ];
+
+  const variacaoAtual = variacoesList[indexVariacaoAtiva] || variacoesList[0];
+
+  const handleUpdateVariacao = (index, field, value) => {
+    const novasVariacoes = [...variacoesList];
+    novasVariacoes[index] = { ...novasVariacoes[index], [field]: value };
+
+    // Se for a variação ativa index 0, sincroniza também no topo do localConfig
+    const extraConfig = index === 0 ? { [field]: value } : {};
+
+    setLocalConfig({
+      ...localConfig,
+      ...extraConfig,
+      variacoes: novasVariacoes,
+    });
+  };
+
+  const handleDuplicarVariacao = (indexOrigem = 0) => {
+    const baseObj = variacoesList[indexOrigem] || variacoesList[0] || {
+      vslUrl: localConfig.vslUrl || '',
+      checkoutUrl: localConfig.checkoutUrl || '',
+      vslAspectRatio: localConfig.vslAspectRatio || '16:9',
+      planosTotal: localConfig.planosTotal || 'R$ 40,00',
+    };
+
+    const novoNum = variacoesList.length + 1;
+    const novaVariacao = {
+      id: `v${novoNum}`,
+      slug: String(novoNum),
+      nome: `VSL ${novoNum} — Teste ${String.fromCharCode(64 + novoNum)}`,
+      vslUrl: baseObj.vslUrl || '',
+      checkoutUrl: baseObj.checkoutUrl || '',
+      vslAspectRatio: baseObj.vslAspectRatio || '16:9',
+      planosTotal: baseObj.planosTotal || 'R$ 40,00',
+    };
+
+    const novasVariacoes = [...variacoesList, novaVariacao];
+    setLocalConfig({
+      ...localConfig,
+      variacoes: novasVariacoes,
+    });
+    setIndexVariacaoAtiva(novasVariacoes.length - 1);
+  };
+
+  const handleRemoverVariacao = (index) => {
+    if (variacoesList.length <= 1) return;
+    const novasVariacoes = variacoesList.filter((_, i) => i !== index);
+    setLocalConfig({
+      ...localConfig,
+      variacoes: novasVariacoes,
+    });
+    setIndexVariacaoAtiva(Math.max(0, index - 1));
+  };
+
+  const handleCopiarUrlVariacao = (varObj, index) => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : 'https://triagem.site';
+    const slug = varObj.slug || index + 1;
+    const finalUrl = `${baseUrl}?v=${slug}`;
+    navigator.clipboard.writeText(finalUrl).then(() => {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2000);
+    }).catch(() => {});
+  };
 
   const handleCopyAdLink = () => {
     const baseUrl = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : 'https://triagem.site';
@@ -200,35 +276,124 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
             <p className="text-[10px] text-[#cbb8b3]/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
           </div>
 
-          {/* 4. LINK DA VSL E CHECKOUT PRINCIPAL */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-1.5">
+          {/* 4. GERENCIADOR DE VARIAÇÕES DE VSL & MULTI-CHECKOUT (A/B TESTING) */}
+          <div className="p-4 rounded-xl border border-amber-500/40 bg-gradient-to-r from-amber-950/50 via-[#1c1210] to-[#2a1e1c]/80 space-y-3 shadow-lg">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
               <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
-                <Video className="w-4 h-4 text-amber-400" />
-                Link da VSL (Tynk AI, YouTube, Vimeo, MP4)
+                <Layers className="w-4 h-4 text-amber-400" />
+                Variações de VSL & Multi-Checkout (Testar Ofertas A/B)
               </label>
-              <input
-                type="text"
-                value={localConfig.vslUrl || ''}
-                onChange={(e) => setLocalConfig({ ...localConfig, vslUrl: e.target.value })}
-                placeholder="https://play.tynk.ai/p/..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
-              />
+              <button
+                type="button"
+                onClick={() => handleDuplicarVariacao(indexVariacaoAtiva)}
+                className="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 hover:scale-105 transition shadow-md w-full sm:w-auto justify-center"
+              >
+                <Plus className="w-4 h-4" /> Duplicar VSL / Nova Variação
+              </button>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
-                <CreditCard className="w-4 h-4 text-amber-400" />
-                Link de Checkout Principal
-              </label>
-              <input
-                type="text"
-                value={localConfig.checkoutUrl || ''}
-                onChange={(e) => handleUpdateCheckoutGlobal(e.target.value)}
-                placeholder="https://pay.cakto.com.br/SUA-OFERTA"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
-              />
+            <p className="text-[11px] text-[#cbb8b3]/70 leading-relaxed">
+              Crie variações independentes para testar vídeos VSL e checkouts diferentes. Copie a URL única para rodar nos anúncios.
+            </p>
+
+            {/* Abas Seleção das Variações */}
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 border-b border-amber-500/20">
+              {variacoesList.map((v, idx) => {
+                const ativa = indexVariacaoAtiva === idx;
+                return (
+                  <button
+                    key={v.id || idx}
+                    type="button"
+                    onClick={() => {
+                      setIndexVariacaoAtiva(idx);
+                      // Aplica a variação selecionada como ativa no formulário principal
+                      setLocalConfig({
+                        ...localConfig,
+                        vslUrl: v.vslUrl || localConfig.vslUrl,
+                        checkoutUrl: v.checkoutUrl || localConfig.checkoutUrl,
+                        vslAspectRatio: v.vslAspectRatio || localConfig.vslAspectRatio,
+                        planosTotal: v.planosTotal || localConfig.planosTotal,
+                      });
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold font-mystic transition flex items-center gap-1.5 shrink-0 ${
+                      ativa
+                        ? 'bg-amber-500 text-slate-950 shadow-md scale-105'
+                        : 'bg-[#2a1e1c]/60 text-[#cbb8b3]/70 hover:text-white border border-amber-500/20'
+                    }`}
+                  >
+                    <span>{v.nome || `Variação ${idx + 1}`}</span>
+                    <span className="text-[10px] opacity-75 font-mono">({v.slug || idx + 1})</span>
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Painel da Variação Selecionada */}
+            {variacaoAtual && (
+              <div className="space-y-3 pt-2">
+                <div className="flex flex-col sm:flex-row items-center gap-2 justify-between">
+                  <input
+                    type="text"
+                    value={variacaoAtual.nome || ''}
+                    onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'nome', e.target.value)}
+                    placeholder="Nome da Variação (ex: VSL 2 - Checkout Oferta B)"
+                    className="w-full px-3 py-2 rounded-xl bg-[#1c1210] border border-amber-500/40 text-amber-200 font-mystic text-xs font-bold focus:outline-none focus:border-amber-400"
+                  />
+
+                  <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => handleCopiarUrlVariacao(variacaoAtual, indexVariacaoAtiva)}
+                      className="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-bold flex items-center gap-1.5 hover:bg-emerald-500/30 transition w-full sm:w-auto justify-center shadow-md"
+                    >
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>{copiedLink ? '✓ Link Copiado!' : `Copiar Link Anúncios (?v=${variacaoAtual.slug || indexVariacaoAtiva + 1})`}</span>
+                    </button>
+
+                    {variacoesList.length > 1 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoverVariacao(indexVariacaoAtiva)}
+                        className="p-2 rounded-xl bg-red-500/20 text-red-400 border border-red-500/30 hover:bg-red-500/30 transition"
+                        title="Excluir Variação"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1 font-mystic">
+                      <Video className="w-3.5 h-3.5 text-amber-400" />
+                      Link da VSL desta Variação
+                    </label>
+                    <input
+                      type="text"
+                      value={variacaoAtual.vslUrl || ''}
+                      onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'vslUrl', e.target.value)}
+                      placeholder="https://play.tynk.ai/p/..."
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210] border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-bold text-amber-300 flex items-center gap-1 font-mystic">
+                      <CreditCard className="w-3.5 h-3.5 text-amber-400" />
+                      Link de Checkout desta Variação
+                    </label>
+                    <input
+                      type="text"
+                      value={variacaoAtual.checkoutUrl || ''}
+                      onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'checkoutUrl', e.target.value)}
+                      placeholder="https://pay.cakto.com.br/SUA-OFERTA"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210] border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* 5. PROPORÇÃO DA TELINHA DO VÍDEO (ASPECT RATIO) */}
@@ -249,7 +414,10 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                   <button
                     key={fmt.id}
                     type="button"
-                    onClick={() => setLocalConfig({ ...localConfig, vslAspectRatio: fmt.id })}
+                    onClick={() => {
+                      setLocalConfig({ ...localConfig, vslAspectRatio: fmt.id });
+                      handleUpdateVariacao(indexVariacaoAtiva, 'vslAspectRatio', fmt.id);
+                    }}
                     className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
                       ativo
                         ? 'bg-amber-500/25 border-amber-400 text-amber-300 shadow-md font-bold'
