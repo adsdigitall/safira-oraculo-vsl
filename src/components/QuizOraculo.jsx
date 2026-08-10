@@ -10,9 +10,9 @@ import { STORAGE } from '../config';
 //  Estado persiste no localStorage: recarregar continua de onde parou.
 // ─────────────────────────────────────────────────────────────
 
-function lerEstado() {
+function lerEstado(key) {
   try {
-    const raw = localStorage.getItem(STORAGE.quizEstado);
+    const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : null;
   } catch {
     return null;
@@ -38,7 +38,7 @@ function Aurora() {
   );
 }
 
-export default function QuizOraculo({ config, onConcluir }) {
+export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) {
   const perguntas = config.quizPerguntas || [];
   const cartas = config.quizCartas || [];
   const reveladas = config.quizCartasReveladas || [];
@@ -46,29 +46,31 @@ export default function QuizOraculo({ config, onConcluir }) {
   const somAtivo = config.quizSomAtivo !== false;
   const diagPassos = config.quizDiagPassos || [];
 
-  const salvo = useMemo(() => lerEstado(), []);
+  const quizStorageKey = `${STORAGE.quizEstado}_${variationId}`;
+
+  const salvo = useMemo(() => lerEstado(quizStorageKey), [quizStorageKey]);
   const [etapa, setEtapa] = useState(salvo?.etapa || 'intro');
   const [indicePergunta, setIndicePergunta] = useState(salvo?.indicePergunta || 0);
   const [respostas, setRespostas] = useState(salvo?.respostas || []);
   const [cartasEscolhidas, setCartasEscolhidas] = useState(salvo?.cartasEscolhidas || []);
   const [diagPct, setDiagPct] = useState(0);
 
-  // Persiste o progresso a cada mudança
+  // Persiste o progresso a cada mudança isolado pela chave da variação
   useEffect(() => {
     try {
       localStorage.setItem(
-        STORAGE.quizEstado,
+        quizStorageKey,
         JSON.stringify({ etapa, indicePergunta, respostas, cartasEscolhidas })
       );
     } catch (e) {}
-  }, [etapa, indicePergunta, respostas, cartasEscolhidas]);
+  }, [quizStorageKey, etapa, indicePergunta, respostas, cartasEscolhidas]);
 
   const finalizar = useCallback(() => {
     try {
-      localStorage.removeItem(STORAGE.quizEstado);
+      localStorage.removeItem(quizStorageKey);
     } catch (e) {}
     onConcluir();
-  }, [onConcluir]);
+  }, [quizStorageKey, onConcluir]);
 
   const iniciarPerguntas = useCallback(() => {
     prepararAudio();

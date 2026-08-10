@@ -152,28 +152,37 @@ function aplicarVariacaoDaUrl(cfg, urlOverrides) {
 }
 
 export default function App() {
-  const [config, setConfig] = useState(() => {
+  const [baseConfig, setBaseConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
-    const urlOverrides = lerParametrosUrl();
     const base = salvo ? { ...CONFIG_PADRAO, ...salvo } : CONFIG_PADRAO;
     if (base.vslUrl) base.vslUrl = formatarUrl(base.vslUrl);
-
-    const configurada = forcarQuizDoCodigo({
-      ...base,
-      ...urlOverrides,
-    });
-    return aplicarVariacaoDaUrl(configurada, urlOverrides);
+    return forcarQuizDoCodigo(base);
   });
+
+  const urlOverrides = lerParametrosUrl();
+  const variationId = urlOverrides.variationParam || 'v1';
+  const vslConcluidaKey = `${STORAGE.vslConcluida}_${variationId}`;
+
+  // Configuração final com a variação da URL aplicada (em memória para renderização)
+  const config = aplicarVariacaoDaUrl(baseConfig, urlOverrides);
 
   const [solicitacoes, setSolicitacoes] = useState(() => lerJson(STORAGE.requests, []));
 
   const [liberado, setLiberado] = useState(() => {
     try {
-      return localStorage.getItem(STORAGE.vslConcluida) === '1';
+      return localStorage.getItem(vslConcluidaKey) === '1';
     } catch {
       return false;
     }
   });
+
+  useEffect(() => {
+    try {
+      setLiberado(localStorage.getItem(vslConcluidaKey) === '1');
+    } catch {
+      setLiberado(false);
+    }
+  }, [vslConcluidaKey]);
 
   // Em memória apenas: ao recarregar a página, o lead volta pro quiz.
   // O progresso da leitura (STORAGE.quizEstado) é que faz continuar de onde parou.
@@ -215,7 +224,7 @@ export default function App() {
         limpoNuvem.vslUrl = formatarUrl(limpoNuvem.vslUrl);
       }
 
-      setConfig((antigo) => {
+      setBaseConfig((antigo) => {
         const vslLocal = antigo.vslUrl;
         const aspectLocal = antigo.vslAspectRatio;
         const variacoesLocal = antigo.variacoes;
@@ -240,18 +249,17 @@ export default function App() {
           limpoNuvem.variacoes = variacoesLocal;
         }
 
-        const urlOverrides = lerParametrosUrl();
         const combinada = forcarQuizDoCodigo({
           ...CONFIG_PADRAO,
           ...antigo,
           ...limpoNuvem,
-          ...urlOverrides,
         });
-        const finalComVariacao = aplicarVariacaoDaUrl(combinada, urlOverrides);
+
         try {
-          localStorage.setItem(STORAGE.config, JSON.stringify(finalComVariacao));
+          localStorage.setItem(STORAGE.config, JSON.stringify(combinada));
         } catch (e) {}
-        return finalComVariacao;
+
+        return combinada;
       });
     };
 
@@ -264,7 +272,7 @@ export default function App() {
       if (e.key === STORAGE.config) {
         const nova = lerJson(STORAGE.config, null);
         if (nova) {
-          setConfig((antigo) => ({ ...antigo, ...nova }));
+          setBaseConfig((antigo) => ({ ...antigo, ...nova }));
         }
       }
     };
@@ -275,7 +283,7 @@ export default function App() {
       bc = new BroadcastChannel('safira_config_channel');
       bc.onmessage = (event) => {
         if (event.data && event.data.type === 'CONFIG_UPDATED') {
-          setConfig(event.data.config);
+          setBaseConfig(event.data.config);
         }
       };
     } catch (e) {}
@@ -322,9 +330,9 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE.config, JSON.stringify(config));
+      localStorage.setItem(STORAGE.config, JSON.stringify(baseConfig));
     } catch (e) {}
-  }, [config]);
+  }, [baseConfig]);
 
   useEffect(() => {
     try {
@@ -346,7 +354,7 @@ export default function App() {
     setLiberado((jaEstava) => {
       if (jaEstava) return true;
       try {
-        localStorage.setItem(STORAGE.vslConcluida, '1');
+        localStorage.setItem(vslConcluidaKey, '1');
       } catch (e) {}
       try {
         confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
@@ -357,7 +365,7 @@ export default function App() {
       );
       return true;
     });
-  }, [mostrarToast]);
+  }, [vslConcluidaKey, mostrarToast]);
 
   const concluirQuiz = useCallback(() => {
     setQuizConcluido(true);
@@ -475,7 +483,7 @@ export default function App() {
   // Ignorado no modo admin (pra editar) e se o quiz estiver desativado.
   const mostrarQuiz = config.quizAtivo && !quizConcluido && !isAdmin;
   if (mostrarQuiz) {
-    return <QuizOraculo config={config} onConcluir={concluirQuiz} />;
+    return <QuizOraculo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
   }
 
   return (
