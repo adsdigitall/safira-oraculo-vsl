@@ -428,7 +428,6 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                   e.currentTarget.src = '/luna.jpg';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1b084a]/80 via-transparent to-transparent" />
             </div>
 
             {/* Botão de Início */}
