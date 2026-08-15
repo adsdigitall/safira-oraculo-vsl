@@ -13,7 +13,6 @@ import AdminConfigModal from './components/AdminConfigModal';
 import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
-import QuizOraculoNovo from './components/QuizOraculoNovo';
 import QuizNumerologico from './components/QuizNumerologico';
 import QuizXamanico from './components/QuizXamanico';
 
@@ -533,7 +532,6 @@ function App() {
   // Funil do quiz roda ANTES da área de membros.
   // Ignorado no modo admin (pra editar) e se o quiz estiver desativado.
   const mostrarQuiz = config.quizAtivo && !quizConcluido && !isAdmin;
-  const usarQuizNovo = typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/oraculo';
   
   const isRotaXamanico = typeof window !== 'undefined' && (
     window.location.pathname.includes('xamanico') ||
