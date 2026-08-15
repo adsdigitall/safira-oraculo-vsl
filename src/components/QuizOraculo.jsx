@@ -297,9 +297,27 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
       }
     } catch (e) {}
 
-    const destino = (config.quizVsl2CtaUrl || config.vslCtaUrl || config.checkoutUrl || '').trim();
-    if (destino) {
-      window.location.href = destino;
+    const destinoBase = (config.quizVsl2CtaUrl || config.vslCtaUrl || config.checkoutUrl || 'https://lastlink.com/p/C03402B87/checkout-payment/').trim();
+    if (destinoBase) {
+      try {
+        const urlParams = window.location.search;
+        if (urlParams) {
+          const searchParams = new URLSearchParams(urlParams);
+          searchParams.delete('delay');
+          searchParams.delete('cta');
+          searchParams.delete('teste');
+          searchParams.delete('debug');
+
+          const finalParams = searchParams.toString();
+          if (finalParams) {
+            const separator = destinoBase.includes('?') ? '&' : '?';
+            window.location.href = `${destinoBase}${separator}${finalParams}`;
+            return;
+          }
+        }
+      } catch (err) {}
+
+      window.location.href = destinoBase;
     }
   };
 
