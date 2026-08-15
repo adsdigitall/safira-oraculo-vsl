@@ -616,10 +616,10 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                 🔮 AS CARTAS REVELARAM UM BLOQUEIO: <span className="text-amber-300">ASSISTA ATÉ O FINAL PARA LIBERAR SEUS CAMINHOS ✨</span>
               </h2>
 
-              {/* Aviso de Urgência — Vídeo vai sair do ar */}
-              <div className="flex items-center justify-center gap-1.5 py-1 px-2.5 rounded-lg bg-red-950/80 border border-red-500/40 text-[10px] sm:text-xs text-red-200 font-bold shadow-inner">
-                <span>⚠️</span>
-                <span><strong>Este vídeo vai sair do ar a qualquer momento</strong>, então <u>não feche este vídeo</u>!</span>
+              {/* Aviso de Urgência — Vídeo vai sair do ar (Maior e com mais destaque) */}
+              <div className="flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-gradient-to-r from-red-950/90 via-red-900/90 to-red-950/90 border border-red-500/60 text-xs sm:text-sm text-red-100 font-bold shadow-[0_0_15px_rgba(239,68,68,0.35)] leading-snug">
+                <span className="text-sm sm:text-base">⚠️</span>
+                <span><strong>Este vídeo vai sair do ar a qualquer momento</strong>, então <u className="decoration-amber-400 font-black text-amber-200">não feche este vídeo</u>!</span>
               </div>
             </div>
 
