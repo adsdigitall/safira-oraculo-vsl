@@ -303,8 +303,18 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   }, [etapa, perguntaIndex, perguntas.length, isVsl]);
 
   const perguntaAtual = perguntas[perguntaIndex];
-  const vslDelaySegundos = Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1047);
-  const mostrarCtaVsl = vslDelaySegundos === 0 || (vslIniciada && segundosVsl >= vslDelaySegundos);
+
+  // Permite testar o botão instantaneamente adicionando ?delay=0 ou ?cta=0 na URL
+  const isDebugCta = typeof window !== 'undefined' && (
+    window.location.search.includes('delay=0') ||
+    window.location.search.includes('cta=0') ||
+    window.location.search.includes('teste=1') ||
+    window.location.search.includes('debug=1')
+  );
+
+  // 17 minutos e 34 segundos = 1054 segundos
+  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1054);
+  const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
   return (
     <div className={`relative w-full bg-[#3008a1] text-white font-sans flex flex-col items-center select-none ${isVsl ? 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-between p-3 sm:py-4' : 'min-h-[100dvh] overflow-x-hidden justify-start px-4 py-6 sm:py-8'}`}>
