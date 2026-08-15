@@ -176,9 +176,10 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   const [cartasEscolhidas, setCartasEscolhidas] = useState([]);
   const [transicaoFase, setTransicaoFase] = useState(0);
 
-  // VSL states
+  // VSL states e cronômetro de alta precisão imune a throttling de aba
   const [vslIniciada, setVslIniciada] = useState(false);
   const [segundosVsl, setSegundosVsl] = useState(0);
+  const vslTimestampInicioRef = useRef(null);
 
   // Áudio swoosh element ref
   const audioSwooshRef = useRef(null);
@@ -203,11 +204,23 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
 
   const isVsl = etapa === 'vsl';
 
-  // Cronômetro da VSL
+  // Cronômetro da VSL à prova de falhas (usa timestamp real para nunca atrasar em segundo plano)
   useEffect(() => {
     if (!isVsl) return undefined;
     setVslIniciada(true);
-    const interval = window.setInterval(() => setSegundosVsl((s) => s + 1), 1000);
+    if (!vslTimestampInicioRef.current) {
+      vslTimestampInicioRef.current = Date.now();
+    }
+
+    const interval = window.setInterval(() => {
+      if (vslTimestampInicioRef.current) {
+        const decorrido = Math.floor((Date.now() - vslTimestampInicioRef.current) / 1000);
+        setSegundosVsl(decorrido);
+      } else {
+        setSegundosVsl((s) => s + 1);
+      }
+    }, 500);
+
     return () => window.clearInterval(interval);
   }, [isVsl]);
 
@@ -312,8 +325,8 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
     window.location.search.includes('debug=1')
   );
 
-  // 17 minutos e 34 segundos = 1054 segundos
-  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1054);
+  // 17 minutos e 30 segundos = 1050 segundos exatos
+  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1050);
   const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
   return (
@@ -633,19 +646,19 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               />
             </div>
 
-            {/* Botão CTA Principal de Conversão (Aparece após 17:27) */}
+            {/* Botão CTA Principal de Conversão (Aparece exatamente aos 17:30 / 1050s) */}
             {mostrarCtaVsl && (
-              <div className="w-full space-y-1.5 pt-1 animate-fadeIn shrink-0">
+              <div className="w-full space-y-2 pt-1 animate-fadeIn shrink-0">
                 <button
                   type="button"
                   onClick={handleAbrirCheckout}
-                  className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-[#00c853] via-[#00e676] to-[#00b0ff] text-[#051a0e] font-black text-sm sm:text-base uppercase tracking-wider shadow-[0_8px_30px_rgba(0,230,118,0.6)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-4 ring-white/60 animate-pulse flex items-center justify-center gap-2"
+                  className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2"
                 >
                   <span>👉 {config.quizVsl2CtaTexto || config.vslCtaTexto || 'SIM! QUERO ATIVAR O MEU CÓDIGO AGORA'}</span>
-                  <span className="text-lg">➔</span>
+                  <span className="text-xl">➔</span>
                 </button>
 
-                <div className="flex flex-wrap items-center justify-center gap-2 text-[10px] text-purple-200/90 pt-0.5">
+                <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-purple-200/90 pt-0.5">
                   <span>🔒 Acesso Imediato & 100% Seguro</span>
                   <span>•</span>
                   <span>⚡ Vagas Limitadas no Altar</span>
