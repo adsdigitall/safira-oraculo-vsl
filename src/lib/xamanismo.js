@@ -1,0 +1,155 @@
+// ─────────────────────────────────────────────────────────────
+//  MOTOR DE DADOS & ARQUÉTIPOS DO TESTE XAMÂNICO (ANIMAL DE PODER)
+// ─────────────────────────────────────────────────────────────
+
+export const ELEMENTOS_SAGRADOS = [
+  {
+    id: 'fogo',
+    nome: 'Fogo Sagrado',
+    icone: '🔥',
+    direcao: 'Sul',
+    qualidade: 'Transformação, Coragem & Ação Rápida',
+    descricao: 'Queima o que é velho e ilumina o caminho para a vitória.',
+    corGradiente: 'from-amber-600 via-orange-500 to-yellow-400',
+  },
+  {
+    id: 'agua',
+    nome: 'Água das Emoções',
+    icone: '💧',
+    direcao: 'Oeste',
+    qualidade: 'Cura Afetiva, Intuição & Purificação',
+    descricao: 'Lava as mágoas do passado e restaura a sensibilidade sagrada.',
+    corGradiente: 'from-blue-600 via-cyan-500 to-teal-300',
+  },
+  {
+    id: 'terra',
+    nome: 'Terra Ancestral',
+    icone: '🌍',
+    direcao: 'Norte',
+    qualidade: 'Estrutura, Prosperidade & Firmeza',
+    descricao: 'Enraíza seus passos e garante a segurança material.',
+    corGradiente: 'from-emerald-700 via-green-600 to-lime-400',
+  },
+  {
+    id: 'ar',
+    nome: 'Vento do Espírito',
+    icone: '💨',
+    direcao: 'Leste',
+    qualidade: 'Visão Ampla, Clareza & Novos Horizontes',
+    descricao: 'Sopra para longe a confusão e traz respostas cristalinas.',
+    corGradiente: 'from-violet-600 via-indigo-500 to-sky-300',
+  },
+];
+
+export const ANIMAIS_DE_PODER = [
+  {
+    id: 1,
+    nome: 'O Lobo Sagrado',
+    titulo: 'O Guardião da Intuição & Liderança',
+    elemento: 'Terra / Lua',
+    icone: '🐺',
+    palavraChave: 'Intuição Profunda e Força da Alcateia',
+    mensagem: 'Confie na sua voz interior. Os espíritos indicam que você não está sozinha e que sua sabedoria ancestral guiará seus próximos passos.',
+    revelacao: 'Liberação de bloqueios nos relacionamentos e ativação do respeito próprio.',
+    corGradiente: 'from-slate-800 to-indigo-950',
+    corBorda: 'border-indigo-400',
+  },
+  {
+    id: 2,
+    nome: 'A Águia Dourada',
+    titulo: 'O Espírito da Visão Superior',
+    elemento: 'Ar / Sol',
+    icone: '🦅',
+    palavraChave: 'Clareza Mental, Conexão Divina e Vitória',
+    mensagem: 'Você está sendo chamada a enxergar acima dos problemas do dia a dia. Uma grande bênção de libertação espiritual se aproxima.',
+    revelacao: 'Quebra de amarras invisíveis e novos caminhos de prosperidade.',
+    corGradiente: 'from-amber-900 to-yellow-950',
+    corBorda: 'border-amber-400',
+  },
+  {
+    id: 3,
+    nome: 'A Onça / Pantera Mística',
+    titulo: 'A Guerreira da Transmutação',
+    elemento: 'Fogo / Floresta',
+    icone: '🐆',
+    palavraChave: 'Coragem Suprema e Quebra de Feitiços',
+    mensagem: 'Nenhum mal ou inveja pode resistir ao seu poder quando você se posiciona com firmeza. Sua aura está sendo blindada neste ritual.',
+    revelacao: 'Blindagem total contra energias pesadas e corte de traições.',
+    corGradiente: 'from-emerald-950 to-teal-950',
+    corBorda: 'border-emerald-400',
+  },
+  {
+    id: 4,
+    nome: 'A Coruja Ancestral',
+    titulo: 'A Senhora dos Mistérios Ocultos',
+    elemento: 'Noite / Ar',
+    icone: '🦉',
+    palavraChave: 'Revelação da Verdade e Discernimento',
+    mensagem: 'O que estava escondido nos bastidores virá à tona para o seu bem. Sua percepção está aguçada para enxergar intenções reais.',
+    revelacao: 'Clareza definitiva para tomar a decisão correta e afastar falsidades.',
+    corGradiente: 'from-purple-950 to-violet-950',
+    corBorda: 'border-purple-400',
+  },
+  {
+    id: 5,
+    nome: 'O Urso Curador',
+    titulo: 'O Guardião da Força Inabalável',
+    elemento: 'Terra / Raízes',
+    icone: '🐻',
+    palavraChave: 'Cura Profunda, Estabilidade e Proteção',
+    mensagem: 'O cansaço acumulado por carregar tudo nas costas começa a se dissolver. A força da Mãe Terra sustenta e regenera a sua energia.',
+    revelacao: 'Restauração da saúde emocional e solidez financeira.',
+    corGradiente: 'from-amber-950 to-stone-900',
+    corBorda: 'border-amber-500',
+  },
+  {
+    id: 6,
+    nome: 'A Serpente Sagrada',
+    titulo: 'O Totem da Renovação & Renascimento',
+    elemento: 'Fogo / Terra',
+    icone: '🐍',
+    palavraChave: 'Troca de Pele e Cura Kármica',
+    mensagem: 'Um ciclo de sofrimento e desgaste se encerra hoje. Você está trocando de pele espiritual para renascer muito mais forte e magnética.',
+    revelacao: 'Fim de um ciclo kármico desgastante e abertura de novos amores.',
+    corGradiente: 'from-teal-950 to-emerald-900',
+    corBorda: 'border-teal-400',
+  },
+  {
+    id: 7,
+    nome: 'O Cervo da Graça',
+    titulo: 'O Mensageiro da Paz & Magnetismo',
+    elemento: 'Água / Floresta',
+    icone: '🦌',
+    palavraChave: 'Harmonia, Encantamento e Cura Afetiva',
+    mensagem: 'A mansidão e a beleza da sua essência atrairão a reciprocidade que você sempre mereceu. Deixe a rigidez e acolha a ternura.',
+    revelacao: 'Ativação do magnetismo do amor sincero e paz no lar.',
+    corGradiente: 'from-rose-950 to-purple-950',
+    corBorda: 'border-rose-400',
+  },
+  {
+    id: 8,
+    nome: 'O Falcão Veloz',
+    titulo: 'O Mensageiro das Oportunidades',
+    elemento: 'Ar / Vento',
+    icone: '🦅',
+    palavraChave: 'Ação Precisa e Virada Rápida',
+    mensagem: 'O universo preparou uma virada de chave muito mais rápida do que você imagina. Mantenha os olhos abertos para o sinal sagrado.',
+    revelacao: 'Desbloqueio financeiro súbito e conquista de objetivos travados.',
+    corGradiente: 'from-cyan-950 to-blue-950',
+    corBorda: 'border-cyan-400',
+  },
+];
+
+export function obterResultadoXamanico({ nome, elementoId, animaisEscolhidos = [] }) {
+  const elemento = ELEMENTOS_SAGRADOS.find((e) => e.id === elementoId) || ELEMENTOS_SAGRADOS[0];
+  const guardiaoPrincipal = ANIMAIS_DE_PODER.find((a) => a.id === animaisEscolhidos[0]) || ANIMAIS_DE_PODER[0];
+  const guardioesSecundarios = animaisEscolhidos.slice(1).map((id) => ANIMAIS_DE_PODER.find((a) => a.id === id)).filter(Boolean);
+
+  return {
+    nomeConsulente: (nome || '').trim() || 'Filha da Terra',
+    elemento,
+    guardiaoPrincipal,
+    guardioesSecundarios,
+    totens: animaisEscolhidos,
+  };
+}

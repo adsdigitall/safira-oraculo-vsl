@@ -14,6 +14,8 @@ import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
 import QuizOraculoNovo from './components/QuizOraculoNovo';
+import QuizNumerologico from './components/QuizNumerologico';
+import QuizXamanico from './components/QuizXamanico';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe391-9be1-7dba-827b-901a3c5a1d0d';
 const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
@@ -532,12 +534,41 @@ function App() {
   // Ignorado no modo admin (pra editar) e se o quiz estiver desativado.
   const mostrarQuiz = config.quizAtivo && !quizConcluido && !isAdmin;
   const usarQuizNovo = typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/oraculo';
+  
+  const isRotaXamanico = typeof window !== 'undefined' && (
+    window.location.pathname.includes('xamanico') ||
+    window.location.pathname.includes('teste-xamanico') ||
+    window.location.search.includes('xamanico') ||
+    window.location.search.includes('quiz=xamanico') ||
+    window.location.search.includes('modelo=xamanico') ||
+    window.location.hash.includes('xamanico')
+  );
+
+  const isRotaNumerologia = typeof window !== 'undefined' && (
+    window.location.pathname.includes('numerologia') ||
+    window.location.pathname.includes('teste-numerologico') ||
+    window.location.search.includes('numerologia') ||
+    window.location.search.includes('quiz=numerologia') ||
+    window.location.search.includes('modelo=numerologia') ||
+    window.location.hash.includes('numerologia')
+  );
+
   // Após concluir o quiz, a VSL exclusiva dele pode ser exibida sem alterar a
   // VSL padrão da página para acessos que não passaram pela consulta.
   const configDaVslDoQuiz = quizConcluido && config.quizVslUrl
     ? { ...config, vslUrl: config.quizVslUrl }
     : config;
+
   if (mostrarQuiz) {
+    if (isRotaXamanico) {
+      return <QuizXamanico config={config} variationId={variationId} onConcluir={concluirQuiz} />;
+    }
+    if (isRotaNumerologia) {
+      return <QuizNumerologico config={config} variationId={variationId} onConcluir={concluirQuiz} />;
+    }
+    if (usarQuizNovo) {
+      return <QuizOraculoNovo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
+    }
     return <QuizOraculo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
   }
 

@@ -21,7 +21,7 @@ export const CONFIG_PADRAO = {
   ctaSidebar: 'Solicitar Materiais',
 
   // ─── VSL Principal (Área de Membros) ────────────────────
-  vslUrl: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+  vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
   vslDuracaoSegundos: 1080,
   vslAspectRatio: '4:5', // '16:9', '4:5' ou '9:16'
   vslCtaSegundo: 1027, // 17 minutos e 07 segundos (17 * 60 + 7 = 1027s)
@@ -131,7 +131,7 @@ export const CONFIG_PADRAO = {
   quizBotaoRevelacaoTexto: 'VER RESULTADO DA LEITURA',
 
   // Página 9 — VSL 1 (Vídeo de Leitura + Escolha da Carta Sagrada do Altar)
-  quizVsl1Url: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+  quizVsl1Url: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
   quizVsl1Delay: 460, // Segundos para liberar a carta sagrada e o botão de avançar (0 = imediato)
   quizVsl1Titulo: 'Escolha a sua carta:',
   quizVsl1Subtitulo: '(E depois toque em "Continuar")',
@@ -145,7 +145,7 @@ export const CONFIG_PADRAO = {
   ],
 
   // Página 10 — VSL 2 (Vídeo 2 + Botão de Ativação do Código / Oferta)
-  quizVsl2Url: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+  quizVsl2Url: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
   quizVsl2Delay: 1027, // 17 minutos e 07 segundos (1027s) para liberar o botão CTA
   quizVsl2CtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
   quizVsl2CtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
@@ -157,7 +157,7 @@ export const CONFIG_PADRAO = {
       id: 'v1',
       slug: '1',
       nome: 'VSL 1 — Principal (Rodando)',
-      vslUrl: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+      vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
       checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
@@ -169,7 +169,7 @@ export const CONFIG_PADRAO = {
       id: 'v2',
       slug: '2',
       nome: 'VSL 2 — Teste B',
-      vslUrl: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+      vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
       checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
@@ -181,7 +181,7 @@ export const CONFIG_PADRAO = {
       id: 'v3',
       slug: '3',
       nome: 'VSL 3 — Teste C',
-      vslUrl: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
+      vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
       checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 60,00',
