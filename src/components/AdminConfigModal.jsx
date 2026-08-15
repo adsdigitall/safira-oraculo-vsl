@@ -293,7 +293,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               type="url"
               value={localConfig.backRedirectUrl || ''}
               onChange={(e) => setLocalConfig({ ...localConfig, backRedirectUrl: e.target.value })}
-              placeholder="https://lastlink.com/p/C03402B87/checkout-payment/"
+              placeholder="https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl"
               className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
             />
             <p className="text-[10px] text-[#cbb8b3]/60">Redireciona o visitante para esta oferta caso ele aperte o botão "Voltar" do navegador ou celular.</p>

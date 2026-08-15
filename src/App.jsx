@@ -21,7 +21,7 @@ const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe391-9be1-7dba-827
 const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
 const VERCEL_SYNC_URL = '/api/sync';
 const CHECKOUT_ANTIGO = 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl';
-const CHECKOUT_NOVO = 'https://lastlink.com/p/C03402B87/checkout-payment/';
+const CHECKOUT_NOVO = 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl';
 
 // Preserva campos editáveis pelo usuário no quiz e configurações da VSL
 function forcarQuizDoCodigo(cfg) {
@@ -59,8 +59,8 @@ function forcarQuizDoCodigo(cfg) {
     }
   });
 
-  // Limpa qualquer checkout antigo de concorrente (ggcheckout, payt, etc.)
-  const isConcorrente = (url) => !url || String(url).includes('ggcheckout') || String(url).includes('payt.com.br') || String(url).includes('aff65c96dae733bb4c5b8b906fb7b440');
+  // Limpa qualquer checkout antigo de concorrente (payt, etc.)
+  const isConcorrente = (url) => !url || String(url).includes('payt.com.br') || String(url).includes('aff65c96dae733bb4c5b8b906fb7b440') || (String(url).includes('ggcheckout') && !String(url).includes('K5qJrW0VINjwRkiJydnl'));
   if (isConcorrente(forcado.checkoutUrl)) forcado.checkoutUrl = CONFIG_PADRAO.checkoutUrl;
   if (isConcorrente(forcado.whatsappLink)) forcado.whatsappLink = CONFIG_PADRAO.whatsappLink;
   if (isConcorrente(forcado.vslCtaUrl)) forcado.vslCtaUrl = CONFIG_PADRAO.vslCtaUrl;

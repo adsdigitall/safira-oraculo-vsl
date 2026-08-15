@@ -12,9 +12,9 @@ export const CONFIG_PADRAO = {
   pixelId: '1374470023595160', // Meta Pixel Facebook registrado pelo usuário
 
   // ─── Links de conversão ──────────────────────────────────
-  checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
-  whatsappLink: 'https://lastlink.com/p/C03402B87/checkout-payment/',
-  backRedirectUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+  checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
+  whatsappLink: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
+  backRedirectUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
 
   // ─── Barra lateral (Área de membros pós-quiz) ───────────
   dicaSidebar: 'Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais',
@@ -26,7 +26,7 @@ export const CONFIG_PADRAO = {
   vslAspectRatio: '4:5', // '16:9', '4:5' ou '9:16'
   vslCtaSegundo: 1027, // 17 minutos e 07 segundos (17 * 60 + 7 = 1027s)
   vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
-  vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+  vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
 
   // ─── QUIZ DE ENTRADA MODELADO (xquiz.io) ────────────────
   quizAtivo: true,
@@ -148,7 +148,7 @@ export const CONFIG_PADRAO = {
   quizVsl2Url: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
   quizVsl2Delay: 1027, // 17 minutos e 07 segundos (1027s) para liberar o botão CTA
   quizVsl2CtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
-  quizVsl2CtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+  quizVsl2CtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
   quizVslAspectRatio: '4:5',
 
   // ─── Gerenciador de Variações VSL (A/B Test Multi-Checkout) ─
@@ -158,36 +158,36 @@ export const CONFIG_PADRAO = {
       slug: '1',
       nome: 'VSL 1 — Principal (Rodando)',
       vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
-      checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
       vslCtaSegundo: 1027,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
-      vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
     {
       id: 'v2',
       slug: '2',
       nome: 'VSL 2 — Teste B',
       vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
-      checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
       vslCtaSegundo: 1027,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
-      vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
     {
       id: 'v3',
       slug: '3',
       nome: 'VSL 3 — Teste C',
       vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
-      checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 60,00',
       vslCtaSegundo: 1027,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
-      vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
   ],
 
@@ -212,7 +212,7 @@ export const CONFIG_PADRAO = {
       category: 'Oferenda Principal',
       type: 'request',
       icon: 'sparkles',
-      url: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      url: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
     {
       id: 2,
@@ -221,7 +221,7 @@ export const CONFIG_PADRAO = {
       category: 'E-book Exclusivo',
       type: 'download',
       icon: 'copy',
-      url: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      url: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
     {
       id: 3,
@@ -230,7 +230,7 @@ export const CONFIG_PADRAO = {
       category: 'Comunidade VIP',
       type: 'request',
       icon: 'bot',
-      url: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      url: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
     {
       id: 4,
@@ -239,7 +239,7 @@ export const CONFIG_PADRAO = {
       category: 'Ritual Complementar',
       type: 'request',
       icon: 'sparkles',
-      url: 'https://lastlink.com/p/C03402B87/checkout-payment/',
+      url: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
   ],
 

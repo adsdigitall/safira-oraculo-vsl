@@ -402,7 +402,7 @@ export default function QuizNumerologico({ config, variationId = 'v1', onConclui
       }
     } catch (e) {}
 
-    const destinoBase = (config.quizVsl2CtaUrl || config.vslCtaUrl || config.checkoutUrl || 'https://lastlink.com/p/C03402B87/checkout-payment/').trim();
+    const destinoBase = (config.quizVsl2CtaUrl || config.vslCtaUrl || config.checkoutUrl || 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl').trim();
     if (destinoBase) {
       try {
         const urlParams = window.location.search;
