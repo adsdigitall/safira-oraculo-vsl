@@ -57,6 +57,14 @@ function forcarQuizDoCodigo(cfg) {
     }
   });
 
+  // Limpa qualquer checkout antigo de concorrente (ggcheckout, payt, etc.)
+  const isConcorrente = (url) => !url || String(url).includes('ggcheckout') || String(url).includes('payt.com.br') || String(url).includes('aff65c96dae733bb4c5b8b906fb7b440');
+  if (isConcorrente(forcado.checkoutUrl)) forcado.checkoutUrl = CONFIG_PADRAO.checkoutUrl;
+  if (isConcorrente(forcado.whatsappLink)) forcado.whatsappLink = CONFIG_PADRAO.whatsappLink;
+  if (isConcorrente(forcado.vslCtaUrl)) forcado.vslCtaUrl = CONFIG_PADRAO.vslCtaUrl;
+  if (isConcorrente(forcado.quizVsl2CtaUrl)) forcado.quizVsl2CtaUrl = CONFIG_PADRAO.quizVsl2CtaUrl;
+  if (isConcorrente(forcado.backRedirectUrl)) forcado.backRedirectUrl = CONFIG_PADRAO.backRedirectUrl;
+
   return forcado;
 }
 

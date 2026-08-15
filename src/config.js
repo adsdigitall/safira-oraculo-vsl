@@ -14,7 +14,7 @@ export const CONFIG_PADRAO = {
   // ─── Links de conversão ──────────────────────────────────
   checkoutUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
   whatsappLink: 'https://lastlink.com/p/C03402B87/checkout-payment/',
-  backRedirectUrl: 'https://checkout.payt.com.br/aff65c96dae733bb4c5b8b906fb7b440?coupon=lzd5Sytw&src=backfrontcodigo',
+  backRedirectUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
 
   // ─── Barra lateral (Área de membros pós-quiz) ───────────
   dicaSidebar: 'Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais',
