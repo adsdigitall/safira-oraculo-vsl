@@ -3,6 +3,7 @@ import confetti from 'canvas-confetti';
 import { Play, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react';
 import { tocarSomCarta, prepararAudio } from '../lib/somCartas';
 import CartaVerso from './CartaVerso';
+import SocialProofToast from './SocialProofToast';
 import { STORAGE } from '../config';
 
 // ─────────────────────────────────────────────────────────────
@@ -689,6 +690,9 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         )}
 
       </main>
+
+      {/* Notificações de Prova Social e Escassez (Ativam apenas quando o botão do checkout aparece) */}
+      <SocialProofToast ativo={mostrarCtaVsl} />
     </div>
   );
 }
