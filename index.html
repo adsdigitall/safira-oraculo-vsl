@@ -9,8 +9,13 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <title>Safira Oráculo — Especialista em Relacionamento Amoroso</title>
     
-    <!-- Preload de alta prioridade para imagem inicial do quiz e Tynk AI -->
-    <link rel="preload" as="image" href="/luna.jpg" fetchpriority="high" />
+    <!-- Preload de alta prioridade para imagens e CDN do quiz -->
+    <link rel="preconnect" href="https://cdn.xquiz.co" crossorigin />
+    <link rel="preconnect" href="https://i.ibb.co" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.xquiz.co" />
+    <link rel="dns-prefetch" href="https://i.ibb.co" />
+    <link rel="preload" as="image" href="https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f" fetchpriority="high" />
+    <link rel="preload" as="image" href="/luna.jpg" />
     <link rel="preconnect" href="https://play.tynk.ai" />
     <link rel="dns-prefetch" href="https://play.tynk.ai" />
     <link rel="prerender" href="https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb" />

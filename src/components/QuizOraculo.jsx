@@ -190,7 +190,20 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
     try {
       localStorage.removeItem(quizStorageKey);
     } catch (e) {}
-  }, [quizStorageKey]);
+
+    // Pré-carrega todas as imagens de cartas e mídias em segundo plano para navegação lisa sem travamento
+    const urlsParaPrecarregar = [
+      config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f',
+      '/luna.jpg',
+      ...(config.quizCartas || []).map((c) => c.verso),
+      ...(config.quizCartasReveladas || []).map((c) => c.src),
+    ].filter(Boolean);
+
+    urlsParaPrecarregar.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, [quizStorageKey, config]);
 
   const perguntas = useMemo(() => {
     return Array.isArray(config.quizPerguntas) ? config.quizPerguntas : [];
