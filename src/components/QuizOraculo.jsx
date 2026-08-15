@@ -173,6 +173,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   // O quiz SEMPRE inicia na Página 1 (intro) a cada atualização de página (F5/Reload).
   const [etapa, setEtapa] = useState('intro');
   const [perguntaIndex, setPerguntaIndex] = useState(0);
+  const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
   const [respostas, setRespostas] = useState([]);
   const [cartasEscolhidas, setCartasEscolhidas] = useState([]);
   const [transicaoFase, setTransicaoFase] = useState(0);
@@ -262,16 +263,27 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
     setPerguntaIndex(0);
   };
 
-  const handleResponder = (opcaoIdx) => {
+  const handleResponder = (opcaoIdx, event) => {
+    if (opcaoSelecionada !== null) return;
     prepararAudio();
     executarSomSwoosh();
+    setOpcaoSelecionada(opcaoIdx);
+
+    const rect = event?.currentTarget?.getBoundingClientRect();
+    const cx = rect ? rect.left + rect.width / 2 : window.innerWidth / 2;
+    const cy = rect ? rect.top + rect.height / 2 : window.innerHeight / 2;
+    dispararSparkles(cx, cy);
+
     setRespostas((prev) => [...prev, opcaoIdx]);
 
-    if (perguntaIndex + 1 < perguntas.length) {
-      setPerguntaIndex((i) => i + 1);
-    } else {
-      setEtapa('transicao');
-    }
+    setTimeout(() => {
+      setOpcaoSelecionada(null);
+      if (perguntaIndex + 1 < perguntas.length) {
+        setPerguntaIndex((i) => i + 1);
+      } else {
+        setEtapa('transicao');
+      }
+    }, 240);
   };
 
   const handleEscolherCarta = (index, event) => {
@@ -454,23 +466,40 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               </h2>
             </div>
 
-            {/* Lista de Opções */}
-            <div className="w-full flex flex-col gap-3">
-              {perguntaAtual.opcoes.map((opcao, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => handleResponder(idx)}
-                  className="group relative flex w-full items-center justify-between rounded-xl border border-purple-400/30 bg-[#251059]/90 hover:bg-[#34187a] hover:border-amber-400/80 p-4 text-left shadow-[0_4px_15px_rgba(0,0,0,0.3)] transition-all duration-200 active:scale-[0.98] hover:shadow-[0_0_20px_rgba(201,168,76,0.3)]"
-                >
-                  <span className="text-sm sm:text-base font-semibold text-purple-100 group-hover:text-white leading-snug pr-3">
-                    {opcao.texto}
-                  </span>
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-purple-900/60 text-amber-300 group-hover:bg-amber-400 group-hover:text-purple-950 transition-colors">
-                    <ChevronRight className="h-4 w-4" />
-                  </span>
-                </button>
-              ))}
+            {/* Lista de Opções com Efeitos Premium e Feedback Tátil */}
+            <div className="w-full flex flex-col gap-3.5">
+              {perguntaAtual.opcoes.map((opcao, idx) => {
+                const isSelected = opcaoSelecionada === idx;
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={(e) => handleResponder(idx, e)}
+                    className={`group relative flex w-full items-center justify-between rounded-2xl border p-4 sm:p-4.5 text-left transition-all duration-200 overflow-hidden cursor-pointer ${
+                      isSelected
+                        ? 'border-amber-300 bg-gradient-to-r from-[#4d1d8c] via-[#6524a8] to-[#4d1d8c] ring-2 ring-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.65)] scale-[1.02]'
+                        : 'border-purple-400/30 bg-gradient-to-r from-[#220c4e]/95 via-[#2f1166]/95 to-[#220c4e]/95 hover:border-amber-400/80 hover:bg-[#361578] hover:shadow-[0_8px_25px_rgba(245,158,11,0.3)] hover:-translate-y-0.5 active:scale-[0.98] shadow-[0_4px_16px_rgba(0,0,0,0.35)]'
+                    }`}
+                  >
+                    {/* Efeito Shimmer de Brilho Dinâmico ao passar o mouse ou tocar */}
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
+
+                    <span className={`text-sm sm:text-base font-semibold leading-snug pr-3 transition-colors ${
+                      isSelected ? 'text-amber-200 font-extrabold' : 'text-purple-100 group-hover:text-white'
+                    }`}>
+                      {opcao.texto}
+                    </span>
+
+                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
+                      isSelected
+                        ? 'bg-amber-400 text-purple-950 border-amber-300 scale-110 shadow-lg rotate-12'
+                        : 'bg-purple-900/70 border-purple-400/30 text-amber-300 group-hover:bg-amber-400 group-hover:text-purple-950 group-hover:border-amber-300 group-hover:scale-105 shadow-sm'
+                    }`}>
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </button>
+                );
+              })}
             </div>
 
             <p className="text-xs text-purple-300/70 text-center flex items-center justify-center gap-1.5">
