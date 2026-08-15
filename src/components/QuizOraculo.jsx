@@ -546,7 +546,19 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                             alt={carta.alt || `Carta ${index + 1}`}
                             loading="eager"
                             onError={(e) => {
-                              e.currentTarget.style.display = 'none';
+                              const versosLocais = [
+                                '/cartas/verso-1-lua.webp',
+                                '/cartas/verso-2-estrela.webp',
+                                '/cartas/verso-3-sol.webp',
+                                '/cartas/verso-4-mandala.webp',
+                                '/cartas/verso-5-frutos.webp',
+                                '/cartas/verso-6-lotus.webp',
+                                '/cartas/verso-7-rosas.webp',
+                                '/cartas/verso-8-calice.webp',
+                              ];
+                              if (versosLocais[index]) {
+                                e.currentTarget.src = versosLocais[index];
+                              }
                             }}
                           />
                         ) : (
@@ -554,7 +566,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                         )}
                       </div>
 
-                      {/* FRENTE (REVELADA) */}
+                      {/* FRENTE (REVELADA ORIGINAL) */}
                       <div className="cs-front">
                         {revelada && (
                           <img
@@ -562,6 +574,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                             alt={revelada.nome || revelada.alt}
                             className="cs-img"
                             loading="eager"
+                            onError={(e) => {
+                              if (ordemEscolhida === 0) e.currentTarget.src = '/cartas/frente-1-flecha.webp';
+                              else if (ordemEscolhida === 1) e.currentTarget.src = '/cartas/frente-2-traicao.webp';
+                              else if (ordemEscolhida === 2) e.currentTarget.src = '/cartas/frente-3-torre.webp';
+                            }}
                           />
                         )}
                       </div>
