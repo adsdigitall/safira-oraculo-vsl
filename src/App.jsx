@@ -566,9 +566,6 @@ function App() {
     if (isRotaNumerologia) {
       return <QuizNumerologico config={config} variationId={variationId} onConcluir={concluirQuiz} />;
     }
-    if (usarQuizNovo) {
-      return <QuizOraculoNovo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
-    }
     return <QuizOraculo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
   }
 
