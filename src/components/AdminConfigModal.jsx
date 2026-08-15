@@ -22,6 +22,9 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
       checkoutUrl: localConfig.checkoutUrl || '',
       vslAspectRatio: localConfig.vslAspectRatio || '16:9',
       planosTotal: localConfig.planosTotal || 'R$ 40,00',
+      vslCtaSegundo: localConfig.vslCtaSegundo ?? 17,
+      vslCtaTexto: localConfig.vslCtaTexto || 'Quero meu acesso • Inscrever agora',
+      vslCtaUrl: localConfig.vslCtaUrl || '',
     },
   ];
 
@@ -58,6 +61,9 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
       checkoutUrl: baseObj.checkoutUrl || '',
       vslAspectRatio: baseObj.vslAspectRatio || '16:9',
       planosTotal: baseObj.planosTotal || 'R$ 40,00',
+      vslCtaSegundo: baseObj.vslCtaSegundo ?? localConfig.vslCtaSegundo ?? 17,
+      vslCtaTexto: baseObj.vslCtaTexto || localConfig.vslCtaTexto || 'Quero meu acesso • Inscrever agora',
+      vslCtaUrl: baseObj.vslCtaUrl || localConfig.vslCtaUrl || '',
     };
 
     const novasVariacoes = [...variacoesList, novaVariacao];
@@ -261,6 +267,7 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
           </div>
 
           {/* 3. RASTREAMENTO: META PIXEL FACEBOOK */}
+          {/* 3. RASTREAMENTO: META PIXEL FACEBOOK */}
           <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/20 bg-[#1c1210]/60">
             <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
               <Code2 className="w-4 h-4 text-amber-400" />
@@ -274,6 +281,98 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
               className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
             />
             <p className="text-[10px] text-[#cbb8b3]/60">Dispara automaticamente o evento PageView para rastrear visitantes do Facebook Ads.</p>
+          </div>
+
+          {/* BACK-REDIRECT */}
+          <div className="space-y-1.5 p-4 rounded-xl border border-amber-500/30 bg-[#1c1210]/60">
+            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
+              <RefreshCw className="w-4 h-4 text-amber-400" />
+              Link de Back-Redirect (Ao tentar sair da página)
+            </label>
+            <input
+              type="url"
+              value={localConfig.backRedirectUrl || ''}
+              onChange={(e) => setLocalConfig({ ...localConfig, backRedirectUrl: e.target.value })}
+              placeholder="https://checkout.payt.com.br/..."
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400 transition"
+            />
+            <p className="text-[10px] text-[#cbb8b3]/60">Redireciona o visitante para esta oferta caso ele aperte o botão "Voltar" do navegador ou celular.</p>
+          </div>
+
+          {/* VÍDEO 1 (VSL 1 - LEITURA DAS CARTAS) */}
+          <div className="space-y-3 p-4 rounded-xl border border-amber-500/30 bg-amber-950/20">
+            <label className="text-xs font-bold text-amber-300 flex items-center gap-1.5 font-mystic">
+              <Video className="w-4 h-4 text-amber-400" />
+              Vídeo 1 (Página 9 — VSL 1 Leitura das Cartas)
+            </label>
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Link ou Embed do Vídeo 1 (VTurb / Tynk / YouTube / MP4 / iframe)</label>
+            <input
+              type="text"
+              value={localConfig.quizVsl1Url || ''}
+              onChange={(e) => setLocalConfig({ ...localConfig, quizVsl1Url: e.target.value })}
+              placeholder="Cole o link ou código do vídeo 1 da leitura"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-amber-500/30 text-white font-mono text-xs focus:outline-none focus:border-amber-400"
+            />
+
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Liberar Carta Sagrada / Botão Continuar após</label>
+            <div className="flex overflow-hidden rounded-xl border border-amber-500/30 bg-[#1c1210]/90">
+              <input
+                type="number"
+                min="0"
+                value={localConfig.quizVsl1Delay ?? 0}
+                onChange={(e) => setLocalConfig({ ...localConfig, quizVsl1Delay: Number(e.target.value) })}
+                placeholder="460"
+                className="min-w-0 flex-1 bg-transparent px-3.5 py-2.5 text-xs text-white focus:outline-none"
+              />
+              <span className="flex items-center border-l border-amber-500/20 px-3 text-xs font-bold text-amber-300">segundos (0 = imediato)</span>
+            </div>
+          </div>
+
+          {/* VÍDEO 2 (VSL 2 - OFERTA & ATIVAÇÃO DO CÓDIGO) */}
+          <div className="space-y-3 p-4 rounded-xl border border-emerald-500/30 bg-emerald-950/20">
+            <label className="text-xs font-bold text-emerald-300 flex items-center gap-1.5 font-mystic">
+              <Video className="w-4 h-4 text-emerald-400" />
+              Vídeo 2 (Página 10 — VSL 2 Oferta & Ativação)
+            </label>
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Link ou Embed do Vídeo 2 (VTurb / Tynk / YouTube / MP4 / iframe)</label>
+            <input
+              type="text"
+              value={localConfig.quizVsl2Url || ''}
+              onChange={(e) => setLocalConfig({ ...localConfig, quizVsl2Url: e.target.value })}
+              placeholder="Cole o link ou código do vídeo 2 da oferta"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-emerald-500/30 text-white font-mono text-xs focus:outline-none focus:border-emerald-400"
+            />
+
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Liberar Botão de Compra após</label>
+            <div className="flex overflow-hidden rounded-xl border border-emerald-500/30 bg-[#1c1210]/90">
+              <input
+                type="number"
+                min="0"
+                value={localConfig.quizVsl2Delay ?? 0}
+                onChange={(e) => setLocalConfig({ ...localConfig, quizVsl2Delay: Number(e.target.value) })}
+                placeholder="430"
+                className="min-w-0 flex-1 bg-transparent px-3.5 py-2.5 text-xs text-white focus:outline-none"
+              />
+              <span className="flex items-center border-l border-emerald-500/20 px-3 text-xs font-bold text-emerald-300">segundos (0 = imediato)</span>
+            </div>
+
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Texto do Botão CTA</label>
+            <input
+              type="text"
+              value={localConfig.quizVsl2CtaTexto || 'SIM, QUERO ATIVAR O CÓDIGO!'}
+              onChange={(e) => setLocalConfig({ ...localConfig, quizVsl2CtaTexto: e.target.value })}
+              placeholder="SIM, QUERO ATIVAR O CÓDIGO!"
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-emerald-500/30 text-white text-xs focus:outline-none focus:border-emerald-400"
+            />
+
+            <label className="text-[11px] font-bold text-[#cbb8b3]">Link de Checkout do Botão</label>
+            <input
+              type="url"
+              value={localConfig.quizVsl2CtaUrl || localConfig.checkoutUrl || ''}
+              onChange={(e) => setLocalConfig({ ...localConfig, quizVsl2CtaUrl: e.target.value })}
+              placeholder="https://lastlink.com/p/..."
+              className="w-full px-3.5 py-2.5 rounded-xl bg-[#1c1210]/90 border border-emerald-500/30 text-white font-mono text-xs focus:outline-none focus:border-emerald-400"
+            />
           </div>
 
           {/* 4. GERENCIADOR DE VARIAÇÕES DE VSL & MULTI-CHECKOUT (A/B TESTING) */}
@@ -432,6 +531,40 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                       );
                     })}
                   </div>
+                </div>
+
+                <div className="rounded-xl border border-amber-500/25 bg-black/15 p-3 space-y-2.5">
+                  <div>
+                    <p className="text-[11px] font-bold text-amber-300 font-mystic">Botão programado desta VSL</p>
+                    <p className="mt-0.5 text-[10px] text-[#cbb8b3]/65">Cada link de anúncio pode ter seu próprio segundo, texto e destino de checkout.</p>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-[135px_1fr]">
+                    <label className="text-[11px] font-bold text-[#cbb8b3] sm:pt-2">Exibir CTA após</label>
+                    <div className="flex overflow-hidden rounded-xl border border-amber-500/30 bg-[#1c1210]">
+                      <input
+                        type="number"
+                        min="0"
+                        value={variacaoAtual.vslCtaSegundo ?? 17}
+                        onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'vslCtaSegundo', e.target.value)}
+                        className="min-w-0 flex-1 bg-transparent px-3 py-2 text-xs text-white focus:outline-none"
+                      />
+                      <span className="flex items-center border-l border-amber-500/20 px-3 text-xs font-bold text-amber-300">segundos</span>
+                    </div>
+                  </div>
+                  <input
+                    type="text"
+                    value={variacaoAtual.vslCtaTexto || ''}
+                    onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'vslCtaTexto', e.target.value)}
+                    placeholder="Texto do botão que aparece na VSL"
+                    className="w-full rounded-xl border border-amber-500/30 bg-[#1c1210] px-3 py-2 text-xs text-white focus:border-amber-400 focus:outline-none"
+                  />
+                  <input
+                    type="text"
+                    value={variacaoAtual.vslCtaUrl || ''}
+                    onChange={(e) => handleUpdateVariacao(indexVariacaoAtiva, 'vslCtaUrl', e.target.value)}
+                    placeholder="Link do CTA (vazio = checkout desta variação)"
+                    className="w-full rounded-xl border border-amber-500/30 bg-[#1c1210] px-3 py-2 font-mono text-xs text-white focus:border-amber-400 focus:outline-none"
+                  />
                 </div>
               </div>
             )}

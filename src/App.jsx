@@ -13,21 +13,50 @@ import AdminConfigModal from './components/AdminConfigModal';
 import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
+import QuizOraculoNovo from './components/QuizOraculoNovo';
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe391-9be1-7dba-827b-901a3c5a1d0d';
 const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
 const VERCEL_SYNC_URL = '/api/sync';
+const CHECKOUT_ANTIGO = 'https://ggcheckout.app/checkout/v2/K5qJrW0VINjwRkiJydnl';
+const CHECKOUT_NOVO = 'https://lastlink.com/p/C03402B87/checkout-payment/';
 
-// TUDO do quiz (textos + artes) vem por padrão do código, EXCETO a foto da
-// personagem (quizHeroUrl) e o logo (quizLogoUrl) que podem ser editados no Admin.
+// Preserva campos editáveis pelo usuário no quiz e configurações da VSL
 function forcarQuizDoCodigo(cfg) {
-  const forcado = { ...cfg };
-  Object.keys(CONFIG_PADRAO).forEach((k) => {
-    if (k === 'quizHeroUrl' || k === 'quizLogoUrl') {
-      if (cfg[k] !== undefined && cfg[k] !== null) return;
+  const forcado = { ...CONFIG_PADRAO, ...(cfg || {}) };
+
+  const camposPreservados = [
+    'quizHeroUrl',
+    'quizLogoUrl',
+    'quizVsl1Url',
+    'quizVsl2Url',
+    'quizVsl1Delay',
+    'quizVsl2Delay',
+    'quizVsl2CtaTexto',
+    'quizVsl2CtaUrl',
+    'quizVslAspectRatio',
+    'quizBotaoRevelacaoTexto',
+    'backRedirectUrl',
+    'checkoutUrl',
+    'whatsappLink',
+    'pixelId',
+    'productName',
+    'subTitle',
+    'vslUrl',
+    'vslCtaSegundo',
+    'vslCtaTexto',
+    'vslCtaUrl',
+    'planosTotal',
+    'variacoes',
+    'updatedAt'
+  ];
+
+  camposPreservados.forEach((k) => {
+    if (cfg && cfg[k] !== undefined && cfg[k] !== null && cfg[k] !== '') {
+      forcado[k] = cfg[k];
     }
-    if (k.startsWith('quiz')) forcado[k] = CONFIG_PADRAO[k];
   });
+
   return forcado;
 }
 
@@ -141,6 +170,9 @@ function aplicarVariacaoDaUrl(cfg, urlOverrides) {
       checkoutUrl: checkout,
       whatsappLink: checkout,
       vslAspectRatio: varEncontrada.vslAspectRatio || cfg.vslAspectRatio,
+      vslCtaSegundo: varEncontrada.vslCtaSegundo ?? cfg.vslCtaSegundo,
+      vslCtaTexto: varEncontrada.vslCtaTexto || cfg.vslCtaTexto,
+      vslCtaUrl: varEncontrada.vslCtaUrl || checkout || cfg.vslCtaUrl,
       planosTotal: preco,
       planosAVista: preco,
       planos: novosPlanos,
@@ -151,10 +183,16 @@ function aplicarVariacaoDaUrl(cfg, urlOverrides) {
   return cfg;
 }
 
-export default function App() {
+function App() {
   const [baseConfig, setBaseConfig] = useState(() => {
     const salvo = lerJson(STORAGE.config, null);
     const base = salvo ? { ...CONFIG_PADRAO, ...salvo } : CONFIG_PADRAO;
+    // Placeholder antigo de teste nunca deve sobrescrever o vídeo oficial
+    if (!base.vslUrl || base.vslUrl.includes('test-vsl-link')) {
+      base.vslUrl = CONFIG_PADRAO.vslUrl;
+      base.vslDuracaoSegundos = CONFIG_PADRAO.vslDuracaoSegundos;
+      base.vslAspectRatio = CONFIG_PADRAO.vslAspectRatio;
+    }
     if (base.vslUrl) base.vslUrl = formatarUrl(base.vslUrl);
     return forcarQuizDoCodigo(base);
   });
@@ -162,6 +200,7 @@ export default function App() {
   const urlOverrides = lerParametrosUrl();
   const variationId = urlOverrides.variationParam || 'v1';
   const vslConcluidaKey = `${STORAGE.vslConcluida}_${variationId}`;
+  const quizConcluidaKey = `${STORAGE.quizConcluido}_${variationId}`;
 
   // Configuração final com a variação da URL aplicada (em memória para renderização)
   const config = aplicarVariacaoDaUrl(baseConfig, urlOverrides);
@@ -184,9 +223,15 @@ export default function App() {
     }
   }, [vslConcluidaKey]);
 
-  // Em memória apenas: ao recarregar a página, o lead volta pro quiz.
-  // O progresso da leitura (STORAGE.quizEstado) é que faz continuar de onde parou.
+  // O funil do quiz reinicia deliberadamente a cada atualização de página.
+  // Isso evita restaurar uma etapa intermediária com interface travada.
   const [quizConcluido, setQuizConcluido] = useState(false);
+
+  useEffect(() => {
+    try {
+      localStorage.removeItem(quizConcluidaKey);
+    } catch (e) {}
+  }, [quizConcluidaKey]);
 
   const [secao, setSecao] = useState('inicio');
   const [menuAberto, setMenuAberto] = useState(true);
@@ -201,6 +246,29 @@ export default function App() {
     window.location.hash.includes('admin') ||
     window.location.pathname.includes('admin')
   );
+
+  // Script de Back-Redirect (leva para o link de checkout ou oferta ao tentar sair)
+  useEffect(() => {
+    if (!config.backRedirectUrl) return;
+    const url = config.backRedirectUrl.trim();
+    if (!url || url.includes('SEU-LINK')) return;
+
+    let urlBackRedirect = url + (url.indexOf('?') > 0 ? '&' : '?') + window.location.search.replace('?', '');
+
+    try {
+      window.history.pushState({}, '', window.location.href);
+      window.history.pushState({}, '', window.location.href);
+
+      const handlePopstate = () => {
+        setTimeout(() => {
+          window.location.href = urlBackRedirect;
+        }, 1);
+      };
+
+      window.addEventListener('popstate', handlePopstate);
+      return () => window.removeEventListener('popstate', handlePopstate);
+    } catch (e) {}
+  }, [config.backRedirectUrl]);
 
   // 1. SINCRONIZAÇÃO EM NUVEM EM TEMPO REAL (NUNCA FALHA MESMO EM TRAFEGO PAGO)
   useEffect(() => {
@@ -294,39 +362,6 @@ export default function App() {
       if (bc) bc.close();
     };
   }, []);
-
-  // 2. Injeção Dinâmica do Meta Pixel (Facebook PageView)
-  useEffect(() => {
-    const pixelId = (config.pixelId || '').trim();
-    if (!pixelId) return;
-
-    if (window.fbq) {
-      try { window.fbq('track', 'PageView'); } catch(e) {}
-      return;
-    }
-
-    !(function (f, b, e, v, n, t, s) {
-      if (f.fbq) return;
-      n = f.fbq = function () {
-        n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-      };
-      if (!f._fbq) f._fbq = n;
-      n.push = n;
-      n.loaded = !0;
-      n.version = '2.0';
-      n.queue = [];
-      t = b.createElement(e);
-      t.async = !0;
-      t.src = v;
-      s = b.getElementsByTagName(e)[0];
-      s.parentNode.insertBefore(t, s);
-    })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-    try {
-      window.fbq('init', pixelId);
-      window.fbq('track', 'PageView');
-    } catch (e) {}
-  }, [config.pixelId]);
 
   useEffect(() => {
     try {
@@ -442,8 +477,9 @@ export default function App() {
       updatedAt: agora,
     };
 
-    // 1. Atualiza o estado local
-    setConfig(configFormatada);
+    // 1. Atualiza a configuração-base que alimenta todo o app.
+    // `config` é derivada das variações da URL e não possui setter.
+    setBaseConfig(configFormatada);
 
     // 2. Salva no localStorage
     try {
@@ -482,12 +518,18 @@ export default function App() {
   // Funil do quiz roda ANTES da área de membros.
   // Ignorado no modo admin (pra editar) e se o quiz estiver desativado.
   const mostrarQuiz = config.quizAtivo && !quizConcluido && !isAdmin;
+  const usarQuizNovo = typeof window !== 'undefined' && window.location.pathname.replace(/\/+$/, '') === '/oraculo';
+  // Após concluir o quiz, a VSL exclusiva dele pode ser exibida sem alterar a
+  // VSL padrão da página para acessos que não passaram pela consulta.
+  const configDaVslDoQuiz = quizConcluido && config.quizVslUrl
+    ? { ...config, vslUrl: config.quizVslUrl }
+    : config;
   if (mostrarQuiz) {
     return <QuizOraculo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
   }
 
   return (
-    <div className="relative flex min-h-[100dvh] flex-col bg-[#120a0b] text-[#ffffff] md:flex-row font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="member-area relative flex min-h-[100dvh] flex-col text-[#ffffff] md:flex-row font-sans">
 
       {/* Aurora ambiente (o vidro refrata) */}
       <div className="app-aurora" aria-hidden>
@@ -526,22 +568,22 @@ export default function App() {
       />
 
       {/* Área Principal de Conteúdo */}
-      <main className="relative z-10 mx-auto flex w-full max-w-3xl max-w-full flex-1 flex-col px-4 pt-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10 overflow-x-hidden">
+      <main className="relative z-10 mx-auto flex min-w-0 w-full max-w-3xl max-w-full flex-1 flex-col overflow-x-hidden overflow-y-auto px-4 pt-6 pb-[calc(5.5rem+env(safe-area-inset-bottom))] md:px-8 md:py-10">
 
         {secao === 'inicio' && (
           <div className="animate-fadeIn flex flex-1 flex-col justify-center pb-10">
-            <div className="lg space-y-4 p-4 md:p-6">
-              <VSLPlayer config={config} liberado={liberado} onConcluir={concluirVsl} />
+            <div className="vsl-experience lg space-y-4 p-4 md:p-6">
+              <VSLPlayer config={configDaVslDoQuiz} liberado={liberado} onConcluir={concluirVsl} />
 
-              <h1 className="mt-2 text-xl font-bold font-mystic text-amber-300 md:text-2xl">
+              <h1 className="vsl-title mt-2 text-xl font-bold md:text-2xl">
                 {config.vslTitle}
               </h1>
 
-              <div className="mt-2 space-y-2 text-sm text-[#efe3df]/90 md:text-base">
+              <div className="vsl-copy mt-2 space-y-2 text-sm md:text-base">
                 {(config.vslLinhas || []).map((linha, i) => (
                   <p key={i}>
                     {linha.forte && (
-                      <span className="font-bold text-amber-300">{linha.forte} </span>
+                      <span className="font-bold">{linha.forte} </span>
                     )}
                     {linha.texto}
                   </p>
@@ -610,3 +652,5 @@ export default function App() {
     </div>
   );
 }
+
+export default App;

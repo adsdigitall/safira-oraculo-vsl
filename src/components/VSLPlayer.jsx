@@ -5,6 +5,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [cidade, setCidade] = useState('ITAJAÍ');
   const [progresso, setProgresso] = useState(0);
+  const [segundosAssistidos, setSegundosAssistidos] = useState(0);
 
   // 1. Geolocalização Dinâmica da CIDADE do Lead por IP
   useEffect(() => {
@@ -38,12 +39,13 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     if (liberado || !isPlaying) return;
 
     const totalSegundos = config.vslDuracaoSegundos || 150;
-    // Libera automaticamente aos 50% (ex: 75 segundos)
-    const tempoParaLibera = Math.round(totalSegundos * 0.5);
+    // Libera automaticamente 10s antes do final (ex: 17:20 em um vídeo de 17:30)
+    const tempoParaLibera = Math.max(10, totalSegundos - 10);
     let decorrido = 0;
 
     const interval = setInterval(() => {
       decorrido += 1;
+      setSegundosAssistidos(decorrido);
       const pct = Math.min(100, Math.round((decorrido / tempoParaLibera) * 100));
       setProgresso(pct);
 
@@ -67,8 +69,29 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
     }
   };
 
+  const segundoCta = Math.max(0, Number(config.vslCtaSegundo ?? 0));
+  // Em players incorporados não há uma API de progresso universal. Por isso o
+  // relógio começa no gesto que inicia a VSL; em vídeo MP4 ele também acompanha
+  // o próprio `currentTime` abaixo.
+  const ctaVisivel = isPlaying && segundosAssistidos >= segundoCta;
+  const abrirCta = () => {
+    const destino = (config.vslCtaUrl || config.checkoutUrl || '').trim();
+    if (destino) window.open(destino, '_blank', 'noopener,noreferrer');
+  };
+
   const renderVideo = () => {
     let url = (config.vslUrl || '').trim();
+
+    // O relógio do CTA começa no gesto explícito de iniciar a VSL. Para embeds
+    // externos, isso evita liberar o checkout antes da pessoa dar play.
+    if (!isPlaying && (url.startsWith('http://') || url.startsWith('https://') || url.includes('<iframe'))) {
+      return (
+        <button type="button" onClick={handleStart} className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[radial-gradient(circle_at_center,_#6f4ee8_0%,_#170a40_42%,_#090411_100%)] text-white">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#f5c85a] text-[#24104d] shadow-[0_0_34px_rgba(245,200,90,.5)]"><Play className="ml-1 h-8 w-8 fill-current" /></span>
+          <span className="text-sm font-extrabold tracking-wide">INICIAR VÍDEO</span>
+        </button>
+      );
+    }
 
     if (url.includes('<iframe')) {
       return (
@@ -127,6 +150,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           preload="metadata"
           className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto overflow-hidden"
           onPlay={handleStart}
+          onTimeUpdate={(event) => setSegundosAssistidos(Math.floor(event.currentTarget.currentTime))}
           onEnded={() => onConcluir && onConcluir()}
         >
           Seu navegador não suporta vídeos.
@@ -185,6 +209,7 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
             preload="metadata"
             className="absolute inset-0 w-full h-full object-cover rounded-2xl pointer-events-auto overflow-hidden"
             onPlay={handleStart}
+            onTimeUpdate={(event) => setSegundosAssistidos(Math.floor(event.currentTarget.currentTime))}
             onEnded={() => onConcluir && onConcluir()}
           >
             Seu navegador não suporta vídeos.
@@ -220,10 +245,10 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
   }
 
   return (
-    <div className={`w-full max-w-full ${outerWidthStyle} mx-auto space-y-3 overflow-x-hidden px-1`}>
+    <div className={`vsl-player w-full max-w-full ${outerWidthStyle} mx-auto space-y-3 overflow-x-hidden px-1`}>
       
       {/* Headline de Urgência Dinâmica com NOME DA CIDADE DO LEAD */}
-      <div className="bg-gradient-to-r from-red-950/80 via-[#1c1210] to-amber-950/80 border border-amber-500/40 rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold text-amber-200 shadow-lg glow-gold animate-pulse">
+      <div className="vsl-live-note rounded-2xl p-3 sm:p-3.5 text-center text-xs sm:text-sm font-bold shadow-lg">
         <span className="flex items-center justify-center gap-1.5 font-mystic tracking-wide">
           <Flame className="w-4 h-4 text-amber-400 shrink-0" />
           <span>VÁRIAS PESSOAS EM {cidade} ESTÃO ACABANDO DE ASSISTIR A ESSE VÍDEO — POUCAS VAGAS DISPONÍVEIS NO ALTAR</span>
@@ -233,16 +258,26 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
       {/* Video Box com Proporção Dinâmica (16:9, 4:5 ou 9:16) - FIXO, SEM SCROLL, CONTEÚDO ENCAIXADO */}
       <div 
         onClick={handleStart}
-        className={`relative ${aspectStyle} w-full max-w-full rounded-2xl overflow-hidden bg-[#1c1210] border-2 border-amber-500/40 shadow-2xl glow-mystic mx-auto touch-manipulation select-none flex items-center justify-center`}
+        className={`vsl-video-frame relative ${aspectStyle} w-full max-w-full rounded-2xl overflow-hidden mx-auto touch-manipulation select-none flex items-center justify-center`}
         style={{ overflow: 'hidden' }}
       >
         {renderVideo()}
       </div>
 
+      {ctaVisivel && (
+        <button
+          type="button"
+          onClick={abrirCta}
+          className="vsl-timed-cta fixed bottom-4 left-1/2 z-50 w-[min(calc(100vw-2rem),28rem)] -translate-x-1/2 rounded-2xl px-4 py-3 text-sm font-extrabold transition active:scale-[.98] sm:static sm:left-auto sm:w-full sm:translate-x-0"
+        >
+          {config.vslCtaTexto || 'Quero meu acesso • Inscrever agora'}
+        </button>
+      )}
+
       {/* Headline de Status e Botão de Liberação na Metade do Vídeo */}
       {!liberado ? (
-        <div className="bg-[#1c1210]/90 border border-amber-500/30 rounded-xl p-3.5 text-xs space-y-3 shadow-md">
-          <div className="flex items-center justify-between text-[11px] font-bold text-amber-300">
+        <div className="vsl-unlock-panel rounded-2xl p-3.5 text-xs space-y-3 shadow-md">
+          <div className="vsl-unlock-copy flex items-center justify-between text-[11px] font-bold">
             <span className="flex items-center gap-1.5 leading-snug">
               <Clock className="w-4 h-4 text-amber-400 shrink-0" /> 
               Assista o vídeo até o final para liberar acesso e você solicitar os seus materiais
@@ -250,9 +285,9 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           </div>
 
           {isPlaying && (
-            <div className="w-full h-2 rounded-full bg-[#2a1e1c] overflow-hidden border border-amber-500/20">
+            <div className="vsl-progress-track w-full h-2 rounded-full overflow-hidden">
               <div 
-                className="h-full bg-gradient-to-r from-amber-500 to-amber-400 transition-all duration-500"
+                className="vsl-progress-fill h-full transition-all duration-500"
                 style={{ width: `${progresso}%` }}
               />
             </div>
@@ -261,14 +296,14 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
           <button
             type="button"
             onClick={onConcluir}
-            className="w-full py-2.5 px-4 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center justify-center gap-2 transition shadow-md"
+            className="vsl-unlock-button w-full py-2.5 px-4 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition shadow-md"
           >
             <CheckCircle2 className="w-4 h-4 text-amber-400" />
             <span>Já assisti o vídeo • Liberar Acesso e Materiais</span>
           </button>
         </div>
       ) : (
-        <div className="bg-emerald-500/20 border border-emerald-500/40 rounded-xl p-3 text-center text-xs font-bold text-emerald-300 flex items-center justify-center gap-2 shadow-md">
+        <div className="vsl-success rounded-xl p-3 text-center text-xs font-bold flex items-center justify-center gap-2 shadow-md">
           <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>🎉 ACESSO LIBERADO! SELECIONE OS SEUS MATERIAIS NO MENU AO LADO.</span>
         </div>
