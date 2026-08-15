@@ -513,17 +513,37 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'transicao' && (
           <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-6">
-            {/* Loading Orb */}
+            {/* Loading Orb ou Badge de Sucesso */}
             <div className="relative flex h-20 w-20 items-center justify-center">
-              <div className="absolute inset-0 rounded-full bg-amber-400/20 animate-ping" />
-              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-tr from-purple-800 to-amber-500 text-white shadow-[0_0_30px_rgba(245,158,11,0.6)] ring-2 ring-amber-300/50">
-                <Sparkles className="h-8 w-8 text-amber-200 animate-spin" />
+              <div className={`absolute inset-0 rounded-full ${transicaoFase >= 4 ? 'bg-emerald-400/30' : 'bg-amber-400/20'} animate-ping`} />
+              <div className={`relative flex h-16 w-16 items-center justify-center rounded-full shadow-[0_0_30px_rgba(245,158,11,0.6)] ring-2 ${
+                transicaoFase >= 4
+                  ? 'bg-gradient-to-tr from-emerald-600 via-teal-500 to-amber-400 text-white ring-emerald-300'
+                  : 'bg-gradient-to-tr from-purple-800 to-amber-500 text-white ring-amber-300/50'
+              }`}>
+                {transicaoFase >= 4 ? (
+                  <Sparkles className="h-8 w-8 text-amber-100 animate-pulse" />
+                ) : (
+                  <Sparkles className="h-8 w-8 text-amber-200 animate-spin" />
+                )}
               </div>
             </div>
 
-            <h2 className="text-lg sm:text-xl font-bold text-amber-300">
-              🔮 {config.quizTransicaoCarregando || 'Analisando suas respostas...'} ✨
-            </h2>
+            {/* Título Dinâmico: avisando quando conclui */}
+            {transicaoFase >= 4 ? (
+              <div className="space-y-1.5 animate-fadeIn">
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-950/90 border border-emerald-400/60 text-xs font-black text-emerald-300 tracking-wider shadow-sm">
+                  <span>✅ ANÁLISE CONCLUÍDA</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl font-black text-amber-300 drop-shadow-md">
+                  🎴 Suas Cartas Estão Prontas: Pode Escolher! ✨
+                </h2>
+              </div>
+            ) : (
+              <h2 className="text-lg sm:text-xl font-bold text-amber-300">
+                🔮 {config.quizTransicaoCarregando || 'Analisando suas respostas...'} ✨
+              </h2>
+            )}
 
             {/* Frases sequenciais em cascata com animação suave */}
             <div className="w-full max-w-md space-y-4 text-purple-100 text-sm sm:text-base leading-relaxed">
@@ -546,7 +566,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               </p>
             </div>
 
-            {/* Botão de Avançar */}
+            {/* Botão de Avançar com Destaque */}
             {transicaoFase >= 4 && (
               <button
                 type="button"
