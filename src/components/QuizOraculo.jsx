@@ -418,20 +418,17 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               🔮 {config.quizIntroTitulo || 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!'} ✨
             </h1>
 
-            {/* Imagem Mística 3D Principal */}
-            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_45px_rgba(201,168,76,0.5)] ring-4 ring-purple-500/30 bg-purple-950/40 group">
+            {/* Imagem Mística Principal */}
+            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_40px_rgba(201,168,76,0.45)] bg-purple-950/40">
               <img
-                src={config.quizHeroUrl || '/oraculo-3d.jpg'}
-                alt="Oráculo e Cartas 3D"
-                className="w-full h-auto aspect-square object-cover transform group-hover:scale-105 transition-transform duration-700"
+                src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
+                alt="Oráculo e Cartas"
+                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
-                  e.currentTarget.src = '/oraculo-3d.jpg';
+                  e.currentTarget.src = '/luna.jpg';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#1b084a]/90 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-2 left-2 right-2 flex items-center justify-center gap-1.5 py-1 px-3 rounded-lg bg-black/60 backdrop-blur-sm text-[11px] font-bold text-amber-300 border border-amber-400/30">
-                <span>🔮 Leitura Sagrada Aberta para 2026 ✨</span>
-              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#1b084a]/80 via-transparent to-transparent" />
             </div>
 
             {/* Botão de Início */}
