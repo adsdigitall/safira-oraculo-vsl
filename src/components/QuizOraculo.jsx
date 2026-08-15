@@ -672,7 +672,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                   onClick={handleAbrirCheckout}
                   className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2"
                 >
-                  <span>👉 {config.quizVsl2CtaTexto || config.vslCtaTexto || 'SIM! QUERO ATIVAR O MEU CÓDIGO AGORA'}</span>
+                  <span>👉 {config.quizVsl2CtaTexto || config.vslCtaTexto || 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA'}</span>
                   <span className="text-xl">➔</span>
                 </button>
 

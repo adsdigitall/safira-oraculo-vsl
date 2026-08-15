@@ -25,7 +25,7 @@ export const CONFIG_PADRAO = {
   vslDuracaoSegundos: 1080,
   vslAspectRatio: '4:5', // '16:9', '4:5' ou '9:16'
   vslCtaSegundo: 1050, // 17 minutos e 30 segundos (17 * 60 + 30 = 1050s)
-  vslCtaTexto: 'QUERO GARANTIR AGORA',
+  vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
   vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
 
   // ─── QUIZ DE ENTRADA MODELADO (xquiz.io) ────────────────
@@ -147,7 +147,7 @@ export const CONFIG_PADRAO = {
   // Página 10 — VSL 2 (Vídeo 2 + Botão de Ativação do Código / Oferta)
   quizVsl2Url: 'https://play.tynk.ai/p/8874ec41-1d42-4772-b5e0-6b34a6f9d3b0',
   quizVsl2Delay: 1050, // 17 minutos e 30 segundos (1050s) para liberar o botão CTA
-  quizVsl2CtaTexto: 'SIM! QUERO ATIVAR O MEU CÓDIGO AGORA',
+  quizVsl2CtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
   quizVsl2CtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
   quizVslAspectRatio: '4:5',
 
@@ -162,7 +162,7 @@ export const CONFIG_PADRAO = {
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
       vslCtaSegundo: 1050,
-      vslCtaTexto: 'QUERO GARANTIR AGORA',
+      vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
     },
     {
@@ -174,7 +174,7 @@ export const CONFIG_PADRAO = {
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
       vslCtaSegundo: 1050,
-      vslCtaTexto: 'QUERO GARANTIR AGORA',
+      vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
     },
     {
@@ -186,7 +186,7 @@ export const CONFIG_PADRAO = {
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 60,00',
       vslCtaSegundo: 1050,
-      vslCtaTexto: 'QUERO GARANTIR AGORA',
+      vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://lastlink.com/p/C03402B87/checkout-payment/',
     },
   ],
