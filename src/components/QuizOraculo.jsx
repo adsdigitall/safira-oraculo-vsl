@@ -347,74 +347,242 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
           )}
         </header>
 
+        {/* ─────────────────────────────────────────────────────────────
+            PÁGINA 1 — INTRODUÇÃO DO QUIZ
+           ───────────────────────────────────────────────────────────── */}
         {etapa === 'intro' && (
           <section className="flex flex-col items-center text-center animate-fadeIn space-y-6">
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-600/30 to-amber-500/20 border border-amber-400/50 text-[11px] font-extrabold text-amber-300 tracking-wider shadow-md">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
               <span>✨ CONSULTA SAGRADA DE TARÔ 2026 ✨</span>
             </div>
+
             <h1 className="text-2xl sm:text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md">
               🔮 {config.quizIntroTitulo || 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!'} ✨
             </h1>
+
             <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_40px_rgba(201,168,76,0.45)] bg-purple-950/40">
-              <img src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'} alt="Oráculo e Cartas" className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" />
+              <img
+                src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
+                alt="Oráculo e Cartas"
+                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                onError={(e) => {
+                  e.currentTarget.src = '/luna.jpg';
+                }}
+              />
             </div>
-            <button type="button" onClick={handleIniciarQuiz} className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2">
+
+            <button
+              type="button"
+              onClick={handleIniciarQuiz}
+              className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2"
+            >
               <span>🔮 {config.quizIntroCta || 'FAZER LEITURA GRATUITA'}</span>
               <span className="text-xl">➔</span>
             </button>
+
+            <p className="text-sm sm:text-base text-purple-200/90 font-medium leading-relaxed max-w-md mx-auto">
+              {config.quizIntroSubtitulo || 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.'}
+            </p>
+
+            <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-amber-300/90 pt-1">
+              <span className="flex items-center gap-1">🔒 100% Gratuito & Particular</span>
+              <span>•</span>
+              <span className="flex items-center gap-1">⚡ Resposta Imediata</span>
+              <span>•</span>
+              <span className="flex items-center gap-1">🌟 Guias Astrais</span>
+            </div>
           </section>
         )}
 
+        {/* ─────────────────────────────────────────────────────────────
+            PÁGINAS 2 a 6 — PERGUNTAS INTERATIVAS
+           ───────────────────────────────────────────────────────────── */}
         {etapa === 'perguntas' && perguntaAtual && (
           <section className="flex flex-col items-center animate-fadeIn w-full space-y-6">
-            <h2 className="text-xl sm:text-2xl font-bold leading-snug text-white">{perguntaAtual.titulo}</h2>
+            <div className="w-full text-center space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-900/60 border border-amber-400/40 text-[11px] font-bold text-amber-300 uppercase tracking-widest mb-1 shadow-sm">
+                <span>📜 PERGUNTA {perguntaIndex + 1} DE {perguntas.length} ✦</span>
+              </div>
+
+              {perguntaAtual.kicker && (
+                <p className="text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-wider">
+                  ⚠️ {perguntaAtual.kicker}
+                </p>
+              )}
+
+              {perguntaAtual.subtexto && (
+                <p className="text-purple-200 text-sm sm:text-base leading-relaxed max-w-md mx-auto">
+                  🔮 {perguntaAtual.subtexto}
+                </p>
+              )}
+
+              <h2 className="text-xl sm:text-2xl font-bold leading-snug text-white">
+                {perguntaAtual.titulo}
+              </h2>
+            </div>
+
+            {/* Lista de Opções */}
             <div className="w-full flex flex-col gap-3">
               {perguntaAtual.opcoes.map((opcao, idx) => (
-                <button key={idx} type="button" onClick={() => handleResponder(idx)} className="group relative flex w-full items-center justify-between rounded-xl border border-purple-400/30 bg-[#251059]/90 hover:bg-[#34187a] hover:border-amber-400/80 p-4 text-left shadow-[0_4px_15px_rgba(0,0,0,0.3)] transition-all duration-200 active:scale-[0.98]">
-                  <span className="text-sm sm:text-base font-semibold text-purple-100 group-hover:text-white">{opcao.texto}</span>
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => handleResponder(idx)}
+                  className="group relative flex w-full items-center justify-between rounded-xl border border-purple-400/30 bg-[#251059]/90 hover:bg-[#34187a] hover:border-amber-400/80 p-4 text-left shadow-[0_4px_15px_rgba(0,0,0,0.3)] transition-all duration-200 active:scale-[0.98] hover:shadow-[0_0_20px_rgba(201,168,76,0.3)]"
+                >
+                  <span className="text-sm sm:text-base font-semibold text-purple-100 group-hover:text-white leading-snug pr-3">
+                    {opcao.texto}
+                  </span>
                   <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-purple-900/60 text-amber-300 group-hover:bg-amber-400 group-hover:text-purple-950 transition-colors">
                     <ChevronRight className="h-4 w-4" />
                   </span>
                 </button>
               ))}
             </div>
+
+            <p className="text-xs text-purple-300/70 text-center flex items-center justify-center gap-1.5">
+              <span>✨ Selecione a resposta que mais toca sua intuição 🔮</span>
+            </p>
           </section>
         )}
 
+        {/* ─────────────────────────────────────────────────────────────
+            PÁGINA 7 — TRANSIÇÃO / DIAGNÓSTICO
+           ───────────────────────────────────────────────────────────── */}
         {etapa === 'transicao' && (
           <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-6">
-            <h2 className="text-lg sm:text-xl font-bold text-amber-300">🔮 {config.quizTransicaoCarregando || 'Analisando suas respostas...'} ✨</h2>
+            {/* Loading Orb */}
+            <div className="relative flex h-20 w-20 items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-amber-400/20 animate-ping" />
+              <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-tr from-purple-800 to-amber-500 text-white shadow-[0_0_30px_rgba(245,158,11,0.6)] ring-2 ring-amber-300/50">
+                <Sparkles className="h-8 w-8 text-amber-200 animate-spin" />
+              </div>
+            </div>
+
+            <h2 className="text-lg sm:text-xl font-bold text-amber-300">
+              🔮 {config.quizTransicaoCarregando || 'Analisando suas respostas...'} ✨
+            </h2>
+
+            {/* Frases sequenciais em cascata com animação suave */}
+            <div className="w-full max-w-md space-y-4 text-purple-100 text-sm sm:text-base leading-relaxed">
+              <p className={`transition-all duration-700 ${transicaoFase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
+                <strong>🌌 1. A partir do que você me revelou...</strong>
+                <br />
+                O universo irá filtrar, entre milhares de combinações astrais possíveis...
+              </p>
+
+              <p className={`transition-all duration-700 ${transicaoFase >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
+                <strong>✨ 2. As únicas 8 cartas capazes de falar diretamente com a sua energia neste momento.</strong>
+              </p>
+
+              <p className={`transition-all duration-700 ${transicaoFase >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
+                🎴 3. Escolha apenas 3 para descobrir o caminho exato para destravar tudo em 2026.
+              </p>
+
+              <p className={`text-xl font-black text-amber-400 tracking-wide transition-all duration-700 ${transicaoFase >= 4 ? 'opacity-100 scale-105' : 'opacity-0 scale-95'}`}>
+                ⚡ Prepare-se. O portal sagrado está aberto! 🔮
+              </p>
+            </div>
+
+            {/* Botão de Avançar */}
             {transicaoFase >= 4 && (
-              <button type="button" onClick={() => setEtapa('cartas')} className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse">
+              <button
+                type="button"
+                onClick={() => setEtapa('cartas')}
+                className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2"
+              >
                 <span>🎴 {config.quizTransicaoCta || 'Escolher Minhas Cartas Agora'}</span>
+                <span className="text-xl">➔</span>
               </button>
             )}
           </section>
         )}
 
+        {/* ─────────────────────────────────────────────────────────────
+            PÁGINA 8 — ESCOLHA DAS 8 CARTAS (GRID 4x2 com 3D Flip)
+           ───────────────────────────────────────────────────────────── */}
         {etapa === 'cartas' && (
           <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-white leading-tight">🎴 {config.quizCartasTitulo || 'O baralho está aberto para você:'} ✨</h2>
+            <h2 className="text-xl sm:text-2xl font-black text-white leading-tight">
+              🎴 {config.quizCartasTitulo || 'O baralho está aberto para você:'} ✨
+            </h2>
+
+            <div className="text-sm sm:text-base text-purple-200 space-y-1">
+              <p><strong>🔮 Não pense muito, apenas sinta sua intuição.</strong></p>
+              <p>Escolha 3 cartas, uma de cada vez, <strong>na ordem que o seu instinto mandar:</strong></p>
+            </div>
+
+            <div className="flex items-center gap-2 text-xs font-bold text-amber-300 bg-purple-950/80 px-4 py-1.5 rounded-full border border-amber-400/50 shadow-md">
+              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+              <span>✨ {cartasEscolhidas.length} de 3 cartas selecionadas 🔮</span>
+            </div>
+
+            {/* GRID DE 8 CARTAS (4 COLUNAS x 2 LINHAS) */}
             <div className="cs-grid my-2">
               {cartas.map((carta, index) => {
                 const ordemEscolhida = cartasEscolhidas.indexOf(index);
                 const isFlipped = ordemEscolhida !== -1;
+                const isInactive = cartasEscolhidas.length >= 3 && !isFlipped;
                 const revelada = isFlipped ? reveladas[ordemEscolhida] : null;
+
                 return (
-                  <div key={index} onClick={(e) => handleEscolherCarta(index, e)} className={`cs-card ${isFlipped ? 'cs-flipped cs-done' : ''}`}>
+                  <div
+                    key={carta.id || index}
+                    onClick={(e) => handleEscolherCarta(index, e)}
+                    className={`cs-card ${isFlipped ? 'cs-flipped cs-done' : ''} ${isInactive ? 'cs-inactive' : ''}`}
+                  >
+                    {/* Badge Circular no Topo */}
+                    <div className="cs-badge">
+                      {isFlipped ? ordemEscolhida + 1 : ''}
+                    </div>
+
                     <div className="cs-card-inner">
-                      <div className="cs-back">{carta.verso ? <img src={carta.verso} /> : <CartaVerso simbolo="✦" />}</div>
-                      <div className="cs-front">{revelada && <img src={revelada.src || revelada.frente} />}</div>
+                      {/* VERSO (DORSO) */}
+                      <div className="cs-back">
+                        {carta.verso ? (
+                          <img
+                            src={carta.verso}
+                            alt={carta.alt || `Carta ${index + 1}`}
+                            loading="eager"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <CartaVerso simbolo="✦" />
+                        )}
+                      </div>
+
+                      {/* FRENTE (REVELADA) */}
+                      <div className="cs-front">
+                        {revelada && (
+                          <img
+                            src={revelada.src || revelada.frente}
+                            alt={revelada.nome || revelada.alt}
+                            className="cs-img"
+                            loading="eager"
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 );
               })}
             </div>
+
+            {/* BOTÃO PARA VER RESULTADO (LIBERADO APÓS AS 3 CARTAS) */}
             {cartasEscolhidas.length >= 3 && (
-              <button type="button" onClick={() => setEtapa('vsl')} className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg uppercase tracking-wider animate-pulse">
-                ✨ {config.quizBotaoRevelacaoTexto || 'VER RESULTADO DA LEITURA'}
-              </button>
+              <div className="w-full pt-3 animate-fadeIn">
+                <button
+                  type="button"
+                  onClick={() => setEtapa('vsl')}
+                  className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2"
+                >
+                  <span>✨ {config.quizBotaoRevelacaoTexto || 'VER RESULTADO DA LEITURA'}</span>
+                  <span className="text-xl">➔</span>
+                </button>
+              </div>
             )}
           </section>
         )}
