@@ -170,7 +170,9 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   const quizStorageKey = `${STORAGE.quizEstado}_${variationId}`;
 
   // O quiz SEMPRE inicia na Página 1 (intro) a cada atualização de página (F5/Reload).
-  const [etapa, setEtapa] = useState('intro');
+  const [etapa, setEtapa] = useState(() => {
+    return (typeof window !== 'undefined' && window.__iniciarQuizClicado) ? 'perguntas' : 'intro';
+  });
   const [perguntaIndex, setPerguntaIndex] = useState(0);
   const [opcaoSelecionada, setOpcaoSelecionada] = useState(null);
   const [respostas, setRespostas] = useState([]);

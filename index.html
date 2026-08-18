@@ -57,20 +57,23 @@
       />
     </noscript>
 
-    <!-- CSS Crítico Inline para Renderização Instantânea (FCP < 1.0s) -->
+    <!-- CSS Crítico Inline da Primeira Dobra (Renderização Instantânea em < 0.5s) -->
     <style>
       :root {
         --bg-color: #3008a1;
+        --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       }
       *, *::before, *::after {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
       html, body {
         margin: 0;
         padding: 0;
         background-color: #3008a1;
         color: #ffffff;
-        font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: var(--font-sans);
         min-height: 100vh;
         min-height: 100dvh;
         -webkit-font-smoothing: antialiased;
@@ -86,12 +89,138 @@
         align-items: center;
         width: 100%;
       }
-      /* Previne Layout Shift (CLS) do container principal */
-      main {
-        contain: layout paint;
+      .quiz-aurora {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
       }
-      img {
-        content-visibility: auto;
+      .quiz-aurora span {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(70px);
+        opacity: 0.45;
+        mix-blend-mode: screen;
+      }
+      .quiz-aurora .b1 { width: 50vw; height: 50vw; top: -10%; left: -10%; background: #9333ea; }
+      .quiz-aurora .b2 { width: 45vw; height: 45vw; bottom: -10%; right: -10%; background: #f59e0b; }
+      .quiz-aurora .b3 { width: 35vw; height: 35vw; top: 40%; left: 30%; background: #7e22ce; }
+      .quiz-grad-bg {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at top, rgba(88,28,135,0.45) 0%, rgba(15,8,30,0.85) 60%, rgba(10,5,20,1) 100%);
+      }
+      .quiz-wrap {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 32rem;
+        margin: auto;
+        padding: 1.5rem 1rem 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+      .quiz-top-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.375rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #fcd34d;
+      }
+      .quiz-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.375rem;
+        padding: 0.25rem 0.875rem;
+        border-radius: 9999px;
+        background: linear-gradient(to right, rgba(245,158,11,0.2), rgba(147,51,234,0.3), rgba(245,158,11,0.2));
+        border: 1px solid rgba(251,191,36,0.5);
+        font-size: 11px;
+        font-weight: 800;
+        color: #fcd34d;
+        letter-spacing: 0.05em;
+        margin: 0 auto;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .quiz-headline {
+        font-size: 1.5rem;
+        line-height: 1.25;
+        font-weight: 900;
+        color: #ffffff;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        margin: 0.25rem 0;
+      }
+      @media (min-width: 640px) {
+        .quiz-headline { font-size: 1.875rem; }
+      }
+      .quiz-hero-card {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 24rem;
+        aspect-ratio: 1 / 1;
+        overflow: hidden;
+        border-radius: 1rem;
+        border: 2px solid rgba(251,191,36,0.6);
+        box-shadow: 0 0 40px rgba(201,168,76,0.45);
+        background-color: rgba(59, 7, 100, 0.4);
+      }
+      .quiz-hero-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .quiz-cta-button {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        border-radius: 0.75rem;
+        background: linear-gradient(to right, #e9ba2f, #f5c85a, #d99814);
+        color: #1a0836;
+        font-size: 1.125rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        box-shadow: 0 8px 30px rgba(233,186,47,0.5);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        outline: none;
+        animation: pulseCta 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        text-decoration: none;
+      }
+      @keyframes pulseCta {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.02); }
+      }
+      .quiz-desc {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: rgba(233,213,255,0.9);
+        font-weight: 500;
+        max-width: 28rem;
+        margin: 0 auto;
+      }
+      .quiz-trust-items {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        font-size: 0.75rem;
+        color: rgba(252,211,77,0.9);
       }
     </style>
   </head>
@@ -99,7 +228,80 @@
     <noscript>
       <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1374470023595160&ev=PageView&noscript=1" alt="" />
     </noscript>
-    <div id="root" style="background-color: #3008a1; min-height: 100vh;"></div>
+
+    <!-- Estrutura Renderizada Estaticamente para FCP e LCP Instantâneos -->
+    <div id="root" style="background-color: #3008a1; min-height: 100vh;">
+      <div class="relative w-full bg-[#3008a1] text-white font-sans flex flex-col items-center select-none min-h-[100dvh] overflow-x-hidden justify-start px-4 py-6 sm:py-8">
+        <div class="quiz-aurora" aria-hidden="true">
+          <span class="b1"></span>
+          <span class="b2"></span>
+          <span class="b3"></span>
+          <div class="quiz-grad-bg"></div>
+        </div>
+
+        <main class="quiz-wrap">
+          <header style="display: flex; flex-direction: column; align-items: center;">
+            <div class="quiz-top-badge">
+              <span>✨</span>
+              <span>🔮 SAFIRA ORÁCULO 🔮</span>
+              <span>✨</span>
+            </div>
+          </header>
+
+          <section style="display: flex; flex-direction: column; align-items: center; gap: 1.5rem;">
+            <div class="quiz-pill">
+              <span>✨ CONSULTA SAGRADA DE TARÔ 2026 ✨</span>
+            </div>
+
+            <h1 class="quiz-headline">
+              🔮 Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026! ✨
+            </h1>
+
+            <div class="quiz-hero-card">
+              <img
+                src="https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f"
+                alt="Oráculo e Cartas"
+                width="384"
+                height="384"
+                fetchpriority="high"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+
+            <button
+              type="button"
+              id="btn-iniciar-quiz"
+              class="quiz-cta-button"
+            >
+              <span>🔮 FAZER LEITURA GRATUITA</span>
+              <span style="font-size: 1.25rem;">➔</span>
+            </button>
+
+            <p class="quiz-desc">
+              As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.
+            </p>
+
+            <div class="quiz-trust-items">
+              <span>🔒 100% Gratuito &amp; Particular</span>
+              <span>•</span>
+              <span>⚡ Resposta Imediata</span>
+              <span>•</span>
+              <span>🌟 Guias Astrais</span>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script>
+      window.__iniciarQuizClicado = false;
+      document.addEventListener('click', function(e) {
+        if (e.target && (e.target.id === 'btn-iniciar-quiz' || e.target.closest('#btn-iniciar-quiz'))) {
+          window.__iniciarQuizClicado = true;
+        }
+      }, true);
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
