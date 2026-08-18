@@ -234,6 +234,10 @@ export default function AdminConfigModal({ isOpen, onClose, config, onSaveConfig
                   <img
                     src={localConfig.quizHeroUrl}
                     alt="Prévia"
+                    width="56"
+                    height="56"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                     onError={(e) => { e.target.style.display = 'none'; }}
                   />

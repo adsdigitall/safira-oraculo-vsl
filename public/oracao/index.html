@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O Efeito Elástico | O Milagre das 4 Semanas</title>
+  <meta name="description" content="Por que quanto mais você tenta conversar, mais ele se afasta? Descubra o propósito de 28 dias para quebrar a frieza e restaurar seu relacionamento com Deus.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <!-- ZTrack Pixel -->
+  <script async src="https://ozion-track.vercel.app/api/tracking/ozion.js" data-pixel="oz_px_6756424d"></script>
+  <!-- End ZTrack Pixel -->
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          colors: {
+            brand: {
+              red: '#FF4F4F',
+              pink: '#F50068',
+              green: '#41BD6C',
+              'green-dark': '#34a35c',
+              gold: '#EA9D1C',
+              dark: '#0a0a0c',
+              'dark-card': '#141418',
+            }
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 25px rgba(65, 189, 108, 0.4)' },
+              '50%': { transform: 'scale(1.03)', boxShadow: '0 0 35px rgba(65, 189, 108, 0.7)' },
+            },
+            floatSlow: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          },
+          animation: {
+            pulseGlow: 'pulseGlow 2.5s infinite ease-in-out',
+            float: 'floatSlow 4s infinite ease-in-out',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom utility styles */
+    .glass-dark {
+      background: rgba(20, 20, 24, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .text-gradient-red {
+      background: linear-gradient(135deg, #FF4F4F 0%, #F50068 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .text-gradient-gold {
+      background: linear-gradient(135deg, #FDE047 0%, #EA9D1C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-black text-white font-sans antialiased selection:bg-brand-red selection:text-white">
+
+  <!-- TOP URGENCY / SECURITY BAR -->
+  <header class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-b border-white/10 py-2.5 px-4 sticky top-0 z-50 shadow-md">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between text-xs sm:text-sm font-medium gap-2">
+      <div class="flex items-center gap-2 text-zinc-300">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+        <span>🛡️ Propósito Guiado de 28 Dias</span>
+      </div>
+      <div class="hidden sm:flex items-center gap-3 text-zinc-400">
+        <span>🕒 Acesso Imediato no E-mail</span>
+        <span>•</span>
+        <span>🔒 Pagamento 100% Blindado</span>
+      </div>
+      <div class="text-amber-400 font-semibold text-xs ml-auto sm:ml-0 flex items-center gap-1">
+        <span>⏳ Oferta de Lançamento</span>
+        <span id="countdown" class="bg-black/50 px-2 py-0.5 rounded text-white border border-amber-500/30">14:59</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO SECTION ================= -->
+  <section class="relative pt-10 pb-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto flex flex-col items-center text-center">
+    
+    <!-- Micro Badge de Identificação -->
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs sm:text-sm font-semibold mb-6">
+      <span>⚠️ Para quem sente o parceiro cada dia mais frio e distante</span>
+    </div>
+
+    <!-- Main Headline (Ângulo do Efeito Elástico) -->
+    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight leading-[1.2] max-w-4xl text-white">
+      Por que quanto mais você tenta conversar e consertar as coisas, <span class="text-gradient-red italic">mais ele se afasta de você?</span>
+    </h1>
+
+    <!-- Subheadline -->
+    <p class="mt-6 text-base sm:text-lg md:text-xl text-zinc-300 max-w-3xl leading-relaxed font-light">
+      Descubra o caminho bíblico de <strong class="text-white font-semibold">28 dias de oração e reposicionamento</strong> para desarmar a frieza dele, estancar a angústia no seu peito e permitir que Deus aja onde suas palavras não alcançam mais.
+    </p>
+
+    <!-- 3D Mockup Container -->
+    <div class="w-full max-w-lg my-10 relative group">
+      <div class="absolute -inset-1 bg-gradient-to-r from-amber-500/20 via-brand-green/20 to-brand-red/20 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+      <div class="relative flex justify-center">
+        <img
+          src="/assets/milagre/hero_mockup_novo.jpg"
+          alt="O Milagre das 4 Semanas — Combo Completo Mockup 3D"
+          class="w-full max-w-[400px] sm:max-w-[460px] h-auto object-cover rounded-2xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-float"
+        />
+      </div>
+    </div>
+
+    <!-- CTA Button 1 -->
+    <div class="w-full sm:w-auto flex flex-col items-center">
+      <a
+        href="#oferta"
+        class="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-brand-green hover:bg-brand-green-dark text-white text-lg sm:text-xl font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all duration-300 transform hover:-translate-y-1 active:translate-y-0 animate-pulseGlow flex items-center justify-center gap-3"
+      >
+        <span>QUERO INICIAR O PROPÓSITO DE 28 DIAS</span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </a>
+      <p class="text-xs text-zinc-400 mt-3 flex items-center gap-2">
+        <span>🔒 Acesso seguro</span> • <span>💳 Por apenas R$ 19,90</span> • <span>🛡️ 7 dias de garantia</span>
+      </p>
+    </div>
+
+  </section>
+
+  <!-- ================= IDENTIFICAÇÃO DO PROBLEMA ================= -->
+  <section class="py-14 bg-zinc-950 border-y border-white/10 px-4 sm:px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-10">
+        <span class="text-xs uppercase font-bold tracking-widest text-brand-red">Diagnóstico Sincero</span>
+        <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-white">Você reconhece este ciclo desgastante nos seus dias?</h2>
+      </div>
+
+      <div class="space-y-4 text-zinc-300">
+        <div class="glass-dark p-4 sm:p-5 rounded-2xl flex items-start gap-4 border border-zinc-800">
+          <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center flex-shrink-0 font-bold">1</div>
+          <p class="text-sm sm:text-base leading-relaxed">
+            <strong class="text-white">A frieza repentina:</strong> Você percebe que ele está seco nas mensagens, demora horas para responder ou quando vocês estão juntos, parece que a cabeça dele está em outro lugar.
+          </p>
+        </div>
+
+        <div class="glass-dark p-4 sm:p-5 rounded-2xl flex items-start gap-4 border border-zinc-800">
+          <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center flex-shrink-0 font-bold">2</div>
+          <p class="text-sm sm:text-base leading-relaxed">
+            <strong class="text-white">O aperto no peito que te faz agir no impulso:</strong> A angústia aperta tanto que você não aguenta: manda um textão explicando o que sente, pergunta o que está acontecendo ou implora por uma conversa.
+          </p>
+        </div>
+
+        <div class="glass-dark p-4 sm:p-5 rounded-2xl flex items-start gap-4 border border-zinc-800">
+          <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center flex-shrink-0 font-bold">3</div>
+          <p class="text-sm sm:text-base leading-relaxed">
+            <strong class="text-white">A resposta que destrói sua paz:</strong> Ele responde com frieza: <em>"não é nada"</em>, <em>"você complica tudo"</em>, <em>"preciso de espaço"</em> ou simplesmente visualiza e te deixa no vácuo.
+          </p>
+        </div>
+
+        <div class="glass-dark p-4 sm:p-5 rounded-2xl flex items-start gap-4 border border-zinc-800">
+          <div class="w-8 h-8 rounded-full bg-red-500/20 text-red-400 flex items-center justify-center flex-shrink-0 font-bold">4</div>
+          <p class="text-sm sm:text-base leading-relaxed">
+            <strong class="text-white">A culpa e a repetição:</strong> Você chora no travesseiro, se arrepende de ter mandado mensagem, jura que não vai mais procurar... mas dois dias depois a saudade dói e você <span class="text-brand-red font-semibold">faz tudo de novo</span>.
+          </p>
+        </div>
+      </div>
+
+      <!-- Alerta Importante -->
+      <div class="mt-8 p-5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-200 text-sm sm:text-base text-center leading-relaxed">
+        ⚠️ <strong>Preste muita atenção:</strong> Você não está sozinha nesse sofrimento, mas você precisa entender que a forma como você está tentando consertar é exatamente o que está <u>empurrando ele para mais longe</u>.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= NÍVEL DE DESGASTE / STATUS ATUAL (ANIMADO) ================= -->
+  <section class="py-12 px-4 sm:px-6 max-w-xl mx-auto" id="nivel-desgaste">
+    <div class="space-y-6">
+      <div class="text-center">
+        <span class="text-xs uppercase font-bold tracking-widest text-brand-red bg-brand-red/10 px-3.5 py-1 rounded-full border border-brand-red/20 inline-block mb-2 shadow-sm">
+          Diagnóstico do Momento
+        </span>
+        <h2 class="text-2xl sm:text-3xl font-serif font-bold text-white">
+          📍 Você está exatamente nesse ponto agora
+        </h2>
+      </div>
+
+      <div class="glass-dark text-center p-6 sm:p-7 rounded-3xl border border-red-500/30 shadow-[0_15px_40px_rgba(239,68,68,0.18)] space-y-5 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-32 h-32 bg-red-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+        <!-- Título com Ícone de Alerta -->
+        <div class="flex items-center justify-center gap-2.5 text-red-400">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 animate-pulse text-brand-red">
+            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path>
+            <path d="M12 9v4"></path>
+            <path d="M12 17h.01"></path>
+          </svg>
+          <h3 class="font-serif font-bold text-white text-base sm:text-lg">
+            Nível de Desgaste do Relacionamento
+          </h3>
+        </div>
+
+        <!-- Barra de Progresso com Nível Crítico Animado -->
+        <div class="space-y-2.5">
+          <div class="relative h-7 rounded-full overflow-hidden bg-zinc-900/90 border border-zinc-800 shadow-inner">
+            <!-- Barra Animada -->
+            <div
+              id="desgaste-bar"
+              class="h-full rounded-full transition-all duration-[1600ms] ease-out relative flex items-center justify-end pr-3 shadow-[0_0_15px_rgba(239,68,68,0.5)]"
+              style="width: 0%; background: linear-gradient(90deg, #E6B31A 0%, #E65E1A 45%, #EF4444 100%);"
+            >
+              <span id="desgaste-tag" class="text-[11px] sm:text-xs font-black text-white drop-shadow tracking-wider opacity-0 transition-opacity duration-500 flex items-center gap-1.5 whitespace-nowrap">
+                <span class="w-2 h-2 rounded-full bg-white animate-ping inline-block"></span>
+                CRÍTICO (78%)
+              </span>
+            </div>
+          </div>
+
+          <!-- Escala de Níveis -->
+          <div class="flex justify-between text-xs text-zinc-400 font-medium px-1">
+            <span class="text-emerald-400">Estável</span>
+            <span class="text-amber-400">Desgastado</span>
+            <span class="text-red-400 font-bold">Crítico</span>
+            <span class="text-zinc-600">Colapso</span>
+          </div>
+        </div>
+
+        <!-- Texto Explicativo e Caixa Espiritual -->
+        <div class="space-y-4 pt-1 text-left">
+          <p class="text-sm sm:text-base text-zinc-200 font-medium text-center">
+            Seu relacionamento está em um ponto crítico, mas <strong class="text-emerald-400 underline decoration-emerald-500/50 underline-offset-4">ainda tem solução</strong>.
+          </p>
+
+          <div class="bg-gradient-to-br from-amber-500/15 via-amber-500/10 to-amber-600/5 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-sm">
+            <p class="text-xs sm:text-sm text-amber-200 font-medium leading-relaxed italic text-center">
+              ✨ "Você não chegou aqui agora por um motivo — não por acaso. Este é o sinal que Deus preparou para você dar o primeiro passo para a restauração."
+            </p>
+          </div>
+
+          <p class="text-xs sm:text-sm text-zinc-400 text-center leading-relaxed">
+            A cada dia sem uma direção clara, o desgaste aumenta. Mas hoje você pode escolher: <strong>restaurar a conexão</strong> ou deixar que essa relação chegue ao ponto sem volta.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= A GRANDE IDEIA: O EFEITO ELÁSTICO ================= -->
+  <section class="py-16 px-4 sm:px-6 max-w-4xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="text-xs uppercase font-bold tracking-widest text-brand-pink">A Psicologia e o Espírito</span>
+      <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-white">A verdade que ninguém teve coragem de te falar:</h2>
+    </div>
+
+    <div class="glass-dark p-6 sm:p-8 rounded-3xl border border-white/10 relative overflow-hidden">
+      <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-red/20 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <h3 class="text-xl sm:text-2xl font-bold text-white mb-4 flex items-center gap-2">
+        <span>🪢</span> O amor humano funciona como um elástico
+      </h3>
+
+      <p class="text-zinc-300 text-sm sm:text-base leading-relaxed mb-4">
+        Quando duas pessoas estão conectadas e uma começa a puxar com desespero, cobrando atenção e pedindo respostas, <strong class="text-white">a tensão fica insuportável</strong>. Para aliviar essa pressão, a reação automática do outro é dar passos para trás.
+      </p>
+
+      <p class="text-zinc-300 text-sm sm:text-base leading-relaxed mb-6">
+        Toda vez que você manda uma mensagem no desespero ou chora implorando consideração:
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+        <div class="bg-black/40 p-4 rounded-xl border border-zinc-800">
+          <div class="text-brand-red font-bold text-lg mb-1">1. Confirmação</div>
+          <p class="text-xs text-zinc-400">Você mostra que está 100% garantida na mão dele, eliminando qualquer medo de te perder.</p>
+        </div>
+        <div class="bg-black/40 p-4 rounded-xl border border-zinc-800">
+          <div class="text-brand-red font-bold text-lg mb-1">2. Perda de Valor</div>
+          <p class="text-xs text-zinc-400">A carência excessiva destrói a atração e a admiração que ele tinha por você no início.</p>
+        </div>
+        <div class="bg-black/40 p-4 rounded-xl border border-zinc-800">
+          <div class="text-brand-red font-bold text-lg mb-1">3. Erro Espiritual</div>
+          <p class="text-xs text-zinc-400">Você tenta forçar com as próprias mãos aquilo que somente Deus pode tocar no coração dele.</p>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-brand-red/20 to-brand-pink/20 p-5 rounded-2xl border border-brand-red/40 text-center">
+        <p class="text-sm sm:text-base text-white font-medium">
+          💡 <strong>O Ponto de Virada:</strong> Para que ele volte a te procurar e valorizar sua presença, você precisa <u class="text-amber-300 font-bold">parar de falar nos ouvidos dele e começar a falar no Altar de Deus</u>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= O MECANISMO: AS 4 SEMANAS ================= -->
+  <section class="py-16 bg-zinc-950 border-t border-white/10 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">O Caminho Bíblico Estruturado</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-white">Como Funciona o Ciclo das 4 Semanas</h2>
+        <p class="text-zinc-400 text-sm sm:text-base mt-2 max-w-2xl mx-auto">
+          Não é simpatia nem joguinho de desinteresse. É um propósito de alinhamento com a Palavra de Deus em 4 etapas progressivas:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Semana 1 -->
+        <div class="glass-dark p-6 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase">Semana 1 • Dias 01 a 07</span>
+            <span class="text-xl">🕊️</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Cura Emocional & Alívio da Ansiedade</h3>
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Orações para arrancar o aperto no peito, quebrar o desespero e curar as feridas acumuladas. Você recupera sua paz e para de sangrar nas mensagens.
+          </p>
+        </div>
+
+        <!-- Semana 2 -->
+        <div class="glass-dark p-6 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase">Semana 2 • Dias 08 a 14</span>
+            <span class="text-xl">💬</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Reconciliação & Desarme de Mágoas</h3>
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Orações direcionadas para quebrar a dureza do coração dele e desarmar as barreiras de orgulho, preparando o solo para um diálogo leve e sincero.
+          </p>
+        </div>
+
+        <!-- Semana 3 -->
+        <div class="glass-dark p-6 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-3 py-1 rounded-full bg-pink-500/20 text-pink-300 text-xs font-bold uppercase">Semana 3 • Dias 15 a 21</span>
+            <span class="text-xl">🔥</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Reativação da Paixão & Compromisso</h3>
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Orações focadas na restauração da atração mútua, admiração, respeito e intimidade, reacendendo a chama do amor verdadeiro no relacionamento.
+          </p>
+        </div>
+
+        <!-- Semana 4 -->
+        <div class="glass-dark p-6 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
+          <div class="flex items-center justify-between mb-3">
+            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase">Semana 4 • Dias 22 a 28</span>
+            <span class="text-xl">🛡️</span>
+          </div>
+          <h3 class="text-lg font-bold text-white mb-2">Proteção Espiritual & Blindagem do Lar</h3>
+          <p class="text-sm text-zinc-300 leading-relaxed">
+            Orações de autoridade para fechar todas as brechas contra influências negativas, inveja ou terceiros, garantindo que a união permaneça sólida.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROVA SOCIAL / DEPOIMENTOS ================= -->
+  <section class="py-16 px-4 sm:px-6 max-w-5xl mx-auto text-center" id="depoimentos">
+    <span class="text-xs uppercase font-bold tracking-widest text-brand-red bg-brand-red/10 px-3.5 py-1 rounded-full border border-brand-red/20 inline-block mb-2">
+      Transformações Reais
+    </span>
+    <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-white mb-3">
+      Mulheres que pararam de implorar e viram Deus agir
+    </h2>
+    <p class="text-xs sm:text-sm text-zinc-400 mb-10 max-w-lg mx-auto">
+      Assista ao relato em vídeo e veja o que aconteceu quando elas aplicaram o propósito:
+    </p>
+
+    <!-- VSL / Depoimento em Vídeo Vertical (9:16) -->
+    <div class="mb-12 flex flex-col items-center w-full">
+      <div class="relative group p-[3px] rounded-[30px] bg-gradient-to-b from-brand-red via-brand-pink to-amber-500 shadow-[0_20px_50px_rgba(255,79,79,0.3)] hover:shadow-[0_25px_60px_rgba(255,79,79,0.45)] transition-all duration-500 w-full max-w-[320px] sm:max-w-[350px]">
+        
+        <!-- Badge de Destaque no Vídeo -->
+        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-zinc-900 border border-brand-red text-white text-[11px] font-bold px-4 py-1 rounded-full uppercase tracking-wider shadow-lg flex items-center gap-2 z-10 whitespace-nowrap">
+          <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+          <span>Depoimento Real</span>
+        </div>
+
+        <div class="w-full aspect-[9/16] rounded-[26px] overflow-hidden bg-black relative shadow-inner">
+          <iframe
+            src="https://play.tynk.ai/p/93a30184-281f-4791-85c6-432cfee835ab"
+            title="Vídeo — O Milagre das 4 Semanas"
+            class="w-full h-full border-0 block"
+            style="width: 100%; height: 100%; aspect-ratio: 9/16; border: 0; display: block;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+      <p class="text-xs text-zinc-400 mt-4 flex items-center gap-2">
+        <span>▶️</span> <span>Clique no play para assistir ao vídeo</span>
+      </p>
+    </div>
+
+    <!-- Grid de Prints de Depoimentos Reais -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass-dark p-3 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-zinc-700 transition-colors">
+        <img
+          src="https://static.wixstatic.com/media/2b14e8_c0de80a7a2dc4c6abeaf10dcb9c1a84a~mv2.png/v1/fill/w_397,h_317,al_c,q_85,enc_avif,quality_auto/newdepo1.png"
+          alt="Depoimento 1"
+          class="w-full h-auto rounded-xl object-contain"
+        />
+      </div>
+
+      <div class="glass-dark p-3 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg hover:border-zinc-700 transition-colors">
+        <img
+          src="https://static.wixstatic.com/media/2b14e8_821cbd56c1fb4d6782d5ce5b6b29cdba~mv2.png/v1/fill/w_423,h_265,al_c,q_85,enc_avif,quality_auto/newdepo2.png"
+          alt="Depoimento 2"
+          class="w-full h-auto rounded-xl object-contain"
+        />
+      </div>
+
+      <div class="glass-dark p-3 rounded-2xl border border-zinc-800 overflow-hidden shadow-lg sm:col-span-2 lg:col-span-1 hover:border-zinc-700 transition-colors">
+        <img
+          src="https://static.wixstatic.com/media/2b14e8_8ec10a33c8f34068b9dea9465844982e~mv2.png/v1/fill/w_460,h_257,al_c,q_85,enc_avif,quality_auto/newdepo3.png"
+          alt="Depoimento 3"
+          class="w-full h-auto rounded-xl object-contain"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SEÇÃO DE BÔNUS ================= -->
+  <section class="py-16 bg-zinc-950 border-t border-white/10 px-4 sm:px-6">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs uppercase font-bold tracking-widest text-amber-400">Presentes Exclusivos</span>
+        <h2 class="text-2xl sm:text-4xl font-bold mt-1 text-white">
+          Bônus inclusos para acelerar seu processo
+        </h2>
+        <p class="text-zinc-400 text-sm sm:text-base mt-2">
+          Materiais complementares desenvolvidos para dar clareza prática a cada dia do propósito.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Bônus 1 -->
+        <div class="glass-dark p-5 rounded-2xl border border-zinc-800 flex flex-col items-center text-center">
+          <img src="https://static.wixstatic.com/media/2b14e8_e5ef4378887747a98ac9328ee9bd09a0~mv2.png/v1/fill/w_476,h_266,al_c,q_85,enc_avif,quality_auto/Planner%20de%20Evolu%C3%A7%C3%A3o%20e%20Gratid%C3%A3o%20-%20Atualizado%202_0.png" class="h-32 object-contain mb-3" alt="Planner">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Bônus 01</span>
+          <h4 class="font-bold text-white mt-1 mb-2">Planner de Evolução e Gratidão</h4>
+          <p class="text-xs text-zinc-400">Acompanhe diariamente suas emoções, orações e pequenas vitórias durante os 28 dias.</p>
+        </div>
+
+        <!-- Bônus 2 -->
+        <div class="glass-dark p-5 rounded-2xl border border-zinc-800 flex flex-col items-center text-center">
+          <img src="https://static.wixstatic.com/media/2b14e8_0d7341d24eb84c5f8e884180d9034e27~mv2.png/v1/fill/w_228,h_364,al_c,q_85,enc_avif,quality_auto/Capa%20de%20livro%20romance%20branco%20cinza%20e%20vermelho.png" class="h-32 object-contain mb-3" alt="Conexões Perdidas">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Bônus 02</span>
+          <h4 class="font-bold text-white mt-1 mb-2">Guia Conexões Perdidas</h4>
+          <p class="text-xs text-zinc-400">25 mensagens para iniciar a reaproximação de forma sutil, sem parecer desespero ou humilhação.</p>
+        </div>
+
+        <!-- Bônus 3 -->
+        <div class="glass-dark p-5 rounded-2xl border border-zinc-800 flex flex-col items-center text-center">
+          <img src="https://static.wixstatic.com/media/2b14e8_206535b190644d37a3bb367ee6875d6f~mv2.png/v1/fill/w_228,h_364,al_c,q_85,enc_avif,quality_auto/livro-aprendacomofazerfalta.png" class="h-32 object-contain mb-3" alt="Como Fazer Falta">
+          <span class="text-xs font-bold text-amber-400 uppercase tracking-wide">Bônus 03 (Super Combo)</span>
+          <h4 class="font-bold text-white mt-1 mb-2">Guia: Aprenda Como Fazer Falta</h4>
+          <p class="text-xs text-zinc-400">O segredo comportamental para que ele sinta o impacto da sua ausência e te valorize de verdade.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TABELA DE OFERTA / CHECKOUT ================= -->
+  <section id="oferta" class="py-20 px-4 sm:px-6 bg-white text-zinc-900">
+    <div class="max-w-5xl mx-auto">
+      
+      <div class="text-center mb-14">
+        <span class="inline-block px-4 py-1.5 rounded-full bg-brand-red/10 text-brand-red font-bold text-xs uppercase tracking-widest mb-3">
+          Oferta por Tempo Limitado
+        </span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-zinc-900">
+          Escolha o seu plano de acesso ⬇️
+        </h2>
+        <p class="text-zinc-600 text-sm sm:text-base mt-2">
+          Receba o acesso instantâneo no seu e-mail e comece seu Dia 1 hoje mesmo.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+        
+        <!-- CARD 1: PLANO BÁSICO (R$ 19,90) -->
+        <div class="flex flex-col justify-between border-2 border-zinc-200 rounded-3xl p-6 sm:p-8 bg-zinc-50 shadow-sm hover:shadow-md transition-shadow">
+          <div>
+            <div class="inline-block px-3 py-1 rounded-md bg-zinc-200 text-zinc-700 text-xs font-bold uppercase mb-4">
+              Essencial
+            </div>
+            <h3 class="text-2xl font-bold text-zinc-900">Básico — O Milagre das 4 Semanas</h3>
+            <p class="text-sm text-zinc-500 mt-1 mb-6">+ 2 Bônus Iniciais Inclusos</p>
+
+            <ul class="space-y-3.5 text-sm text-left mb-8">
+              <li class="flex items-center gap-2.5 text-zinc-800 font-medium">
+                <span class="text-emerald-600 font-bold">✅</span> <span>Guia Completo: 30 Orações Bíblicas</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-800 font-medium">
+                <span class="text-emerald-600 font-bold">✅</span> <span>Plano de 4 Semanas Estruturadas</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-800 font-medium">
+                <span class="text-emerald-600 font-bold">🎁</span> <span><strong>Bônus 01:</strong> Planner de Evolução</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-800 font-medium">
+                <span class="text-emerald-600 font-bold">🎁</span> <span><strong>Bônus 02:</strong> 25 Mensagens de Reaproximação</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-400 line-through">
+                <span>✖️</span> <span>Bônus 03: Grupo WhatsApp Devocionais</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-400 line-through">
+                <span>✖️</span> <span>Bônus 04: App Divina Conexão</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-400 line-through">
+                <span>✖️</span> <span>Bônus 05: Guia Como Fazer Falta</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-400 line-through">
+                <span>✖️</span> <span>Bônus 06: 12 Frases Instinto do Herói</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-400 line-through">
+                <span>✖️</span> <span>Bônus 07: Aula Secreta em Vídeo</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 border-t border-zinc-200">
+            <div class="text-center mb-6">
+              <span class="text-xs text-red-500 line-through font-semibold block">De ❌R$ 97,00❌ por:</span>
+              <div class="text-4xl font-black text-zinc-900 mt-1">R$ 19,90</div>
+              <span class="text-xs text-zinc-500 font-medium block mt-1">Pagamento único ou em 2x no cartão</span>
+            </div>
+            <a
+              href="https://ggcheckout.app/checkout/v2/bnPnivsm8BE36LOvDJcU"
+              class="w-full block py-4 px-6 rounded-xl font-bold text-center border-2 border-zinc-900 text-zinc-900 hover:bg-zinc-900 hover:text-white transition-all uppercase tracking-wide text-sm"
+            >
+              QUERO O BÁSICO (R$ 19,90)
+            </a>
+          </div>
+        </div>
+
+        <!-- CARD 2: SUPER COMBO COMPLETO (R$ 27,90) -->
+        <div class="relative flex flex-col justify-between border-2 border-brand-green rounded-3xl p-6 sm:p-8 bg-white shadow-2xl ring-4 ring-emerald-500/10">
+          
+          <!-- Badge de Destaque -->
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-black px-4 py-1 rounded-full uppercase tracking-wider shadow-md whitespace-nowrap">
+            ⬇️ 90% DAS MULHERES ESCOLHEM ESTE ⬇️
+          </div>
+
+          <div>
+            <div class="inline-block px-3 py-1 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold uppercase mb-4 mt-2">
+              Pacote Completo VIP
+            </div>
+            <h3 class="text-2xl font-black text-zinc-900">SUPER COMBO 🔥</h3>
+            <p class="text-sm text-emerald-600 font-bold mt-1 mb-6">TUDO Incluso + 7 Bônus Desbloqueados</p>
+
+            <ul class="space-y-3.5 text-sm text-left mb-8">
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">✅</span> <span>Guia Completo: 30 Orações Bíblicas</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 01:</strong> Planner de Evolução e Gratidão</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 02:</strong> 25 Mensagens de Reaproximação</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 03:</strong> Grupo no WhatsApp com Devocionais</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 04:</strong> 1 Mês Grátis App Divina Conexão</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold bg-amber-50 p-1.5 rounded-lg border border-amber-200">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 05:</strong> Guia Aprenda Como Fazer Falta</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎁✅</span> <span><strong>Bônus 06:</strong> 12 Frases Instinto do Herói</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-zinc-900 font-semibold">
+                <span class="text-emerald-600">🎬✅</span> <span><strong>Bônus 07:</strong> Aula Secreta em Vídeo (Posicionamento)</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="pt-6 border-t border-zinc-200">
+            <div class="text-center mb-6">
+              <span class="text-xs text-red-500 line-through font-bold block">De ❌R$ 197,00❌ por:</span>
+              <div class="text-5xl font-black text-brand-green mt-1">R$ 27,90</div>
+              <span class="text-xs text-zinc-600 font-semibold block mt-1">ou em 3x de R$ 9,99 no cartão</span>
+            </div>
+            <a
+              href="https://ggcheckout.app/checkout/v2/Ng4ntcoWtKo6HLaKtW7i"
+              class="w-full block py-4 px-6 rounded-2xl font-black text-center text-white bg-brand-green hover:bg-brand-green-dark shadow-[0_10px_25px_rgba(65,189,108,0.45)] transition-all transform hover:scale-[1.02] active:scale-100 uppercase tracking-wider text-base animate-pulseGlow"
+            >
+              QUERO O SUPER COMBO (R$ 27,90)
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Garantia -->
+      <div class="mt-14 max-w-2xl mx-auto p-6 rounded-3xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+        <img
+          src="https://static.wixstatic.com/media/2b14e8_6d57dcc9da4e455c9dc2b24b5d7a0944~mv2.png/v1/fill/w_260,h_231,al_c,q_85,enc_avif,quality_auto/selo-de-garantia-7-dias-1.png"
+          alt="Garantia 7 Dias"
+          class="w-24 h-auto object-contain flex-shrink-0"
+        />
+        <div>
+          <h4 class="text-lg font-bold text-zinc-900">Garantia Incondicional de 7 Dias</h4>
+          <p class="text-xs sm:text-sm text-zinc-600 mt-1 leading-relaxed">
+            Se durante as primeiras 4 semanas você sentir que o propósito não te trouxe paz e clareza, basta mandar um único e-mail e devolveremos 100% do seu dinheiro. Sem perguntas.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= FAQ (PERGUNTAS FREQUENTES) ================= -->
+  <section class="py-16 px-4 sm:px-6 max-w-3xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="text-xs uppercase font-bold tracking-widest text-brand-pink">Dúvidas Comuns</span>
+      <h2 class="text-2xl sm:text-3xl font-bold mt-1 text-white">Perguntas Frequentes</h2>
+    </div>
+
+    <div class="space-y-4 text-sm sm:text-base">
+      <details class="glass-dark p-5 rounded-2xl border border-zinc-800 cursor-pointer group">
+        <summary class="font-bold text-white flex items-center justify-between">
+          <span>❓ Como vou receber o acesso ao material?</span>
+          <span class="text-zinc-500 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-zinc-300 mt-3 leading-relaxed text-sm">
+          Assim que seu pagamento for confirmado, você receberá instantaneamente um e-mail com os seus dados de acesso. Você pode ler no celular, tablet, computador ou imprimir.
+        </p>
+      </details>
+
+      <details class="glass-dark p-5 rounded-2xl border border-zinc-800 cursor-pointer group">
+        <summary class="font-bold text-white flex items-center justify-between">
+          <span>❓ Eu já mandei muitas mensagens e me humilhei. Ainda dá tempo?</span>
+          <span class="text-zinc-500 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-zinc-300 mt-3 leading-relaxed text-sm">
+          Sim! O propósito ensina exatamente o momento da virada. Quando você para de insistir na carne e se posiciona em Deus, o contraste da sua nova postura quebra a defensiva dele.
+        </p>
+      </details>
+
+      <details class="glass-dark p-5 rounded-2xl border border-zinc-800 cursor-pointer group">
+        <summary class="font-bold text-white flex items-center justify-between">
+          <span>❓ Funciona se nós já estivermos separados ou bloqueados?</span>
+          <span class="text-zinc-500 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-zinc-300 mt-3 leading-relaxed text-sm">
+          Sim. A oração não depende de WhatsApp desbloqueado ou proximidade física. O propósito age no mundo espiritual para amolecer a dureza de coração que causou a separação.
+        </p>
+      </details>
+
+      <details class="glass-dark p-5 rounded-2xl border border-zinc-800 cursor-pointer group">
+        <summary class="font-bold text-white flex items-center justify-between">
+          <span>❓ É seguro colocar meus dados de pagamento?</span>
+          <span class="text-zinc-500 group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+        <p class="text-zinc-300 mt-3 leading-relaxed text-sm">
+          Totalmente seguro. O processamento é realizado pela Hotmart, a maior e mais segura plataforma de produtos digitais da América Latina, com criptografia de ponta a ponta.
+        </p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="border-t border-white/10 py-10 px-4 text-center text-xs text-zinc-500">
+    <div class="max-w-4xl mx-auto space-y-3">
+      <p>© 2026 O Milagre das 4 Semanas. Todos os direitos reservados.</p>
+      <p>Contato de Suporte: <a href="mailto:30diasparareconquistalo@gmail.com" class="text-zinc-400 underline">30diasparareconquistalo@gmail.com</a></p>
+      <p class="text-[11px] text-zinc-600 max-w-xl mx-auto">
+        Este site não possui vínculo institucional com o Facebook, Meta ou WhatsApp. Os resultados podem variar de pessoa para pessoa de acordo com a dedicação individual.
+      </p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Countdown Timer
+    let timeInSeconds = 15 * 60;
+    const countdownEl = document.getElementById('countdown');
+    if (countdownEl) {
+      setInterval(() => {
+        if (timeInSeconds <= 0) {
+          timeInSeconds = 15 * 60;
+        }
+        timeInSeconds--;
+        const minutes = Math.floor(timeInSeconds / 60);
+        const seconds = timeInSeconds % 60;
+        countdownEl.innerText = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    // Animação da Barra de Nível de Desgaste (ao entrar na tela)
+    const desgasteBar = document.getElementById('desgaste-bar');
+    const desgasteTag = document.getElementById('desgaste-tag');
+    if (desgasteBar) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              desgasteBar.style.width = '78%';
+              if (desgasteTag) {
+                setTimeout(() => {
+                  desgasteTag.classList.remove('opacity-0');
+                  desgasteTag.classList.add('opacity-100');
+                }, 700);
+              }
+            }, 250);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.25 });
+      observer.observe(desgasteBar);
+    }
+  </script>
+</body>
+</html>

@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import confetti from 'canvas-confetti';
 import { Play, Sparkles, ChevronRight, ShieldCheck } from 'lucide-react';
 import { tocarSomCarta, prepararAudio } from '../lib/somCartas';
 import CartaVerso from './CartaVerso';
@@ -422,6 +421,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               <img
                 src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
                 alt="Oráculo e Cartas"
+                width="384"
+                height="384"
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
                 className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
                   e.currentTarget.src = '/luna.jpg';
@@ -638,7 +642,10 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                           <img
                             src={carta.verso}
                             alt={carta.alt || `Carta ${index + 1}`}
-                            loading="eager"
+                            width="160"
+                            height="240"
+                            loading="lazy"
+                            decoding="async"
                             onError={(e) => {
                               const versosLocais = [
                                 '/cartas/verso-1-lua.webp',
@@ -666,8 +673,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                           <img
                             src={revelada.src || revelada.frente}
                             alt={revelada.nome || revelada.alt}
+                            width="160"
+                            height="240"
                             className="cs-img"
-                            loading="eager"
+                            loading="lazy"
+                            decoding="async"
                             onError={(e) => {
                               if (ordemEscolhida === 0) e.currentTarget.src = '/cartas/frente-1-flecha.webp';
                               else if (ordemEscolhida === 1) e.currentTarget.src = '/cartas/frente-2-traicao.webp';

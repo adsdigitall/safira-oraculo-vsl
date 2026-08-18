@@ -17,6 +17,10 @@ export default function MobileTopbar({ config, tituloSecao, onAbrirMenu, onAbrir
         <img
           src={config.logoUrl}
           alt={config.productName}
+          width="36"
+          height="36"
+          loading="lazy"
+          decoding="async"
           className="h-9 w-9 rounded-lg object-contain"
         />
       ) : null}

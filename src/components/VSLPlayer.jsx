@@ -7,27 +7,33 @@ export default function VSLPlayer({ config, liberado, onConcluir }) {
   const [progresso, setProgresso] = useState(0);
   const [segundosAssistidos, setSegundosAssistidos] = useState(0);
 
-  // 1. Geolocalização Dinâmica da CIDADE do Lead por IP
+  // 1. Geolocalização Dinâmica da CIDADE do Lead por IP (diferida para não bloquear render)
   useEffect(() => {
     let cancelado = false;
+    const agendar = typeof window !== 'undefined' && 'requestIdleCallback' in window
+      ? window.requestIdleCallback
+      : (fn) => setTimeout(fn, 1500);
 
-    fetch('https://ipapi.co/json/')
-      .then((res) => res.json())
-      .then((data) => {
-        if (!cancelado && data && data.city) {
-          setCidade(data.city.toUpperCase());
-        }
-      })
-      .catch(() => {
-        fetch('https://ip-api.com/json/')
-          .then((res) => res.json())
-          .then((data2) => {
-            if (!cancelado && data2 && data2.city) {
-              setCidade(data2.city.toUpperCase());
-            }
-          })
-          .catch(() => {});
-      });
+    agendar(() => {
+      if (cancelado) return;
+      fetch('https://ipapi.co/json/')
+        .then((res) => res.json())
+        .then((data) => {
+          if (!cancelado && data && data.city) {
+            setCidade(data.city.toUpperCase());
+          }
+        })
+        .catch(() => {
+          fetch('https://ip-api.com/json/')
+            .then((res) => res.json())
+            .then((data2) => {
+              if (!cancelado && data2 && data2.city) {
+                setCidade(data2.city.toUpperCase());
+              }
+            })
+            .catch(() => {});
+        });
+    });
 
     return () => {
       cancelado = true;

@@ -3,35 +3,102 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, viewport-fit=cover" />
     <meta name="theme-color" content="#3008a1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="mobile-web-app-capable" content="yes" />
     <title>Safira Oráculo — Especialista em Relacionamento Amoroso</title>
     
-    <!-- Preload de alta prioridade para imagens e CDN do quiz -->
-    <link rel="preconnect" href="https://cdn.xquiz.co" crossorigin />
-    <link rel="preconnect" href="https://i.ibb.co" crossorigin />
-    <link rel="dns-prefetch" href="https://cdn.xquiz.co" />
-    <link rel="dns-prefetch" href="https://i.ibb.co" />
-    <link rel="preload" as="image" href="https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f" fetchpriority="high" />
-    <link rel="preload" as="image" href="/luna.jpg" />
-    <link rel="preconnect" href="https://play.tynk.ai" />
-    <link rel="dns-prefetch" href="https://play.tynk.ai" />
-    <link rel="prerender" href="https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb" />
+    <!-- Meta Pixel Base Code (Early PageView - Asynchronous) -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1374470023595160');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Base Code -->
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Great+Vibes&family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <!-- ZTrack Pixel -->
     <script async src="https://ozion-track.vercel.app/api/tracking/ozion.js" data-pixel="1374470023595160"></script>
     <!-- End ZTrack Pixel -->
+
+    <!-- Preload da Imagem LCP Hero -->
+    <link rel="preload" as="image" href="https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f" fetchpriority="high" />
+
+    <!-- Preconnect Essencial para Fontes (Apenas 2 essenciais) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdn.xquiz.co" />
+    <link rel="dns-prefetch" href="https://play.tynk.ai" />
+
+    <!-- Google Fonts Assíncrono (Não Bloqueante) -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@400;600;700;800&family=Inter:wght@400;600;700&display=swap"
+      />
+    </noscript>
+
+    <!-- CSS Crítico Inline para Renderização Instantânea (FCP < 1.0s) -->
+    <style>
+      :root {
+        --bg-color: #3008a1;
+      }
+      *, *::before, *::after {
+        box-sizing: border-box;
+      }
+      html, body {
+        margin: 0;
+        padding: 0;
+        background-color: #3008a1;
+        color: #ffffff;
+        font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        min-height: 100vh;
+        min-height: 100dvh;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        overflow-x: hidden;
+      }
+      #root {
+        background-color: #3008a1;
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      /* Previne Layout Shift (CLS) do container principal */
+      main {
+        contain: layout paint;
+      }
+      img {
+        content-visibility: auto;
+      }
+    </style>
   </head>
   <body class="bg-[#3008a1]" style="background-color: #3008a1; margin: 0; min-height: 100vh;">
+    <noscript>
+      <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1374470023595160&ev=PageView&noscript=1" alt="" />
+    </noscript>
     <div id="root" style="background-color: #3008a1; min-height: 100vh;"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

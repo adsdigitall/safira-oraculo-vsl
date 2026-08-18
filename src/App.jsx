@@ -1,20 +1,21 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import confetti from 'canvas-confetti';
+import React, { useCallback, useEffect, useState, Suspense, lazy } from 'react';
 
 import { CONFIG_PADRAO, STORAGE } from './config';
 import Sidebar from './components/Sidebar';
 import MobileTopbar from './components/MobileTopbar';
 import VSLPlayer from './components/VSLPlayer';
-import MateriaisSection from './components/MateriaisSection';
-import BonusSection from './components/BonusSection';
-import PlanosSection from './components/PlanosSection';
-import MaterialRequestModal from './components/MaterialRequestModal';
-import AdminConfigModal from './components/AdminConfigModal';
 import Toast from './components/Toast';
 import SocialProofToast from './components/SocialProofToast';
 import QuizOraculo from './components/QuizOraculo';
-import QuizNumerologico from './components/QuizNumerologico';
-import QuizXamanico from './components/QuizXamanico';
+
+// Code splitting com React.lazy para componentes pesados / secundários
+const MateriaisSection = lazy(() => import('./components/MateriaisSection'));
+const BonusSection = lazy(() => import('./components/BonusSection'));
+const PlanosSection = lazy(() => import('./components/PlanosSection'));
+const MaterialRequestModal = lazy(() => import('./components/MaterialRequestModal'));
+const AdminConfigModal = lazy(() => import('./components/AdminConfigModal'));
+const QuizNumerologico = lazy(() => import('./components/QuizNumerologico'));
+const QuizXamanico = lazy(() => import('./components/QuizXamanico'));
 
 const CLOUD_SYNC_URL = 'https://jsonblob.com/api/jsonBlob/019fe391-9be1-7dba-827b-901a3c5a1d0d';
 const RESTFUL_SYNC_URL = 'https://api.restful-api.dev/objects/ff8081819f7e10ae019fe379792b1343';
@@ -405,9 +406,11 @@ function App() {
       try {
         localStorage.setItem(vslConcluidaKey, '1');
       } catch (e) {}
-      try {
-        confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
-      } catch (e) {}
+      import('canvas-confetti')
+        .then((m) => {
+          m.default({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+        })
+        .catch(() => {});
       mostrarToast(
         'Vídeo concluído! 🎉',
         'Agora os materiais foram liberados no menu ao lado.'
@@ -477,7 +480,7 @@ function App() {
     // A variação 0 (VSL 1) é a fonte oficial para o site principal (sem ?v=)
     const v1 = variacoesTratadas[0];
 
-    const configFormatada = {
+    const configFormatada = forcarQuizDoCodigo({
       ...CONFIG_PADRAO,
       ...config,
       ...novaConfig,
@@ -487,39 +490,37 @@ function App() {
       vslAspectRatio: v1?.vslAspectRatio || novaConfig.vslAspectRatio || config.vslAspectRatio || '4:5',
       planosTotal: v1?.planosTotal || novaConfig.planosTotal || config.planosTotal || 'R$ 40,00',
       quizHeroUrl: formatarUrl(novaConfig.quizHeroUrl !== undefined ? novaConfig.quizHeroUrl : config.quizHeroUrl),
-      quizLogoUrl: formatarUrl(novaConfig.quizLogoUrl !== undefined ? novaConfig.quizLogoUrl : config.quizLogoUrl),
       updatedAt: agora,
-    };
-
-    // 1. Atualiza a configuração-base que alimenta todo o app.
-    // `config` é derivada das variações da URL e não possui setter.
+    });
     setBaseConfig(configFormatada);
 
-    // 2. Salva no localStorage
     try {
       localStorage.setItem(STORAGE.config, JSON.stringify(configFormatada));
     } catch (e) {}
 
-    // 3. Salva no Servidor Vercel Dedicated API + Nuvem de backup RESTful + JSONBlob
+    const payload = {
+      data: configFormatada,
+      updatedAt: Date.now(),
+    };
+
     fetch(VERCEL_SYNC_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(configFormatada),
+      body: JSON.stringify(payload),
     }).catch(() => {});
 
     fetch(RESTFUL_SYNC_URL, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: 'safira_config', data: configFormatada }),
+      body: JSON.stringify(payload),
     }).catch(() => {});
 
     fetch(CLOUD_SYNC_URL, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(configFormatada),
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload),
     }).catch(() => {});
 
-    // 4. Notifica outras abas em tempo real
     try {
       const bc = new BroadcastChannel('safira_config_channel');
       bc.postMessage({ type: 'CONFIG_UPDATED', config: configFormatada });
@@ -559,10 +560,18 @@ function App() {
 
   if (mostrarQuiz) {
     if (isRotaXamanico) {
-      return <QuizXamanico config={config} variationId={variationId} onConcluir={concluirQuiz} />;
+      return (
+        <Suspense fallback={null}>
+          <QuizXamanico config={config} variationId={variationId} onConcluir={concluirQuiz} />
+        </Suspense>
+      );
     }
     if (isRotaNumerologia) {
-      return <QuizNumerologico config={config} variationId={variationId} onConcluir={concluirQuiz} />;
+      return (
+        <Suspense fallback={null}>
+          <QuizNumerologico config={config} variationId={variationId} onConcluir={concluirQuiz} />
+        </Suspense>
+      );
     }
     return <QuizOraculo config={config} variationId={variationId} onConcluir={concluirQuiz} />;
   }
@@ -632,18 +641,20 @@ function App() {
           </div>
         )}
 
-        {secao === 'materiais' && (
-          <MateriaisSection
-            config={config}
-            solicitacoes={solicitacoes}
-            onSelecionarMaterial={selecionarMaterial}
-            onAbrirSolicitacao={abrirSolicitacaoAvulsa}
-          />
-        )}
+        <Suspense fallback={<div className="p-8 text-center text-amber-300">Carregando conteúdo...</div>}>
+          {secao === 'materiais' && (
+            <MateriaisSection
+              config={config}
+              solicitacoes={solicitacoes}
+              onSelecionarMaterial={selecionarMaterial}
+              onAbrirSolicitacao={abrirSolicitacaoAvulsa}
+            />
+          )}
 
-        {secao === 'bonus' && <BonusSection config={config} onDesbloquear={() => irParaCheckout()} />}
+          {secao === 'bonus' && <BonusSection config={config} onDesbloquear={() => irParaCheckout()} />}
 
-        {secao === 'planos' && <PlanosSection config={config} onComprar={() => irParaCheckout()} />}
+          {secao === 'planos' && <PlanosSection config={config} onComprar={() => irParaCheckout()} />}
+        </Suspense>
 
         {/* Rodapé da Página */}
         <footer className="mt-10 flex items-center justify-between gap-3 border-t border-amber-500/20 pt-4 text-[11px] text-[#d8c3bd]/50">
@@ -666,26 +677,32 @@ function App() {
       <SocialProofToast />
 
       {/* Modais de Solicitação e Painel Admin */}
-      <MaterialRequestModal
-        isOpen={modalSolicitacao}
-        onClose={() => setModalSolicitacao(false)}
-        selectedMaterial={materialSelecionado}
-        onSubmitRequest={registrarSolicitacao}
-      />
+      <Suspense fallback={null}>
+        {modalSolicitacao && (
+          <MaterialRequestModal
+            isOpen={modalSolicitacao}
+            onClose={() => setModalSolicitacao(false)}
+            selectedMaterial={materialSelecionado}
+            onSubmitRequest={registrarSolicitacao}
+          />
+        )}
 
-      <AdminConfigModal
-        isOpen={modalAdmin}
-        onClose={() => setModalAdmin(false)}
-        config={config}
-        onSaveConfig={salvarEAtualizarConfig}
-        onResetDefaults={() => {
-          setConfig(CONFIG_PADRAO);
-          try {
-            localStorage.removeItem(STORAGE.config);
-          } catch (e) {}
-          mostrarToast('Padrões restaurados', 'A configuração original voltou.');
-        }}
-      />
+        {modalAdmin && (
+          <AdminConfigModal
+            isOpen={modalAdmin}
+            onClose={() => setModalAdmin(false)}
+            config={config}
+            onSaveConfig={salvarEAtualizarConfig}
+            onResetDefaults={() => {
+              setConfig(CONFIG_PADRAO);
+              try {
+                localStorage.removeItem(STORAGE.config);
+              } catch (e) {}
+              mostrarToast('Padrões restaurados', 'A configuração original voltou.');
+            }}
+          />
+        )}
+      </Suspense>
 
       <Toast toast={toast} onClose={() => setToast(null)} />
     </div>

@@ -54,6 +54,10 @@ export default function Sidebar({
           <img
             src={config.logoUrl}
             alt={config.productName}
+            width="80"
+            height="80"
+            loading="lazy"
+            decoding="async"
             className="h-16 w-16 rounded-lg object-contain md:mx-auto md:h-20 md:w-20"
           />
         ) : (

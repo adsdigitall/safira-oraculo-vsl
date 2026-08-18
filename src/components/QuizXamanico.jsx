@@ -400,6 +400,10 @@ export default function QuizXamanico({ config, variationId = 'v1', onConcluir })
                     <img
                       src={item.img3d}
                       alt={item.nome}
+                      width="44"
+                      height="44"
+                      loading="lazy"
+                      decoding="async"
                       className="w-11 h-11 object-contain drop-shadow"
                     />
                     <span>{item.nome}</span>
@@ -433,6 +437,10 @@ export default function QuizXamanico({ config, variationId = 'v1', onConcluir })
                     <img
                       src={item.img3d}
                       alt={item.nome}
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                      decoding="async"
                       className="w-10 h-10 object-contain shrink-0 mt-0.5"
                     />
                     <div>
@@ -467,6 +475,10 @@ export default function QuizXamanico({ config, variationId = 'v1', onConcluir })
                   <img
                     src="/quiz-assets/3d/boy.webp"
                     alt="Masculino"
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                    decoding="async"
                     className="w-16 h-16 object-contain"
                   />
                   <span>Masculino</span>
@@ -479,6 +491,10 @@ export default function QuizXamanico({ config, variationId = 'v1', onConcluir })
                   <img
                     src="/quiz-assets/3d/woman.webp"
                     alt="Feminino"
+                    width="64"
+                    height="64"
+                    loading="lazy"
+                    decoding="async"
                     className="w-16 h-16 object-contain"
                   />
                   <span>Feminino</span>
