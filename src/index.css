@@ -1381,24 +1381,24 @@ h1, h2, h3, h4 {
 .cs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
+  gap: 10px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 4px 0 8px;
+  padding: 12px 0 16px;
 }
 
 @media (max-width: 480px) {
   .cs-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-    padding: 2px 0 6px;
+    gap: 8px;
+    padding: 8px 0 12px;
   }
 }
 
 .cs-card {
   width: 100%;
-  aspect-ratio: 1 / 1.45;
+  aspect-ratio: 1 / 1.58;
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
@@ -1426,7 +1426,7 @@ h1, h2, h3, h4 {
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 8px;
+  border-radius: 10px;
 }
 
 .cs-card.cs-flipped .cs-card-inner {
@@ -1445,7 +1445,7 @@ h1, h2, h3, h4 {
 .cs-front {
   position: absolute;
   inset: 0;
-  border-radius: 8px;
+  border-radius: 10px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
@@ -1453,7 +1453,7 @@ h1, h2, h3, h4 {
 
 .cs-back {
   border: 1.5px solid #C9A84C;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
   background: linear-gradient(155deg, #2D1B4E 0%, #1A0930 55%, #0D0520 100%);
   display: flex;
   align-items: center;
