@@ -1381,23 +1381,24 @@ h1, h2, h3, h4 {
 .cs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 6px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 12px 0 20px;
+  padding: 4px 0 8px;
 }
 
 @media (max-width: 480px) {
   .cs-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 4px;
+    padding: 2px 0 6px;
   }
 }
 
 .cs-card {
   width: 100%;
-  aspect-ratio: 1 / 1.65;
+  aspect-ratio: 1 / 1.45;
   cursor: pointer;
   position: relative;
   box-sizing: border-box;
