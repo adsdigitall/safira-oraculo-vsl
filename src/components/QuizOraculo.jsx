@@ -239,19 +239,19 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
     return () => window.clearInterval(interval);
   }, [isVsl]);
 
-  // Transição (Página 7) animação em cascata
+  // Transição / Análise (Página 7) com frases rotativas e avanço automático após 3.8s
   useEffect(() => {
     if (etapa !== 'transicao') return undefined;
     setTransicaoFase(0);
-    const t1 = setTimeout(() => setTransicaoFase(1), 1200);
+    const t1 = setTimeout(() => setTransicaoFase(1), 1300);
     const t2 = setTimeout(() => setTransicaoFase(2), 2600);
-    const t3 = setTimeout(() => setTransicaoFase(3), 4000);
-    const t4 = setTimeout(() => setTransicaoFase(4), 5200);
+    const t3 = setTimeout(() => {
+      setEtapa('cartas');
+    }, 3900);
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      clearTimeout(t4);
     };
   }, [etapa]);
 
@@ -272,12 +272,16 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
 
   const handleIniciarQuiz = () => {
     prepararAudio();
+    executarSomSwoosh();
     setEtapa('perguntas');
     setPerguntaIndex(0);
   };
 
+  // Avanço automático em 300ms com feedback visual imediato
+  const travadoRef = useRef(false);
   const handleResponder = (opcaoIdx, event) => {
-    if (opcaoSelecionada !== null) return;
+    if (travadoRef.current || opcaoSelecionada !== null) return;
+    travadoRef.current = true;
     prepararAudio();
     executarSomSwoosh();
     setOpcaoSelecionada(opcaoIdx);
@@ -291,12 +295,13 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
 
     setTimeout(() => {
       setOpcaoSelecionada(null);
+      travadoRef.current = false;
       if (perguntaIndex + 1 < perguntas.length) {
         setPerguntaIndex((i) => i + 1);
       } else {
         setEtapa('transicao');
       }
-    }, 240);
+    }, 300);
   };
 
   const handleEscolherCarta = (index, event) => {
@@ -350,11 +355,10 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   const progressoPct = useMemo(() => {
     if (etapa === 'intro') return 0;
     if (etapa === 'perguntas') {
-      const step = (perguntaIndex + 1) / (perguntas.length + 2);
-      return Math.round(step * 70);
+      return Math.round(((perguntaIndex + 1) / perguntas.length) * 100);
     }
-    if (etapa === 'transicao') return 75;
-    if (etapa === 'cartas') return 80;
+    if (etapa === 'transicao') return 90;
+    if (etapa === 'cartas') return 95;
     if (isVsl) return 100;
     return 100;
   }, [etapa, perguntaIndex, perguntas.length, isVsl]);
@@ -373,8 +377,14 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1027);
   const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
+  const mensagensProcessamento = [
+    { icone: '🔮', texto: 'Analisando suas respostas com os guias...' },
+    { icone: '🎴', texto: 'Consultando as cartas sagradas de 2026...' },
+    { icone: '✨', texto: 'Preparando sua leitura personalizada...' },
+  ];
+
   return (
-    <div className={`relative w-full bg-[#3008a1] text-white font-sans flex flex-col items-center select-none ${isVsl ? 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-between p-3 sm:py-4' : 'min-h-[100dvh] overflow-x-hidden justify-start px-4 py-6 sm:py-8'}`}>
+    <div className={`relative w-full bg-[#3008a1] text-white font-sans flex flex-col items-center select-none ${isVsl ? 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-between p-3 sm:py-4' : 'min-h-[100dvh] justify-start px-3.5 py-4 sm:py-6'}`}>
       <AuroraBackground />
 
       <audio
@@ -383,20 +393,25 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         src={config.quizAudioUrl || 'https://media.base44.com/files/public/user_6a345b7a1d1c8dfb9baf54b0/421f6cbfb_universfield-swoosh-06-351021.mp3'}
       />
 
-      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-md h-full max-h-full justify-between gap-1.5 sm:gap-3' : 'max-w-lg flex-auto gap-6 sm:gap-8'}`}>
+      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-md h-full max-h-full justify-between gap-1.5 sm:gap-3' : 'max-w-md flex-auto gap-4 sm:gap-6'}`}>
 
-        <header className="flex flex-col items-center text-center shrink-0">
-          <div className="flex items-center gap-2 text-amber-300 font-extrabold tracking-widest text-xs uppercase mb-2">
-            <span className="text-amber-400 text-sm">✨</span>
+        {/* ── Top Header & Progress Bar ── */}
+        <header className="flex flex-col items-center text-center shrink-0 w-full">
+          <div className="flex items-center gap-1.5 text-amber-300 font-extrabold tracking-widest text-[11px] sm:text-xs uppercase mb-1.5">
+            <span className="text-amber-400">✨</span>
             <span>🔮 {config.productName || 'SAFIRA ORÁCULO'} 🔮</span>
-            <span className="text-amber-400 text-sm">✨</span>
+            <span className="text-amber-400">✨</span>
           </div>
 
-          {etapa !== 'intro' && (
-            <div className="w-full max-w-md mt-1 mb-2">
-              <div className="h-2.5 w-full overflow-hidden rounded-full bg-purple-950/90 p-0.5 ring-1 ring-amber-400/40">
+          {etapa === 'perguntas' && (
+            <div className="w-full space-y-1 mt-0.5">
+              <div className="flex items-center justify-between text-[11px] font-bold text-amber-300/90 px-1">
+                <span>📜 PERGUNTA {perguntaIndex + 1} DE {perguntas.length}</span>
+                <span>{progressoPct}%</span>
+              </div>
+              <div className="h-2.5 w-full overflow-hidden rounded-full bg-purple-950/90 p-0.5 ring-1 ring-amber-400/50 shadow-inner">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-amber-500 via-amber-300 to-yellow-200 transition-all duration-500 shadow-[0_0_15px_rgba(245,158,11,0.8)]"
+                  className="h-full rounded-full bg-gradient-to-r from-amber-500 via-amber-300 to-yellow-200 transition-all duration-300 shadow-[0_0_12px_rgba(245,158,11,0.8)]"
                   style={{ width: `${progressoPct}%` }}
                 />
               </div>
@@ -405,20 +420,20 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         </header>
 
         {/* ─────────────────────────────────────────────────────────────
-            PÁGINA 1 — INTRODUÇÃO DO QUIZ
+            PÁGINA 1 — INTRODUÇÃO DO QUIZ (TELA DE ABERTURA)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'intro' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn space-y-6">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-600/30 to-amber-500/20 border border-amber-400/50 text-[11px] font-extrabold text-amber-300 tracking-wider shadow-md">
+          <section className="flex flex-col items-center text-center animate-fadeIn space-y-4 sm:space-y-5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-600/30 to-amber-500/20 border border-amber-400/50 text-[11px] font-extrabold text-amber-300 tracking-wider shadow-md">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
               <span>✨ CONSULTA SAGRADA DE TARÔ 2026 ✨</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md">
+            <h1 className="text-xl sm:text-2xl font-black leading-tight tracking-tight text-white drop-shadow-md">
               🔮 {config.quizIntroTitulo || 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!'} ✨
             </h1>
 
-            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_40px_rgba(201,168,76,0.45)] bg-purple-950/40">
+            <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[360px] aspect-square overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_30px_rgba(201,168,76,0.4)] bg-purple-950/40">
               <img
                 src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
                 alt="Oráculo e Cartas"
@@ -427,30 +442,31 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
-                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
                 onError={(e) => {
                   e.currentTarget.src = '/luna.jpg';
                 }}
               />
             </div>
 
-            <button
-              type="button"
-              onClick={handleIniciarQuiz}
-              className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2"
-            >
-              <span>🔮 {config.quizIntroCta || 'FAZER LEITURA GRATUITA'}</span>
-              <span className="text-xl">➔</span>
-            </button>
-
-            <p className="text-sm sm:text-base text-purple-200/90 font-medium leading-relaxed max-w-md mx-auto">
+            <p className="text-xs sm:text-sm text-purple-200/90 font-medium leading-relaxed max-w-sm mx-auto">
               {config.quizIntroSubtitulo || 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.'}
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-amber-300/90 pt-1">
-              <span className="flex items-center gap-1">🔒 100% Gratuito & Particular</span>
+            <button
+              type="button"
+              id="btn-iniciar-quiz"
+              onClick={handleIniciarQuiz}
+              className="w-full min-h-[56px] py-4 px-6 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 text-purple-950 font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_25px_rgba(245,158,11,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <span>🔮 {config.quizIntroCta || 'COMEÇAR MINHA LEITURA'}</span>
+              <span className="text-xl">➔</span>
+            </button>
+
+            <div className="flex flex-wrap items-center justify-center gap-2.5 text-[11px] sm:text-xs text-amber-300/90 pt-0.5">
+              <span className="flex items-center gap-1">⚡ Leva menos de 1 minuto</span>
               <span>•</span>
-              <span className="flex items-center gap-1">⚡ Resposta Imediata</span>
+              <span className="flex items-center gap-1">🔒 100% Gratuito & Particular</span>
               <span>•</span>
               <span className="flex items-center gap-1">🌟 Guias Astrais</span>
             </div>
@@ -458,34 +474,30 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         )}
 
         {/* ─────────────────────────────────────────────────────────────
-            PÁGINAS 2 a 6 — PERGUNTAS INTERATIVAS
+            PÁGINAS 2 a 6 — PERGUNTAS (SEM ROLAGEM, CABE EM 360x640)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'perguntas' && perguntaAtual && (
-          <section className="flex flex-col items-center animate-fadeIn w-full space-y-6">
-            <div className="w-full text-center space-y-2">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-900/60 border border-amber-400/40 text-[11px] font-bold text-amber-300 uppercase tracking-widest mb-1 shadow-sm">
-                <span>📜 PERGUNTA {perguntaIndex + 1} DE {perguntas.length} ✦</span>
-              </div>
-
+          <section className="flex flex-col items-center animate-fadeIn w-full space-y-3.5 sm:space-y-4">
+            <div className="w-full text-center space-y-1.5">
               {perguntaAtual.kicker && (
-                <p className="text-amber-300 text-xs sm:text-sm font-extrabold uppercase tracking-wider">
+                <p className="text-amber-300 text-xs font-extrabold uppercase tracking-wider">
                   ⚠️ {perguntaAtual.kicker}
                 </p>
               )}
 
               {perguntaAtual.subtexto && (
-                <p className="text-purple-200 text-sm sm:text-base leading-relaxed max-w-md mx-auto">
+                <p className="text-purple-200/90 text-xs sm:text-sm leading-relaxed max-w-sm mx-auto">
                   🔮 {perguntaAtual.subtexto}
                 </p>
               )}
 
-              <h2 className="text-xl sm:text-2xl font-bold leading-snug text-white">
+              <h2 className="text-base sm:text-lg font-black leading-snug text-white max-w-sm mx-auto">
                 {perguntaAtual.titulo}
               </h2>
             </div>
 
-            {/* Lista de Opções com Efeitos Premium e Feedback Tátil */}
-            <div className="w-full flex flex-col gap-3.5">
+            {/* Lista de Opções: Card Inteiro Clicável, min-h 56px, Avanço Automático em 300ms */}
+            <div className="w-full flex flex-col gap-2.5">
               {perguntaAtual.opcoes.map((opcao, idx) => {
                 const isSelected = opcaoSelecionada === idx;
                 return (
@@ -493,108 +505,68 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                     key={idx}
                     type="button"
                     onClick={(e) => handleResponder(idx, e)}
-                    className={`group relative flex w-full items-center justify-between rounded-2xl border p-4 sm:p-4.5 text-left transition-all duration-200 overflow-hidden cursor-pointer ${
+                    className={`group relative flex w-full items-center justify-between rounded-xl border p-3.5 sm:p-4 text-left transition-all duration-200 cursor-pointer min-h-[56px] active:scale-[0.98] ${
                       isSelected
-                        ? 'border-amber-300 bg-gradient-to-r from-[#4d1d8c] via-[#6524a8] to-[#4d1d8c] ring-2 ring-amber-300 shadow-[0_0_30px_rgba(245,158,11,0.65)] scale-[1.02]'
-                        : 'border-purple-400/30 bg-gradient-to-r from-[#220c4e]/95 via-[#2f1166]/95 to-[#220c4e]/95 hover:border-amber-400/80 hover:bg-[#361578] hover:shadow-[0_8px_25px_rgba(245,158,11,0.3)] hover:-translate-y-0.5 active:scale-[0.98] shadow-[0_4px_16px_rgba(0,0,0,0.35)]'
+                        ? 'border-amber-400 bg-[#4d1d8c] ring-2 ring-amber-300 shadow-[0_0_25px_rgba(245,158,11,0.6)] brightness-110 scale-[1.01]'
+                        : 'border-purple-400/30 bg-[#220c4e]/95 hover:border-amber-400/70 hover:bg-[#2d1166] shadow-[0_4px_12px_rgba(0,0,0,0.3)]'
                     }`}
                   >
-                    {/* Efeito Shimmer de Brilho Dinâmico ao passar o mouse ou tocar */}
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
-
-                    <span className={`text-sm sm:text-base font-semibold leading-snug pr-3 transition-colors ${
-                      isSelected ? 'text-amber-200 font-extrabold' : 'text-purple-100 group-hover:text-white'
+                    <span className={`text-xs sm:text-sm font-semibold leading-snug pr-2.5 transition-colors flex-1 ${
+                      isSelected ? 'text-amber-200 font-bold' : 'text-purple-100 group-hover:text-white'
                     }`}>
                       {opcao.texto}
                     </span>
 
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
+                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ${
                       isSelected
-                        ? 'bg-amber-400 text-purple-950 border-amber-300 scale-110 shadow-lg rotate-12'
-                        : 'bg-purple-900/70 border-purple-400/30 text-amber-300 group-hover:bg-amber-400 group-hover:text-purple-950 group-hover:border-amber-300 group-hover:scale-105 shadow-sm'
+                        ? 'bg-amber-400 text-purple-950 border-amber-300 scale-105'
+                        : 'bg-purple-900/60 border-purple-400/30 text-amber-300 group-hover:bg-amber-400 group-hover:text-purple-950 group-hover:border-amber-300'
                     }`}>
-                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                      <ChevronRight className="h-4 w-4" />
                     </span>
                   </button>
                 );
               })}
             </div>
 
-            <p className="text-xs text-purple-300/70 text-center flex items-center justify-center gap-1.5">
+            <p className="text-[11px] text-purple-300/80 text-center flex items-center justify-center gap-1 pt-1">
               <span>✨ Selecione a resposta que mais toca sua intuição 🔮</span>
             </p>
           </section>
         )}
 
         {/* ─────────────────────────────────────────────────────────────
-            PÁGINA 7 — TRANSIÇÃO / DIAGNÓSTICO
+            PÁGINA 7 — TELA DE PROCESSAMENTO / ANÁLISE (3 A 4 SEGUNDOS)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'transicao' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-6">
-            {/* Loading Orb ou Badge de Sucesso */}
-            <div className="relative flex h-20 w-20 items-center justify-center">
-              <div className={`absolute inset-0 rounded-full ${transicaoFase >= 4 ? 'bg-emerald-400/30' : 'bg-amber-400/20'} animate-ping`} />
-              <div className={`relative flex h-16 w-16 items-center justify-center rounded-full shadow-[0_0_30px_rgba(245,158,11,0.6)] ring-2 ${
-                transicaoFase >= 4
-                  ? 'bg-gradient-to-tr from-emerald-600 via-teal-500 to-amber-400 text-white ring-emerald-300'
-                  : 'bg-gradient-to-tr from-purple-800 to-amber-500 text-white ring-amber-300/50'
-              }`}>
-                {transicaoFase >= 4 ? (
-                  <Sparkles className="h-8 w-8 text-amber-100 animate-pulse" />
-                ) : (
-                  <Sparkles className="h-8 w-8 text-amber-200 animate-spin" />
-                )}
+          <section className="flex flex-col items-center justify-center text-center animate-fadeIn w-full py-10 space-y-6">
+            {/* Pulsing Mystic Portal */}
+            <div className="relative flex h-24 w-24 items-center justify-center">
+              <div className="absolute inset-0 rounded-full bg-amber-400/20 animate-ping" />
+              <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-tr from-purple-900 via-purple-700 to-amber-500 text-white shadow-[0_0_35px_rgba(245,158,11,0.7)] ring-2 ring-amber-300/60">
+                <Sparkles className="h-10 w-10 text-amber-200 animate-spin" />
               </div>
             </div>
 
-            {/* Título Dinâmico: avisando quando conclui */}
-            {transicaoFase >= 4 ? (
-              <div className="space-y-1.5 animate-fadeIn">
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-950/90 border border-emerald-400/60 text-xs font-black text-emerald-300 tracking-wider shadow-sm">
-                  <span>✅ ANÁLISE CONCLUÍDA</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl font-black text-amber-300 drop-shadow-md">
-                  🎴 Suas Cartas Estão Prontas: Pode Escolher! ✨
+            {/* Mensagens rotativas em cascata suave com opacity e transform */}
+            <div className="min-h-[70px] flex items-center justify-center px-4">
+              <div key={transicaoFase} className="animate-fadeIn space-y-2">
+                <p className="text-2xl sm:text-3xl">
+                  {mensagensProcessamento[transicaoFase]?.icone || '🔮'}
+                </p>
+                <h2 className="text-base sm:text-lg font-bold text-amber-300 leading-snug">
+                  {mensagensProcessamento[transicaoFase]?.texto || 'Analisando suas respostas...'}
                 </h2>
               </div>
-            ) : (
-              <h2 className="text-lg sm:text-xl font-bold text-amber-300">
-                🔮 {config.quizTransicaoCarregando || 'Analisando suas respostas...'} ✨
-              </h2>
-            )}
-
-            {/* Frases sequenciais em cascata com animação suave */}
-            <div className="w-full max-w-md space-y-4 text-purple-100 text-sm sm:text-base leading-relaxed">
-              <p className={`transition-all duration-700 ${transicaoFase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
-                <strong>🌌 1. A partir do que você me revelou...</strong>
-                <br />
-                O universo irá filtrar, entre milhares de combinações astrais possíveis...
-              </p>
-
-              <p className={`transition-all duration-700 ${transicaoFase >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
-                <strong>✨ 2. As únicas 8 cartas capazes de falar diretamente com a sua energia neste momento.</strong>
-              </p>
-
-              <p className={`transition-all duration-700 ${transicaoFase >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 font-normal'}`}>
-                🎴 3. Escolha apenas 3 para descobrir o caminho exato para destravar tudo em 2026.
-              </p>
-
-              <p className={`text-xl font-black text-amber-400 tracking-wide transition-all duration-700 ${transicaoFase >= 4 ? 'opacity-100 scale-105' : 'opacity-0 scale-95'}`}>
-                ⚡ Prepare-se. O portal sagrado está aberto! 🔮
-              </p>
             </div>
 
-            {/* Botão de Avançar com Destaque */}
-            {transicaoFase >= 4 && (
-              <button
-                type="button"
-                onClick={() => setEtapa('cartas')}
-                className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2"
-              >
-                <span>🎴 {config.quizTransicaoCta || 'Escolher Minhas Cartas Agora'}</span>
-                <span className="text-xl">➔</span>
-              </button>
-            )}
+            {/* Indicador de progresso suave */}
+            <div className="w-48 h-1.5 bg-purple-950 rounded-full overflow-hidden border border-amber-400/40">
+              <div
+                className="h-full bg-gradient-to-r from-amber-500 to-yellow-300 transition-all duration-1000 ease-out"
+                style={{ width: `${((transicaoFase + 1) / 3) * 100}%` }}
+              />
+            </div>
           </section>
         )}
 
@@ -602,23 +574,22 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINA 8 — ESCOLHA DAS 8 CARTAS (GRID 4x2 com 3D Flip)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'cartas' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-4">
-            <h2 className="text-xl sm:text-2xl font-black text-white leading-tight">
+          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-3.5">
+            <h2 className="text-lg sm:text-xl font-black text-white leading-tight">
               🎴 {config.quizCartasTitulo || 'O baralho está aberto para você:'} ✨
             </h2>
 
-            <div className="text-sm sm:text-base text-purple-200 space-y-1">
-              <p><strong>🔮 Não pense muito, apenas sinta sua intuição.</strong></p>
-              <p>Escolha 3 cartas, uma de cada vez, <strong>na ordem que o seu instinto mandar:</strong></p>
-            </div>
+            <p className="text-xs sm:text-sm text-purple-200">
+              Escolha 3 cartas, uma de cada vez, <strong>na ordem da sua intuição:</strong>
+            </p>
 
-            <div className="flex items-center gap-2 text-xs font-bold text-amber-300 bg-purple-950/80 px-4 py-1.5 rounded-full border border-amber-400/50 shadow-md">
-              <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
+            <div className="flex items-center gap-1.5 text-xs font-bold text-amber-300 bg-purple-950/80 px-3.5 py-1 rounded-full border border-amber-400/50 shadow-md">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
               <span>✨ {cartasEscolhidas.length} de 3 cartas selecionadas 🔮</span>
             </div>
 
             {/* GRID DE 8 CARTAS (4 COLUNAS x 2 LINHAS) */}
-            <div className="cs-grid my-2">
+            <div className="cs-grid my-1">
               {cartas.map((carta, index) => {
                 const ordemEscolhida = cartasEscolhidas.indexOf(index);
                 const isFlipped = ordemEscolhida !== -1;
@@ -643,6 +614,8 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                           <img
                             src={carta.verso}
                             alt={carta.alt || `Carta ${index + 1}`}
+                            width="160"
+                            height="240"
                             loading="eager"
                             onError={(e) => {
                               const versosLocais = [
@@ -671,6 +644,8 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                           <img
                             src={revelada.src || revelada.frente}
                             alt={revelada.nome || revelada.alt}
+                            width="160"
+                            height="240"
                             className="cs-img"
                             loading="eager"
                             onError={(e) => {
@@ -689,11 +664,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
 
             {/* BOTÃO PARA VER RESULTADO (LIBERADO APÓS AS 3 CARTAS) */}
             {cartasEscolhidas.length >= 3 && (
-              <div className="w-full pt-3 animate-fadeIn">
+              <div className="w-full pt-2 animate-fadeIn">
                 <button
                   type="button"
                   onClick={() => setEtapa('vsl')}
-                  className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2"
+                  className="w-full min-h-[56px] py-4 px-6 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 text-purple-950 font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(245,158,11,0.6)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>✨ {config.quizBotaoRevelacaoTexto || 'VER RESULTADO DA LEITURA'}</span>
                   <span className="text-xl">➔</span>
@@ -715,7 +690,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                 🔮 AS CARTAS REVELARAM UM BLOQUEIO: <span className="text-amber-300">ASSISTA ATÉ O FINAL PARA LIBERAR SEUS CAMINHOS ✨</span>
               </h2>
 
-              {/* Aviso de Urgência — Vídeo vai sair do ar (Maior e com mais destaque) */}
+              {/* Aviso de Urgência — Vídeo vai sair do ar */}
               <div className="flex items-center justify-center gap-2 py-1.5 px-3 rounded-xl bg-gradient-to-r from-red-950/90 via-red-900/90 to-red-950/90 border border-red-500/60 text-xs sm:text-sm text-red-100 font-bold shadow-[0_0_15px_rgba(239,68,68,0.35)] leading-snug">
                 <span className="text-sm sm:text-base">⚠️</span>
                 <span><strong>Este vídeo vai sair do ar a qualquer momento</strong>, então <u className="decoration-amber-400 font-black text-amber-200">não feche este vídeo</u>!</span>
@@ -732,20 +707,20 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               />
             </div>
 
-            {/* Botão CTA Principal de Conversão (Aparece exatamente aos 17:30 / 1050s) */}
+            {/* Botão CTA Principal de Conversão (Alto Contraste Dourado, min-h 56px) */}
             {mostrarCtaVsl && (
               <div className="w-full space-y-2 pt-1 animate-fadeIn shrink-0">
                 <button
                   type="button"
                   onClick={handleAbrirCheckout}
-                  className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2"
+                  className="w-full min-h-[56px] py-4 px-6 rounded-xl bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-400 text-purple-950 font-black text-base sm:text-lg uppercase tracking-wider shadow-[0_8px_30px_rgba(245,158,11,0.6)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/60 animate-pulse flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>👉 {config.quizVsl2CtaTexto || config.vslCtaTexto || 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA'}</span>
+                  <span>👉 {config.quizVsl2CtaTexto || config.vslCtaTexto || 'QUERO MINHA LEITURA COMPLETA'}</span>
                   <span className="text-xl">➔</span>
                 </button>
 
                 <div className="flex flex-wrap items-center justify-center gap-2 text-[11px] text-purple-200/90 pt-0.5">
-                  <span>🔒 Acesso Imediato & 100% Seguro</span>
+                  <span>🔒 Acesso Imediato &amp; 100% Seguro</span>
                   <span>•</span>
                   <span>⚡ Vagas Limitadas no Altar</span>
                   <span>•</span>
