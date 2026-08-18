@@ -319,12 +319,20 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
 
   const handleAbrirCheckout = () => {
     try {
-      if (typeof window !== 'undefined' && window.fbq) {
-        window.fbq('track', 'InitiateCheckout', {
-          content_name: 'Safira Oráculo - Ativação do Código',
-          currency: 'BRL',
-          value: 40.00,
-        });
+      if (typeof window !== 'undefined') {
+        if (window.Ozion && window.Ozion.initiateCheckout) {
+          window.Ozion.initiateCheckout({
+            content_name: 'Safira Oráculo - Ativação do Código',
+            currency: 'BRL',
+            value: 40.00,
+          });
+        } else if (window.fbq) {
+          window.fbq('track', 'InitiateCheckout', {
+            content_name: 'Safira Oráculo - Ativação do Código',
+            currency: 'BRL',
+            value: 40.00,
+          });
+        }
       }
     } catch (e) {}
 
