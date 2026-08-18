@@ -384,7 +384,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         src={config.quizAudioUrl || 'https://media.base44.com/files/public/user_6a345b7a1d1c8dfb9baf54b0/421f6cbfb_universfield-swoosh-06-351021.mp3'}
       />
 
-      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-md h-full max-h-full justify-between gap-1.5 sm:gap-3' : 'max-w-lg flex-auto gap-6 sm:gap-8'}`}>
+      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-lg h-full max-h-full justify-between gap-2 sm:gap-3.5' : 'max-w-xl flex-auto gap-6 sm:gap-8'}`}>
 
         <header className="flex flex-col items-center text-center shrink-0">
           <div className="flex items-center gap-2 text-amber-300 font-extrabold tracking-widest text-xs uppercase mb-2">
@@ -394,7 +394,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
           </div>
 
           {etapa !== 'intro' && (
-            <div className="w-full max-w-md mt-1 mb-2">
+            <div className="w-full max-w-lg mt-1 mb-2">
               <div className="h-2.5 w-full overflow-hidden rounded-full bg-purple-950/90 p-0.5 ring-1 ring-amber-400/40">
                 <div
                   className="h-full rounded-full bg-gradient-to-r from-amber-500 via-amber-300 to-yellow-200 transition-all duration-500 shadow-[0_0_15px_rgba(245,158,11,0.8)]"
@@ -409,22 +409,22 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINA 1 — INTRODUÇÃO DO QUIZ
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'intro' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn space-y-6">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-600/30 to-amber-500/20 border border-amber-400/50 text-[11px] font-extrabold text-amber-300 tracking-wider shadow-md">
+          <section className="flex flex-col items-center text-center animate-fadeIn space-y-6 sm:space-y-7">
+            <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/20 via-purple-600/30 to-amber-500/20 border border-amber-400/50 text-[11px] sm:text-xs font-extrabold text-amber-300 tracking-wider shadow-md">
               <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-spin" />
               <span>✨ CONSULTA SAGRADA DE TARÔ 2026 ✨</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black leading-tight tracking-tight text-white drop-shadow-md">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight tracking-tight text-white drop-shadow-md max-w-lg">
               🔮 {config.quizIntroTitulo || 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!'} ✨
             </h1>
 
-            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_40px_rgba(201,168,76,0.45)] bg-purple-950/40">
+            <div className="relative mx-auto w-full max-w-md sm:max-w-lg overflow-hidden rounded-2xl border-2 border-amber-400/60 shadow-[0_0_40px_rgba(201,168,76,0.45)] bg-purple-950/40">
               <img
                 src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
                 alt="Oráculo e Cartas"
-                width="384"
-                height="384"
+                width="480"
+                height="480"
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
@@ -438,13 +438,13 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             <button
               type="button"
               onClick={handleIniciarQuiz}
-              className="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2"
+              className="w-full py-4 sm:py-5 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-[#e9ba2f] via-[#f5c85a] to-[#d99814] text-[#1a0836] font-black text-lg sm:text-xl uppercase tracking-wider shadow-[0_8px_30px_rgba(233,186,47,0.5)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-white/50 animate-pulse flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>🔮 {config.quizIntroCta || 'FAZER LEITURA GRATUITA'}</span>
               <span className="text-xl">➔</span>
             </button>
 
-            <p className="text-sm sm:text-base text-purple-200/90 font-medium leading-relaxed max-w-md mx-auto">
+            <p className="text-sm sm:text-base text-purple-200/90 font-medium leading-relaxed max-w-lg mx-auto">
               {config.quizIntroSubtitulo || 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.'}
             </p>
 
