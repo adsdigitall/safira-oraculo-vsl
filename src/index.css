@@ -1365,18 +1365,17 @@ h1, h2, h3, h4 {
 .cs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
+  gap: 8px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  padding: 12px 0 24px;
+  padding: 12px 0 20px;
 }
 
 @media (max-width: 480px) {
   .cs-grid {
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    padding: 8px 0 16px;
+    gap: 4px;
   }
 }
 
