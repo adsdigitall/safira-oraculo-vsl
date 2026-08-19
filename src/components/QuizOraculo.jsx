@@ -392,7 +392,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   ];
 
   return (
-    <div className={`relative w-full bg-[#03140e] text-white font-sans flex flex-col items-center select-none ${isVsl ? 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-between p-3 sm:py-4' : 'min-h-[100dvh] justify-start px-4 py-6 sm:py-8'}`}>
+    <div className={`relative w-full bg-[#03140e] text-white font-sans flex flex-col items-center select-none ${isVsl ? 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-between p-3 sm:py-4' : 'h-[100dvh] max-h-[100dvh] overflow-hidden justify-center px-4 py-3 sm:py-4'}`}>
       <AuroraBackground />
 
       <audio
@@ -401,7 +401,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         src={config.quizAudioUrl || 'https://media.base44.com/files/public/user_6a345b7a1d1c8dfb9baf54b0/421f6cbfb_universfield-swoosh-06-351021.mp3'}
       />
 
-      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-md h-full max-h-full justify-between gap-1.5 sm:gap-3' : 'max-w-lg flex-auto gap-6 sm:gap-8'}`}>
+      <main className={`relative z-10 my-auto flex w-full flex-col ${isVsl ? 'max-w-md h-full max-h-full justify-between gap-1.5 sm:gap-3' : 'max-w-lg flex-auto min-h-0 justify-center gap-3 sm:gap-4'}`}>
 
         {/* ── Top Header & Progress Bar ── */}
         <header className="flex flex-col items-center text-center shrink-0 w-full">
@@ -431,18 +431,18 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINA 1 — INTRODUÇÃO DO QUIZ (ABERTURA MAJESTOSA DOURADA)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'intro' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-6">
+          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-3 sm:space-y-4 min-h-0">
             <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/25 via-[#235743]/60 to-amber-500/25 border border-amber-400/80 text-xs font-extrabold text-amber-200 tracking-wider shadow-[0_4px_15px_rgba(217,152,20,0.3)]">
               <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
               <span>✨ DIAGNÓSTICO SAGRADO DE ABUNDÂNCIA 2026 ✨</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-black leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#FFFDF0] via-[#F5C85A] to-[#D99814] drop-shadow-[0_2px_12px_rgba(217,152,20,0.6)] max-w-md">
+            <h1 className="text-xl sm:text-3xl font-black leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#FFFDF0] via-[#F5C85A] to-[#D99814] drop-shadow-[0_2px_12px_rgba(217,152,20,0.6)] max-w-md">
               🔮 {config.quizIntroTitulo || 'Descubra o que está travando o seu dinheiro neste ano.'} ✨
             </h1>
 
             {/* Imagem Hero Exuberante com Moldura Dourada Reluzente */}
-            <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[360px] aspect-square overflow-hidden rounded-2xl border-2 border-amber-300 ring-4 ring-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.65)] bg-[#041a12]/60 group">
+            <div className="relative mx-auto aspect-square w-[min(72vw,34dvh,300px)] overflow-hidden rounded-2xl border-2 border-amber-300 ring-4 ring-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.65)] bg-[#041a12]/60 group shrink-0">
               <img
                 src={(config?.quizHeroUrl && !config.quizHeroUrl.includes('banner-abundancia')) ? config.quizHeroUrl : 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
                 alt="Safira Taróloga - Oráculo"
@@ -487,7 +487,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINAS 2 a 6 — PERGUNTAS INTERATIVAS (LUXO DOURADO)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'perguntas' && perguntaAtual && (
-          <section className="flex flex-col items-center animate-fadeIn w-full space-y-6">
+          <section className="flex flex-col items-center animate-fadeIn w-full space-y-4">
             <div className="w-full text-center space-y-2">
               <div className="inline-flex items-center gap-1.5 px-4 py-1 rounded-full bg-gradient-to-r from-amber-500/20 via-[#163a2c]/80 to-amber-500/20 border border-amber-400/60 text-xs font-bold text-amber-300 uppercase tracking-widest mb-1 shadow-sm">
                 <span>📜 PERGUNTA {perguntaIndex + 1} DE {perguntas.length} ✦</span>
@@ -511,7 +511,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             </div>
 
             {/* Lista de Opções: Cards Dourados, Clicáveis de Ponta a Ponta */}
-            <div className="w-full flex flex-col gap-3.5">
+            <div className="w-full flex flex-col gap-2.5">
               {perguntaAtual.opcoes.map((opcao, idx) => {
                 const isSelected = opcaoSelecionada === idx;
                 return (
@@ -519,7 +519,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                     key={idx}
                     type="button"
                     onClick={(e) => handleResponder(idx, e)}
-                    className={`group relative flex w-full items-center justify-between rounded-2xl border p-4 sm:p-4.5 text-left transition-all duration-200 cursor-pointer min-h-[62px] gap-3 box-border overflow-hidden active:scale-[0.98] ${
+                    className={`group relative flex w-full items-center justify-between rounded-2xl border p-3 sm:p-4 text-left transition-all duration-200 cursor-pointer min-h-[52px] gap-3 box-border overflow-hidden active:scale-[0.98] ${
                       isSelected
                         ? 'border-amber-300 bg-gradient-to-r from-[#2c2005] via-[#4d390a] to-[#2c2005] ring-2 ring-amber-300 shadow-[0_0_35px_rgba(245,200,90,0.85)] scale-[1.02]'
                         : 'border-amber-500/40 bg-gradient-to-r from-[#0c221a]/95 via-[#143528]/95 to-[#0c221a]/95 hover:border-amber-300 hover:bg-[#1a4434] shadow-[0_4px_16px_rgba(0,0,0,0.4),0_0_15px_rgba(245,158,11,0.15)]'
@@ -555,7 +555,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINA 7 — DIAGNÓSTICO / CONSULTA ASTRAL (PROCESSAMENTO DOURADO)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'transicao' && (
-          <section className="flex flex-col items-center justify-center text-center animate-fadeIn w-full py-8 space-y-6">
+          <section className="flex flex-col items-center justify-center text-center animate-fadeIn w-full py-4 space-y-5">
             {/* Pulsing Mystic Portal */}
             <div className="relative flex h-24 w-24 items-center justify-center">
               <div className="absolute inset-0 rounded-full bg-amber-400/30 animate-ping" />
@@ -590,7 +590,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             PÁGINA 8 — ESCOLHA DAS 8 CARTAS (MESA SAGRADA 3D DOURADA)
            ───────────────────────────────────────────────────────────── */}
         {etapa === 'cartas' && (
-          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-4">
+          <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-3 min-h-0">
             <h2 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#FFFDF0] via-[#F5C85A] to-[#D99814] drop-shadow-md leading-tight">
               🎴 {config.quizCartasTitulo || 'O baralho está aberto para você'} ✨
             </h2>
@@ -605,7 +605,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             </div>
 
             {/* GRID DE 8 CARTAS (4 COLUNAS x 2 LINHAS) */}
-            <div className="cs-grid my-2">
+            <div className="cs-grid my-1">
               {cartas.map((carta, index) => {
                 const ordemEscolhida = cartasEscolhidas.indexOf(index);
                 const isFlipped = ordemEscolhida !== -1;
