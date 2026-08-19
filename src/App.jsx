@@ -67,10 +67,8 @@ function forcarQuizDoCodigo(cfg) {
   if (isConcorrente(forcado.quizVsl2CtaUrl)) forcado.quizVsl2CtaUrl = CONFIG_PADRAO.quizVsl2CtaUrl;
   if (isConcorrente(forcado.backRedirectUrl)) forcado.backRedirectUrl = CONFIG_PADRAO.backRedirectUrl;
 
-  // Garante a imagem original do quiz sem resquício de cache
-  if (!forcado.quizHeroUrl || forcado.quizHeroUrl.includes('oraculo-3d')) {
-    forcado.quizHeroUrl = CONFIG_PADRAO.quizHeroUrl;
-  }
+  // Garante a imagem oficial da taróloga no quiz sem resquício de cache do celular
+  forcado.quizHeroUrl = CONFIG_PADRAO.quizHeroUrl;
 
   return forcado;
 }

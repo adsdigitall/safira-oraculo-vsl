@@ -444,7 +444,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             {/* Imagem Hero Exuberante com Moldura Dourada Reluzente */}
             <div className="relative mx-auto w-full max-w-[320px] sm:max-w-[360px] aspect-square overflow-hidden rounded-2xl border-2 border-amber-300 ring-4 ring-amber-500/30 shadow-[0_0_50px_rgba(245,158,11,0.65)] bg-[#041a12]/60 group">
               <img
-                src={config.quizHeroUrl || 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
+                src={(config?.quizHeroUrl && !config.quizHeroUrl.includes('banner-abundancia')) ? config.quizHeroUrl : 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f'}
                 alt="Safira Taróloga - Oráculo"
                 width="384"
                 height="384"
