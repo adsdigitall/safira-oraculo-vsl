@@ -5,7 +5,7 @@
 export const CONFIG_PADRAO = {
   // ─── Marca ───────────────────────────────────────────────
   productName: 'Safira Oráculo',
-  subTitle: 'Especialista em Destravamento de Caminhos e Relacionamento',
+  subTitle: 'Especialista em destravamento de caminhos e abundância',
   logoUrl: '',
 
   // ─── Rastreamento (Pixel) ────────────────────────────────
@@ -34,66 +34,66 @@ export const CONFIG_PADRAO = {
   // Página 1 — Introdução do Quiz
   quizLogoUrl: '',
   quizHeroUrl: 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f',
-  quizIntroTitulo: 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!',
-  quizIntroSubtitulo: 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.',
-  quizIntroCta: 'COMEÇAR MINHA LEITURA',
+  quizIntroTitulo: 'Descubra o que está travando o seu dinheiro neste ano.',
+  quizIntroSubtitulo: 'As cartas mostram o bloqueio e o caminho pra destravar a prosperidade.',
+  quizIntroCta: 'COMEÇAR MEU DIAGNÓSTICO',
 
   // Páginas 2 a 6 — Perguntas Interativas (Otimizadas para Mobile sem quebra excessiva)
   quizPerguntas: [
     {
       id: 1,
-      titulo: 'Qual dessas frases mais descreve o que você está sentindo esse ano?',
+      titulo: 'O que mais descreve seu dinheiro esse ano?',
       opcoes: [
-        { texto: '💔 Me sinto travada, nada anda por mais que eu tente' },
-        { texto: '💜 Tenho quase tudo, mas sinto um vazio por dentro' },
-        { texto: '💛 Estou numa decisão e não sei qual caminho seguir' },
-        { texto: '🔵 Sinto que algo grande vai mudar, mas não sei o quê' },
+        { texto: 'Trabalho, me esforço, e o dinheiro não sobra' },
+        { texto: 'Entra e some, como se tivesse um furo' },
+        { texto: 'Tenho quase o que preciso, mas vivo no aperto' },
+        { texto: 'Sinto que 2026 pode virar, mas algo segura' },
       ],
     },
     {
       id: 2,
-      titulo: 'Qual dessas frases mais representa seus sentimentos e desafios?',
+      titulo: 'O que mais te trava na hora de prosperar?',
       opcoes: [
-        { texto: '💔 Me doo por todos, mas sempre fico sozinha no final' },
-        { texto: '😔 Carrego tudo nas costas enquanto os outros avançam' },
-        { texto: '🥀 Já dei tanto de mim que me sinto esgotada por dentro' },
-        { texto: '🌀 Meu esforço e carinho nunca parecem suficientes' },
+        { texto: 'Faço por todo mundo e fico por último' },
+        { texto: 'Os outros avançam e eu continuo no mesmo lugar' },
+        { texto: 'Já tentei de tudo e me sinto esgotada' },
+        { texto: 'Meu esforço nunca parece suficiente' },
       ],
     },
     {
       id: 3,
-      titulo: 'O que você mais busca destravar neste ano de 2026?',
+      titulo: 'O que você mais precisa destravar agora?',
       opcoes: [
-        { texto: '💰 Prosperar e destravar a vida financeira' },
-        { texto: '❤️ Encontrar meu amor verdadeiro e ser feliz' },
-        { texto: '🌿 Conquistar paz interior e me livrar da ansiedade' },
-        { texto: '✨ Ter direção clara e propósito de vida' },
+        { texto: 'Sair do aperto e ter folga no mês' },
+        { texto: 'Abrir caminho pra um dinheiro maior' },
+        { texto: 'Parar de se preocupar toda hora com conta' },
+        { texto: 'Ter direção clara pra prosperar em 2026' },
       ],
     },
     {
       id: 4,
-      titulo: 'Você sente que os outros avançam enquanto você segue travada?',
+      titulo: 'Você sente que os outros avançam enquanto seu dinheiro continua travado?',
       opcoes: [
-        { texto: '✅ Sim, sinto isso com frequência' },
-        { texto: '🔄 Às vezes, mas acho que é só uma fase' },
-        { texto: '🤔 Sinto isso, mas não sei de onde vem' },
+        { texto: 'Sim, sinto isso o tempo todo' },
+        { texto: 'Às vezes, e isso me irrita' },
+        { texto: 'Sinto, mas não sei de onde vem' },
       ],
     },
     {
       id: 5,
-      kicker: '(Última pergunta antes da sua leitura)',
-      subtexto: 'Se as cartas revelarem o que está bloqueando sua vida e o caminho exato...',
-      titulo: 'Você está pronta para seguir essa orientação sagrada?',
+      kicker: 'Última pergunta antes da sua leitura',
+      subtexto: 'Se as cartas revelarem o bloqueio e o caminho exato pra destravar sua abundância...',
+      titulo: 'Você segue essa orientação?',
       opcoes: [
-        { texto: '✅ Sim, estou 100% pronta para destravar' },
-        { texto: '⚠️ Sim, mas tenho medo de me frustrar' },
-        { texto: '🤔 Depende do que as cartas me revelarem' },
+        { texto: 'Sim, estou pronta pra destravar' },
+        { texto: 'Sim, mas tenho medo de me frustrar de novo' },
+        { texto: 'Depende do que as cartas revelarem' },
       ],
     },
   ],
 
   // Página 7 — Diagnóstico e Transição
-  quizTransicaoCarregando: 'Analisando suas respostas...',
+  quizTransicaoCarregando: 'Consultando o que trava a sua prosperidade...',
   quizTransicaoLinhas: [
     'A partir do que você me revelou... O universo irá filtrar, entre milhares de combinações possíveis...',
     'As únicas 8 cartas capazes de falar diretamente com a sua energia neste momento.',
@@ -103,9 +103,9 @@ export const CONFIG_PADRAO = {
   quizTransicaoCta: 'Escolher Minhas Cartas Agora',
 
   // Página 8 — Escolha das 8 Cartas (Grid 4x2)
-  quizCartasTitulo: 'O baralho está aberto para você:',
+  quizCartasTitulo: 'O baralho está aberto para você',
   quizCartasSubtitulo: 'Não pense muito, apenas sinta.',
-  quizCartasInstrucao: 'Escolha 3 cartas, uma de cada vez, na ordem que o seu instinto mandar:',
+  quizCartasInstrucao: 'Escolhe 3 cartas, uma de cada vez, na ordem da intuição.',
   quizCartasQtd: 3,
   quizSomAtivo: true,
   quizAudioUrl: 'https://media.base44.com/files/public/user_6a345b7a1d1c8dfb9baf54b0/421f6cbfb_universfield-swoosh-06-351021.mp3',
@@ -128,7 +128,7 @@ export const CONFIG_PADRAO = {
     { nome: 'O Louco', src: 'https://i.ibb.co/4ZtyD9Xx/O-LOUCO.png', alt: 'O Louco' },
     { nome: 'A Torre', src: 'https://i.ibb.co/v6gCFykW/A-TORRE.png', alt: 'A Torre' },
   ],
-  quizBotaoRevelacaoTexto: 'VER RESULTADO DA LEITURA',
+  quizBotaoRevelacaoTexto: 'VER O QUE ESTÁ TRAVANDO MEU DINHEIRO',
 
   // Página 9 — VSL 1 (Vídeo de Leitura + Escolha da Carta Sagrada do Altar)
   quizVsl1Url: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
@@ -207,8 +207,8 @@ export const CONFIG_PADRAO = {
   materials: [
     {
       id: 1,
-      title: '🕯️ Kit de Velas & Rosas',
-      description: 'Materiais utilizados: 1 vela de casal em escultura, 1 vela de abertura de caminhos, 3 incensos de rosas, papel rosa consagrado e feitiço de descarrego no altar de Oxum e Maria Padilha.',
+      title: '🕯️ Kit de Velas & Abertura de Caminhos',
+      description: 'Materiais utilizados: velas de abertura de caminhos e prosperidade, incensos, papel consagrado e ritual de descarrego no altar para destravar a abundância.',
       category: 'Oferenda Principal',
       type: 'request',
       icon: 'sparkles',
@@ -216,8 +216,8 @@ export const CONFIG_PADRAO = {
     },
     {
       id: 2,
-      title: '📜 Oração Secreta de Maria Padilha & Oxum (PDF)',
-      description: 'Guia completo de orações em PDF para atração e descarrego. Liberado imediatamente após a solicitação.',
+      title: '📜 Oração Secreta de Abertura de Caminhos (PDF)',
+      description: 'Guia completo de orações em PDF para abertura de caminhos e atração de prosperidade. Liberado imediatamente após a solicitação.',
       category: 'E-book Exclusivo',
       type: 'download',
       icon: 'copy',
@@ -226,7 +226,7 @@ export const CONFIG_PADRAO = {
     {
       id: 3,
       title: '📿 Entrar na Comunidade de Orações Diárias',
-      description: 'Acesso VIP ao grupo de rezas diárias de atração, proteção e blindagem do casal.',
+      description: 'Acesso VIP ao grupo de rezas diárias de abundância, proteção e abertura de caminhos.',
       category: 'Comunidade VIP',
       type: 'request',
       icon: 'bot',
@@ -249,17 +249,17 @@ export const CONFIG_PADRAO = {
   bonus: [
     {
       titulo: '🗓️ Acompanhamento de 7 Dias com Safira Oráculo',
-      descricao: 'Orientação espiritual diária no WhatsApp durante os 7 dias após o início do trabalho para direcionar cada atitude no relacionamento.',
+      descricao: 'Orientação espiritual diária no WhatsApp durante os 7 dias após o início do trabalho para direcionar cada atitude rumo à abundância.',
       icone: 'sparkles',
     },
     {
-      titulo: '💬 Guia Secreto de Mensagens & Respostas',
-      descricao: 'Roteiro exato das mensagens para enviar para a pessoa amada e como responder a cada reação dela.',
+      titulo: '💬 Guia Secreto de Atitudes & Prosperidade',
+      descricao: 'Roteiro exato das atitudes para destravar o dinheiro e como agir a cada sinal de prosperidade.',
       icone: 'wand',
     },
     {
-      titulo: '📜 Oração Diária em PDF de Blindagem de Casal',
-      descricao: 'Reza de descarrego para afastar rivais, inveja e fofocas.',
+      titulo: '📜 Oração Diária em PDF de Abertura de Caminhos',
+      descricao: 'Reza de descarrego para afastar bloqueios, inveja e trava no dinheiro.',
       icone: 'chart',
     },
   ],
@@ -270,7 +270,7 @@ export const CONFIG_PADRAO = {
     {
       nome: 'Kit Completo de Materiais + Acompanhamento durante 7 Dias',
       valor: 'R$ 60,00',
-      descricao: 'Materiais do altar + Guia de Mensagens + Acompanhamento de 7 dias com Safira Oráculo.',
+      descricao: 'Materiais do altar + Guia de Prosperidade + Acompanhamento de 7 dias com Safira Oráculo.',
     },
   ],
   planosTotal: 'R$ 60,00',
