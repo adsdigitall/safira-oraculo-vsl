@@ -381,8 +381,8 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
     window.location.search.includes('debug=1')
   );
 
-  // 17 minutos e 07 segundos = 1027 segundos exatos
-  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1027);
+  // 17 minutos e 27 segundos = 1047 segundos exatos
+  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1047);
   const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
   const mensagensProcessamento = [

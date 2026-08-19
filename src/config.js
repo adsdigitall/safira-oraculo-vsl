@@ -24,7 +24,7 @@ export const CONFIG_PADRAO = {
   vslUrl: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
   vslDuracaoSegundos: 1080,
   vslAspectRatio: '4:5', // '16:9', '4:5' ou '9:16'
-  vslCtaSegundo: 1027, // 17 minutos e 07 segundos (17 * 60 + 7 = 1027s)
+  vslCtaSegundo: 1047, // 17 minutos e 27 segundos (17 * 60 + 27 = 1047s)
   vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
   vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
 
@@ -146,7 +146,7 @@ export const CONFIG_PADRAO = {
 
   // Página 10 — VSL 2 (Vídeo 2 + Botão de Ativação do Código / Oferta)
   quizVsl2Url: 'https://play.tynk.ai/p/0b702a7c-0f5b-44ad-a799-932db4c1a3eb',
-  quizVsl2Delay: 1027, // 17 minutos e 07 segundos (1027s) para liberar o botão CTA
+  quizVsl2Delay: 1047, // 17 minutos e 27 segundos (1047s) para liberar o botão CTA
   quizVsl2CtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
   quizVsl2CtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
   quizVslAspectRatio: '4:5',
@@ -161,7 +161,7 @@ export const CONFIG_PADRAO = {
       checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
-      vslCtaSegundo: 1027,
+      vslCtaSegundo: 1047,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
@@ -173,7 +173,7 @@ export const CONFIG_PADRAO = {
       checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 40,00',
-      vslCtaSegundo: 1027,
+      vslCtaSegundo: 1047,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },
@@ -185,7 +185,7 @@ export const CONFIG_PADRAO = {
       checkoutUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
       vslAspectRatio: '4:5',
       planosTotal: 'R$ 60,00',
-      vslCtaSegundo: 1027,
+      vslCtaSegundo: 1047,
       vslCtaTexto: 'QUERO ATIVAR ABUNDÂNCIA NA MINHA VIDA',
       vslCtaUrl: 'https://ggcheckout.app/checkout/v5/K5qJrW0VINjwRkiJydnl',
     },

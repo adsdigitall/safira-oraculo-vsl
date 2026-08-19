@@ -450,7 +450,7 @@ export default function QuizNumerologico({ config, variationId = 'v1', onConclui
     window.location.search.includes('debug=1')
   );
 
-  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1027);
+  const vslDelaySegundos = isDebugCta ? 0 : Number(config.quizVsl2Delay ?? config.vslCtaSegundo ?? 1047);
   const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
   return (
