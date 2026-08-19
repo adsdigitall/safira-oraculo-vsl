@@ -33,10 +33,10 @@ export const CONFIG_PADRAO = {
 
   // Página 1 — Introdução do Quiz
   quizLogoUrl: '',
-  quizHeroUrl: 'https://cdn.xquiz.co/images/7302e5ee-a1ba-40b5-b6eb-a7827f03198f',
+  quizHeroUrl: '/banner-abundancia.png',
   quizIntroTitulo: 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!',
   quizIntroSubtitulo: 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.',
-  quizIntroCta: 'FAZER LEITURA GRATUITA',
+  quizIntroCta: 'COMEÇAR MINHA LEITURA',
 
   // Páginas 2 a 6 — Perguntas Interativas (Otimizadas para Mobile sem quebra excessiva)
   quizPerguntas: [

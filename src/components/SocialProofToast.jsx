@@ -52,25 +52,25 @@ export default function SocialProofToast({ ativo = true }) {
 
   return (
     <div className="fixed bottom-3 left-3 sm:bottom-5 sm:left-5 z-50 max-w-[340px] pointer-events-none transition-all duration-500 animate-fadeIn">
-      <div className="bg-[#190933]/95 backdrop-blur-md border border-amber-400/50 p-3 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.6),0_0_20px_rgba(245,158,11,0.25)] flex items-center gap-3 ring-1 ring-white/20">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-800 to-amber-500 border border-amber-300/60 flex items-center justify-center text-amber-100 shrink-0 text-lg shadow-inner animate-pulse">
+      <div className="bg-[#062016]/95 backdrop-blur-md border border-amber-400/60 p-3 rounded-2xl shadow-[0_10px_35px_rgba(0,0,0,0.7),0_0_25px_rgba(233,186,47,0.35)] flex items-center gap-3 ring-1 ring-white/20">
+        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-900 to-amber-500 border border-amber-300/60 flex items-center justify-center text-amber-100 shrink-0 text-lg shadow-inner animate-pulse">
           {notificacaoAtual.icone}
         </div>
 
         <div className="flex-1 min-w-0">
           <p className="text-[12px] font-extrabold text-amber-300 leading-snug">
-            {notificacaoAtual.nome} <span className="text-[10px] text-purple-200 font-normal">({notificacaoAtual.local})</span>
+            {notificacaoAtual.nome} <span className="text-[10px] text-emerald-200 font-normal">({notificacaoAtual.local})</span>
           </p>
-          <p className="text-[11px] text-white/90 font-medium leading-tight line-clamp-2">
+          <p className="text-[11px] text-white/95 font-medium leading-tight line-clamp-2">
             {notificacaoAtual.acao}
           </p>
           <div className="flex items-center gap-2 text-[9px] text-emerald-300 font-bold mt-0.5">
-            <span className="flex items-center gap-1 text-purple-300/80">
+            <span className="flex items-center gap-1 text-emerald-200/90">
               <Clock className="w-2.5 h-2.5 text-amber-400" /> {notificacaoAtual.tempo}
             </span>
             <span>•</span>
             <span className="flex items-center gap-0.5 text-emerald-400">
-              <CheckCircle2 className="w-2.5 h-2.5" /> Compra Confirmada
+              <CheckCircle2 className="w-2.5 h-2.5" /> Ativação Confirmada
             </span>
           </div>
         </div>

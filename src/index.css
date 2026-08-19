@@ -11,22 +11,22 @@
   --font-mystic: 'Cinzel', 'Cormorant Garamond', serif;
   --font-script: 'Great Vibes', 'Cormorant Garamond', cursive;
 
-  /* Paleta cristalina */
-  --cx-ink: #2e2747;
-  --cx-ink-soft: #615a80;
-  --cx-champ: #9a7b3f;
-  --cx-champ-soft: #c9b489;
+  /* Paleta Código da Abundância (Esmeralda Profundo & Ouro Sagrado) */
+  --cx-ink: #041a12;
+  --cx-ink-soft: #123d2d;
+  --cx-champ: #d99814;
+  --cx-champ-soft: #f5c85a;
 
-  --bg-cosmic: #1a0533;
-  --bg-deep-purple: #3b0a6b;
-  --bg-card-violet: rgba(42, 30, 28, 0.85);
+  --bg-cosmic: #03140e;
+  --bg-deep-emerald: #092c20;
+  --bg-card-emerald: rgba(8, 38, 28, 0.88);
 
-  --gold-glow: #f59e0b;
-  --gold-accent: #fbbf24;
-  --gold-border: rgba(245, 158, 11, 0.35);
+  --gold-glow: #e9ba2f;
+  --gold-accent: #fcd34d;
+  --gold-border: rgba(233, 186, 47, 0.4);
 
-  --purple-glow: #e0670f;
-  --purple-border: rgba(224, 103, 15, 0.3);
+  --emerald-glow: #10b981;
+  --emerald-border: rgba(16, 185, 129, 0.35);
 }
 
 html, body {
@@ -34,7 +34,7 @@ html, body {
   padding: 0;
   min-height: 100vh;
   min-height: 100dvh;
-  background: linear-gradient(180deg, #3b0a6b 0%, #1a0533 100%);
+  background: linear-gradient(180deg, #092c20 0%, #03140e 100%);
   background-attachment: fixed;
   color: #ffffff;
   font-family: var(--font-sans);
@@ -1452,9 +1452,9 @@ h1, h2, h3, h4 {
 }
 
 .cs-back {
-  border: 1.5px solid #C9A84C;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
-  background: linear-gradient(155deg, #2D1B4E 0%, #1A0930 55%, #0D0520 100%);
+  border: 1.5px solid #E9BA2F;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
+  background: linear-gradient(155deg, #0d3627 0%, #062016 55%, #020d09 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1470,11 +1470,11 @@ h1, h2, h3, h4 {
 
 .cs-front {
   transform: rotateY(180deg);
-  border: 2px solid #C9A84C;
+  border: 2px solid #E9BA2F;
   box-shadow:
-    0 0 24px rgba(201, 168, 76, 0.6),
-    0 6px 22px rgba(0, 0, 0, 0.65);
-  background: #f5edd8;
+    0 0 24px rgba(233, 186, 47, 0.6),
+    0 6px 22px rgba(0, 0, 0, 0.75);
+  background: #fdfbf7;
 }
 
 .cs-front img {
