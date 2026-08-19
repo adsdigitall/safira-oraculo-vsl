@@ -386,9 +386,9 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
   const mostrarCtaVsl = vslDelaySegundos === 0 || segundosVsl >= vslDelaySegundos;
 
   const mensagensProcessamento = [
-    { icone: '🔮', texto: 'Analisando suas respostas com os guias...' },
-    { icone: '🎴', texto: 'Consultando as cartas sagradas de 2026...' },
-    { icone: '✨', texto: 'Preparando sua leitura personalizada...' },
+    { icone: '🔮', texto: 'Consultando o que trava a sua prosperidade...' },
+    { icone: '🎴', texto: 'Filtrando as cartas da sua energia...' },
+    { icone: '✨', texto: 'Preparando o seu diagnóstico...' },
   ];
 
   return (
@@ -434,11 +434,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
           <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-6">
             <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/25 via-[#235743]/60 to-amber-500/25 border border-amber-400/80 text-xs font-extrabold text-amber-200 tracking-wider shadow-[0_4px_15px_rgba(217,152,20,0.3)]">
               <Sparkles className="w-4 h-4 text-amber-300 animate-spin" />
-              <span>✨ CONSULTA SAGRADA DE TARÔ 2026 ✨</span>
+              <span>✨ DIAGNÓSTICO SAGRADO DE ABUNDÂNCIA 2026 ✨</span>
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-black leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-[#FFFDF0] via-[#F5C85A] to-[#D99814] drop-shadow-[0_2px_12px_rgba(217,152,20,0.6)] max-w-md">
-              🔮 {config.quizIntroTitulo || 'Descubra Agora o Que as Cartas Revelam Sobre a Sua Vida Neste Ano De 2026!'} ✨
+              🔮 {config.quizIntroTitulo || 'Descubra o que está travando o seu dinheiro neste ano.'} ✨
             </h1>
 
             {/* Imagem Hero Exuberante com Moldura Dourada Reluzente */}
@@ -460,7 +460,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
             </div>
 
             <p className="text-sm sm:text-base text-amber-100/95 font-medium leading-relaxed max-w-md mx-auto">
-              {config.quizIntroSubtitulo || 'As cartas podem revelar o caminho exato para destravar os caminhos travados em sua vida.'}
+              {config.quizIntroSubtitulo || 'As cartas mostram o bloqueio e o caminho pra destravar a prosperidade.'}
             </p>
 
             <button
@@ -469,16 +469,16 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
               onClick={handleIniciarQuiz}
               className="w-full min-h-[58px] py-4 px-6 rounded-2xl bg-gradient-to-r from-[#ffe58f] via-[#f5c85a] to-[#d99814] text-[#061a12] font-black text-lg uppercase tracking-wider shadow-[0_10px_35px_rgba(233,186,47,0.65)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-[#fffdf0] animate-pulse flex items-center justify-center gap-2 cursor-pointer"
             >
-              <span>🔮 {config.quizIntroCta || 'COMEÇAR MINHA LEITURA'}</span>
+              <span>🔮 {config.quizIntroCta || 'COMEÇAR MEU DIAGNÓSTICO'}</span>
               <span className="text-xl">➔</span>
             </button>
 
             <div className="flex flex-wrap items-center justify-center gap-3 text-xs text-amber-300/90 pt-1">
-              <span className="flex items-center gap-1">🔒 100% Gratuito &amp; Particular</span>
-              <span>•</span>
               <span className="flex items-center gap-1">⚡ Leva menos de 1 minuto</span>
               <span>•</span>
-              <span className="flex items-center gap-1">🌟 Guias Astrais</span>
+              <span className="flex items-center gap-1">🔒 Diagnóstico gratuito</span>
+              <span>•</span>
+              <span className="flex items-center gap-1">🌟 Resultado na hora</span>
             </div>
           </section>
         )}
@@ -571,7 +571,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                   {mensagensProcessamento[transicaoFase]?.icone || '🔮'}
                 </p>
                 <h2 className="text-lg sm:text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-100 via-amber-200 to-yellow-400 leading-snug drop-shadow">
-                  {mensagensProcessamento[transicaoFase]?.texto || 'Analisando suas respostas...'}
+                  {mensagensProcessamento[transicaoFase]?.texto || 'Consultando o que trava a sua prosperidade...'}
                 </h2>
               </div>
             </div>
@@ -592,11 +592,11 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
         {etapa === 'cartas' && (
           <section className="flex flex-col items-center text-center animate-fadeIn w-full space-y-4">
             <h2 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-b from-[#FFFDF0] via-[#F5C85A] to-[#D99814] drop-shadow-md leading-tight">
-              🎴 {config.quizCartasTitulo || 'O baralho está aberto para você:'} ✨
+              🎴 {config.quizCartasTitulo || 'O baralho está aberto para você'} ✨
             </h2>
 
             <p className="text-sm sm:text-base text-amber-100">
-              Escolha 3 cartas, uma de cada vez, <strong>na ordem da sua intuição:</strong>
+              {config.quizCartasInstrucao || 'Escolhe 3 cartas, uma de cada vez, na ordem da intuição.'}
             </p>
 
             <div className="flex items-center gap-2 text-xs sm:text-sm font-bold text-amber-200 bg-[#041a12]/95 px-4 py-1.5 rounded-full border border-amber-400/70 shadow-[0_0_15px_rgba(245,158,11,0.3)]">
@@ -686,7 +686,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                   onClick={() => setEtapa('vsl')}
                   className="w-full min-h-[58px] py-4 px-6 rounded-2xl bg-gradient-to-r from-[#ffe58f] via-[#f5c85a] to-[#d99814] text-[#061a12] font-black text-lg uppercase tracking-wider shadow-[0_10px_35px_rgba(233,186,47,0.65)] hover:brightness-110 active:scale-[0.98] transition-all duration-200 ring-2 ring-[#fffdf0] animate-pulse flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <span>✨ {config.quizBotaoRevelacaoTexto || 'VER RESULTADO DA LEITURA'}</span>
+                  <span>✨ {config.quizBotaoRevelacaoTexto || 'VER O QUE ESTÁ TRAVANDO MEU DINHEIRO'}</span>
                   <span className="text-xl">➔</span>
                 </button>
               </div>
@@ -703,7 +703,7 @@ export default function QuizOraculo({ config, variationId = 'v1', onConcluir }) 
                 <span>🔴 AVISO URGENTE DOS GUIAS ⚠️</span>
               </div>
               <h2 className="text-sm sm:text-base font-black text-white leading-tight">
-                🔮 AS CARTAS REVELARAM UM BLOQUEIO: <span className="text-amber-300">ASSISTA ATÉ O FINAL PARA LIBERAR SEUS CAMINHOS ✨</span>
+                As cartas revelaram um bloqueio na sua abundância. Assiste até o final pra liberar o caminho.
               </h2>
 
               {/* Aviso de Urgência — Vídeo vai sair do ar */}
