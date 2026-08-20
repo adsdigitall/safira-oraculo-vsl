@@ -21,78 +21,80 @@ tailwind.config = {
     fontFamily: { sans: ['Poppins','sans-serif'], serif: ['Playfair Display','serif'] },
     colors: { brand: { red:'#FF4F4F', pink:'#F50068', green:'#41BD6C', 'green-dark':'#34a35c', gold:'#EA9D1C', dark:'#0a0a0c', 'dark-card':'#141418' } },
     keyframes: {
-      pulseGlow: { '0%,100%':{transform:'scale(1)',boxShadow:'0 0 25px rgba(65,189,108,0.4)'}, '50%':{transform:'scale(1.03)',boxShadow:'0 0 35px rgba(65,189,108,0.7)'} },
-      floatSlow: { '0%,100%':{transform:'translateY(0px)'}, '50%':{transform:'translateY(-8px)'} }
+      pulseGlow: { '0%,100%':{transform:'scale(1)',boxShadow:'0 0 20px rgba(65,189,108,0.4)'}, '50%':{transform:'scale(1.02)',boxShadow:'0 0 30px rgba(65,189,108,0.65)'} },
+      floatSlow: { '0%,100%':{transform:'translateY(0px)'}, '50%':{transform:'translateY(-6px)'} }
     },
     animation: { pulseGlow:'pulseGlow 2.5s infinite ease-in-out', float:'floatSlow 4s infinite ease-in-out' }
   } }
 }
 </script>
 <style>
-  .glass-dark{background:rgba(20,20,24,.85);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);}
+  .glass-dark{background:rgba(20,20,24,.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.08);}
   .text-gradient-red{background:linear-gradient(135deg,#FF4F4F 0%,#F50068 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
   .text-gradient-gold{background:linear-gradient(135deg,#FDE047 0%,#EA9D1C 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;}
-  .screen{display:none;animation:fadeUp .4s ease forwards;}
+  .screen{display:none;animation:fadeUp .35s ease forwards;}
   .screen.active{display:block;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-  .opt-btn{transition:all .2s ease;}
-  .opt-btn:hover{border-color:#41BD6C;background:rgba(65,189,108,.08);transform:translateY(-2px);}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .opt-btn{transition:all .18s ease;}
+  .opt-btn:hover{border-color:#41BD6C;background:rgba(65,189,108,.08);transform:translateY(-1px);}
   .opt-btn:active{transform:scale(.98);}
 </style>
 </head>
 <body class="bg-black text-white font-sans antialiased selection:bg-brand-red selection:text-white min-h-screen">
 
-<header class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-b border-white/10 py-2.5 px-4 sticky top-0 z-50 shadow-md">
-  <div class="max-w-xl mx-auto flex items-center justify-between text-xs sm:text-sm font-medium gap-2">
+<!-- HEADER COMPACTO -->
+<header class="bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 border-b border-white/10 py-2 px-3 sticky top-0 z-50 shadow-md">
+  <div class="max-w-xl mx-auto flex items-center justify-between text-xs font-medium gap-2">
     <div class="flex items-center gap-2 text-zinc-300">
       <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-      <span>🕊️ Diagnóstico do Propósito de 28 Dias</span>
+      <span class="truncate">🕊️ Diagnóstico do Propósito de 28 Dias</span>
     </div>
-    <div class="text-amber-400 font-semibold text-xs flex items-center gap-1">
+    <div class="text-amber-400 font-semibold text-xs flex items-center gap-1 flex-shrink-0">
       <span id="stepPct">0%</span>
     </div>
   </div>
 </header>
 
-<main class="max-w-xl mx-auto px-4 sm:px-6 py-6 pb-16">
+<main class="max-w-xl mx-auto px-3 sm:px-6 py-4 pb-12">
 
-  <div id="progressWrap" class="mb-6 hidden">
+  <!-- BARRA DE PROGRESSO COMPACTA -->
+  <div id="progressWrap" class="mb-4 hidden">
     <div class="h-2 rounded-full bg-zinc-900/90 border border-zinc-800 overflow-hidden">
-      <div id="progressBar" class="h-full rounded-full transition-all duration-500" style="width:0%;background:linear-gradient(90deg,#FF4F4F,#F50068)"></div>
+      <div id="progressBar" class="h-full rounded-full transition-all duration-400" style="width:0%;background:linear-gradient(90deg,#FF4F4F,#F50068)"></div>
     </div>
   </div>
 
   <!-- 1. LANDING -->
   <section class="screen active" data-screen="landing">
-    <div class="text-center">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs sm:text-sm font-semibold mb-6">
+    <div class="text-center py-2">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-red/10 border border-brand-red/30 text-brand-red text-xs font-semibold mb-3">
         🕊️ Diagnóstico Espiritual Gratuito
       </div>
-      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.2] text-white mb-4">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight leading-tight text-white mb-3">
         Por que quanto mais você tenta consertar, <span class="text-gradient-red italic">mais ele se afasta de você?</span>
       </h1>
-      <p class="text-base sm:text-lg text-zinc-300 leading-relaxed font-light mb-8 max-w-md mx-auto">
+      <p class="text-sm sm:text-base text-zinc-300 leading-relaxed font-light mb-6 max-w-md mx-auto">
         Responda 4 perguntas rápidas e descubra em que estágio do <b class="text-white font-semibold">Efeito Elástico</b> o seu vínculo está — e o que fazer a partir de hoje.
       </p>
-      <button onclick="go('compromisso')" class="w-full sm:w-auto px-8 py-4 bg-brand-green hover:bg-brand-green-dark text-white text-base sm:text-lg font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all transform hover:-translate-y-1 active:translate-y-0 animate-pulseGlow">
+      <button onclick="go('compromisso')" class="w-full py-3.5 sm:py-4 bg-brand-green hover:bg-brand-green-dark text-white text-base font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">
         Iniciar meu diagnóstico →
       </button>
-      <p class="text-xs text-zinc-400 mt-3">🔒 100% particular · 🕒 Leva menos de 2 minutos</p>
+      <p class="text-[11px] text-zinc-400 mt-2.5">🔒 100% particular · 🕒 Leva menos de 2 minutos</p>
     </div>
   </section>
 
   <!-- 2. COMPROMISSO -->
   <section class="screen" data-screen="compromisso">
-    <div class="glass-dark p-6 sm:p-8 rounded-3xl border border-zinc-800 text-center">
-      <span class="text-xs uppercase font-bold tracking-widest text-amber-400">ANTES DE COMEÇAR</span>
-      <h2 class="text-2xl font-serif font-bold mt-2 mb-3 text-white">Ao final, você vai receber seu Nível de Desgaste do vínculo — e o primeiro passo pra reverter.</h2>
-      <p class="text-zinc-400 text-sm mb-6">Só é revelado pra quem responde com sinceridade até o fim.</p>
-      <div class="flex flex-col gap-3">
-        <button onclick="go('q1')" class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 font-semibold flex items-center justify-between">
+    <div class="glass-dark p-5 sm:p-7 rounded-2xl border border-zinc-800 text-center">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-amber-400">ANTES DE COMEÇAR</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-1.5 mb-2.5 text-white">Ao final, você vai receber seu Nível de Desgaste do vínculo — e o primeiro passo pra reverter.</h2>
+      <p class="text-zinc-400 text-xs sm:text-sm mb-4">Só é revelado pra quem responde com sinceridade até o fim.</p>
+      <div class="flex flex-col gap-2.5">
+        <button onclick="go('q1')" class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 font-semibold flex items-center justify-between text-sm">
           <span>✅ Sim, quero saber onde estou</span>
-          <span class="text-emerald-400">›</span>
+          <span class="text-emerald-400 font-bold">›</span>
         </button>
-        <button onclick="go('q1')" class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 font-semibold flex items-center justify-between">
+        <button onclick="go('q1')" class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 font-semibold flex items-center justify-between text-sm">
           <span>🤔 Só estou curiosa</span>
           <span class="text-zinc-400">›</span>
         </button>
@@ -102,77 +104,77 @@ tailwind.config = {
 
   <!-- 3. Q1 -->
   <section class="screen" data-screen="q1">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-red">PERGUNTA 1 DE 4</span>
-      <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Onde você está agora com ele(a)?</h2>
+    <div class="text-center mb-4">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-red">PERGUNTA 1 DE 4</span>
+      <h2 class="text-lg sm:text-xl font-bold mt-0.5 text-white">Onde você está agora com ele(a)?</h2>
     </div>
-    <div class="flex flex-col gap-3" id="q1opts">
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="15">
+    <div class="flex flex-col gap-2.5" id="q1opts">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="15">
         <span>Ainda estamos juntos, mas distantes</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="22">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="22">
         <span>Terminamos há pouco tempo</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="18">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="18">
         <span>Terminamos há mais de 6 meses</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="20">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="20">
         <span>Ele sumiu, sem terminar oficialmente</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
     </div>
   </section>
 
-  <!-- 4. Q2 -->
+  <!-- 4. Q2 COMPACTO -->
   <section class="screen" data-screen="q2">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-red">PERGUNTA 2 DE 4</span>
-      <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Qual desse ciclo mais bate em você hoje?</h2>
-      <p class="text-xs text-zinc-500 mt-2">O mesmo que outras mulheres reconheceram antes de você</p>
+    <div class="text-center mb-4">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-red">PERGUNTA 2 DE 4</span>
+      <h2 class="text-lg sm:text-xl font-bold mt-0.5 text-white">Qual desse ciclo mais bate em você hoje?</h2>
+      <p class="text-[11px] text-zinc-500 mt-1">O mesmo que outras mulheres reconheceram antes de você</p>
     </div>
-    <div class="flex flex-col gap-3" id="q2opts">
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40" data-pts="20">
-        <b class="text-white">A frieza repentina</b><br>
-        <span class="text-xs text-zinc-400">Ele fica seco, demora pra responder, parece com a cabeça em outro lugar</span>
+    <div class="flex flex-col gap-2.5" id="q2opts">
+      <button class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 text-sm" data-pts="20">
+        <b class="text-white text-xs sm:text-sm">A frieza repentina</b><br>
+        <span class="text-[11px] text-zinc-400">Ele fica seco, demora pra responder, parece distante</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40" data-pts="18">
-        <b class="text-white">O aperto no peito que me faz agir no impulso</b><br>
-        <span class="text-xs text-zinc-400">A angústia aperta e eu mando o textão, pergunto o que houve, imploro conversa</span>
+      <button class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 text-sm" data-pts="18">
+        <b class="text-white text-xs sm:text-sm">O aperto no peito no impulso</b><br>
+        <span class="text-[11px] text-zinc-400">A angústia aperta e eu mando mensagem ou imploro conversa</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40" data-pts="19">
-        <b class="text-white">A resposta que destrói minha paz</b><br>
-        <span class="text-xs text-zinc-400">"não é nada", "você complica tudo", "preciso de espaço" — ou o vácuo</span>
+      <button class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 text-sm" data-pts="19">
+        <b class="text-white text-xs sm:text-sm">A resposta que tira a paz</b><br>
+        <span class="text-[11px] text-zinc-400">"preciso de espaço", "você complica tudo" ou o vácuo</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40" data-pts="16">
-        <b class="text-white">A culpa e a repetição</b><br>
-        <span class="text-xs text-zinc-400">Choro, me arrependo, juro que não procuro mais... e dois dias depois procuro</span>
+      <button class="opt-btn w-full text-left px-4 py-3 rounded-xl border border-zinc-800 bg-black/40 text-sm" data-pts="16">
+        <b class="text-white text-xs sm:text-sm">A culpa e a repetição</b><br>
+        <span class="text-[11px] text-zinc-400">Juro que não procuro mais... e acabo procurando</span>
       </button>
     </div>
   </section>
 
   <!-- 5. Q3 -->
   <section class="screen" data-screen="q3">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-red">PERGUNTA 3 DE 4</span>
-      <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">O que você já tentou pra consertar?</h2>
+    <div class="text-center mb-4">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-red">PERGUNTA 3 DE 4</span>
+      <h2 class="text-lg sm:text-xl font-bold mt-0.5 text-white">O que você já tentou pra consertar?</h2>
     </div>
-    <div class="flex flex-col gap-3" id="q3opts">
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="18">
+    <div class="flex flex-col gap-2.5" id="q3opts">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="18">
         <span>Conversei bastante, pedi pra resolver</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="12">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="12">
         <span>Dei espaço, fiquei quieta</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="16">
-        <span>Orei sozinha, sem saber por onde guiar a oração</span>
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="16">
+        <span>Orei sozinha, sem saber como guiar</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="10">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="10">
         <span>Nada ainda — tenho medo de piorar</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
@@ -181,24 +183,24 @@ tailwind.config = {
 
   <!-- 6. Q4 -->
   <section class="screen" data-screen="q4">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-red">PERGUNTA 4 DE 4</span>
-      <h2 class="text-xl sm:text-2xl font-bold mt-1 text-white">Há quanto tempo isso vem se arrastando?</h2>
+    <div class="text-center mb-4">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-red">PERGUNTA 4 DE 4</span>
+      <h2 class="text-lg sm:text-xl font-bold mt-0.5 text-white">Há quanto tempo isso vem se arrastando?</h2>
     </div>
-    <div class="flex flex-col gap-3" id="q4opts">
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="8">
+    <div class="flex flex-col gap-2.5" id="q4opts">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="8">
         <span>Algumas semanas</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="14">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="14">
         <span>1 a 3 meses</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="18">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="18">
         <span>4 a 12 meses</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
-      <button class="opt-btn w-full text-left px-5 py-4 rounded-2xl border border-zinc-800 bg-black/40 flex items-center justify-between" data-pts="22">
+      <button class="opt-btn w-full text-left px-4 py-3.5 rounded-xl border border-zinc-800 bg-black/40 flex items-center justify-between text-sm" data-pts="22">
         <span>Mais de um ano</span>
         <span class="text-emerald-400 font-bold">›</span>
       </button>
@@ -207,12 +209,12 @@ tailwind.config = {
 
   <!-- 7. NOME -->
   <section class="screen" data-screen="nome">
-    <div class="glass-dark p-6 sm:p-8 rounded-3xl border border-zinc-800 text-center">
-      <h2 class="text-xl font-serif font-bold mb-2 text-white">Pra quem vai ser essa oração?</h2>
-      <p class="text-zinc-400 text-sm mb-5">Digite o primeiro nome dele(a) — vamos personalizar seu resultado</p>
+    <div class="glass-dark p-5 sm:p-7 rounded-2xl border border-zinc-800 text-center">
+      <h2 class="text-lg sm:text-xl font-serif font-bold mb-1.5 text-white">Pra quem vai ser essa oração?</h2>
+      <p class="text-zinc-400 text-xs sm:text-sm mb-4">Digite o primeiro nome dele(a) — vamos personalizar seu resultado</p>
       <input id="nomeDele" type="text" placeholder="Ex: Lucas"
-        class="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-zinc-800 text-white placeholder:text-zinc-500 text-base focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/30 transition-all mb-5 text-center">
-      <button onclick="salvarNome()" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">
+        class="w-full px-4 py-3 rounded-xl bg-black/40 border border-zinc-800 text-white placeholder:text-zinc-500 text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/30 transition-all mb-4 text-center">
+      <button onclick="salvarNome()" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">
         Continuar →
       </button>
     </div>
@@ -220,34 +222,34 @@ tailwind.config = {
 
   <!-- 8. CAPTURA (WHATSAPP) -->
   <section class="screen" data-screen="captura">
-    <div class="glass-dark p-6 sm:p-8 rounded-3xl border-2 border-dashed border-amber-500/40 text-center">
-      <span class="text-xs uppercase font-bold tracking-widest text-amber-400">SEU DIAGNÓSTICO ESTÁ PRONTO</span>
-      <h2 class="text-xl font-serif font-bold mt-2 mb-3 text-white">Pra onde envio seu Nível de Desgaste e o 1º passo do Efeito Elástico?</h2>
+    <div class="glass-dark p-5 sm:p-7 rounded-2xl border-2 border-dashed border-amber-500/40 text-center">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-amber-400">SEU DIAGNÓSTICO ESTÁ PRONTO</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-1.5 mb-2 text-white">Pra onde envio seu Nível de Desgaste e o 1º passo do Efeito Elástico?</h2>
       <input id="whatsapp" type="tel" placeholder="Seu WhatsApp com DDD (Ex: 11 99999-9999)"
-        class="w-full px-4 py-3.5 rounded-xl bg-black/40 border border-zinc-800 text-white placeholder:text-zinc-500 text-base focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/30 transition-all mb-5 text-center">
-      <button onclick="go('loading')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">
+        class="w-full px-4 py-3 rounded-xl bg-black/40 border border-zinc-800 text-white placeholder:text-zinc-500 text-sm focus:outline-none focus:border-brand-green focus:ring-2 focus:ring-brand-green/30 transition-all mb-4 text-center">
+      <button onclick="go('loading')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">
         Ver meu resultado →
       </button>
-      <p class="text-xs text-zinc-500 mt-3">🔒 100% particular · Sem spam</p>
+      <p class="text-[11px] text-zinc-500 mt-2">🔒 100% particular · Sem spam</p>
     </div>
   </section>
 
   <!-- 9. LOADING -->
   <section class="screen" data-screen="loading">
-    <div class="glass-dark p-8 rounded-3xl border border-zinc-800 text-center">
-      <div class="w-16 h-16 mx-auto mb-5 rounded-full border-4 border-zinc-800 border-t-brand-red animate-spin"></div>
-      <p id="loadingText" class="font-serif font-bold text-lg mb-5">Calculando seu Nível de Desgaste...</p>
-      <div class="flex flex-col gap-2.5 text-left max-w-xs mx-auto" id="checklist">
-        <div class="process-item flex items-center gap-3 text-sm text-zinc-400 bg-black/40 border border-zinc-800 rounded-xl px-4 py-3" data-i="0">
-          <span class="pill w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">·</span>
+    <div class="glass-dark p-6 sm:p-8 rounded-2xl border border-zinc-800 text-center">
+      <div class="w-12 h-12 mx-auto mb-4 rounded-full border-3 border-zinc-800 border-t-brand-red animate-spin"></div>
+      <p id="loadingText" class="font-serif font-bold text-base sm:text-lg mb-4">Calculando seu Nível de Desgaste...</p>
+      <div class="flex flex-col gap-2 text-left max-w-xs mx-auto" id="checklist">
+        <div class="process-item flex items-center gap-2.5 text-xs text-zinc-400 bg-black/40 border border-zinc-800 rounded-lg px-3 py-2.5" data-i="0">
+          <span class="pill w-4 h-4 rounded-full bg-white/10 flex items-center justify-center text-[10px]">·</span>
           <span>Lendo suas 4 respostas</span>
         </div>
-        <div class="process-item flex items-center gap-3 text-sm text-zinc-400 bg-black/40 border border-zinc-800 rounded-xl px-4 py-3" data-i="1">
-          <span class="pill w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">·</span>
+        <div class="process-item flex items-center gap-2.5 text-xs text-zinc-400 bg-black/40 border border-zinc-800 rounded-lg px-3 py-2.5" data-i="1">
+          <span class="pill w-4 h-4 rounded-full bg-white/10 flex items-center justify-center text-[10px]">·</span>
           <span>Cruzando com o Efeito Elástico</span>
         </div>
-        <div class="process-item flex items-center gap-3 text-sm text-zinc-400 bg-black/40 border border-zinc-800 rounded-xl px-4 py-3" data-i="2">
-          <span class="pill w-5 h-5 rounded-full bg-white/10 flex items-center justify-center text-xs">·</span>
+        <div class="process-item flex items-center gap-2.5 text-xs text-zinc-400 bg-black/40 border border-zinc-800 rounded-lg px-3 py-2.5" data-i="2">
+          <span class="pill w-4 h-4 rounded-full bg-white/10 flex items-center justify-center text-[10px]">·</span>
           <span>Montando seu resultado personalizado</span>
         </div>
       </div>
@@ -256,96 +258,95 @@ tailwind.config = {
 
   <!-- 10. RESULTADO -->
   <section class="screen" data-screen="resultado">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-red">SEU DIAGNÓSTICO</span>
-      <h2 id="resultTitle" class="text-2xl font-serif font-bold mt-1 text-white">Resultado de <span id="nomeUsuarioResult">Você</span> e <span id="nomeDeleResult" class="text-amber-400"></span></h2>
+    <div class="text-center mb-4">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-red">SEU DIAGNÓSTICO</span>
+      <h2 id="resultTitle" class="text-xl font-serif font-bold mt-0.5 text-white">Resultado de <span id="nomeUsuarioResult">Você</span> e <span id="nomeDeleResult" class="text-amber-400"></span></h2>
     </div>
 
-    <div class="glass-dark p-6 rounded-3xl border border-zinc-800 mb-5">
-      <p class="text-xs uppercase font-bold tracking-widest text-zinc-400 mb-3">Nível de Desgaste do vínculo</p>
-      <div class="relative h-7 rounded-full overflow-hidden bg-zinc-900/90 border border-zinc-800 shadow-inner mb-2">
-        <div id="desgasteBar" class="h-full rounded-full transition-all duration-[1600ms] ease-out relative flex items-center justify-end pr-3" style="width:0%;background:linear-gradient(90deg,#e6b31a 0%,#e65e1a 45%,#ef4444 100%)">
-          <span id="desgasteTag" class="text-xs font-black text-white opacity-0 transition-opacity duration-500 flex items-center gap-1.5 whitespace-nowrap">
-            <span class="w-2 h-2 rounded-full bg-white animate-ping inline-block"></span><span id="desgasteLabel"></span>
+    <div class="glass-dark p-4 sm:p-5 rounded-2xl border border-zinc-800 mb-3.5">
+      <p class="text-[11px] uppercase font-bold tracking-widest text-zinc-400 mb-2">Nível de Desgaste do vínculo</p>
+      <div class="relative h-6 rounded-full overflow-hidden bg-zinc-900/90 border border-zinc-800 shadow-inner mb-1.5">
+        <div id="desgasteBar" class="h-full rounded-full transition-all duration-[1600ms] ease-out relative flex items-center justify-end pr-2.5" style="width:0%;background:linear-gradient(90deg,#e6b31a 0%,#e65e1a 45%,#ef4444 100%)">
+          <span id="desgasteTag" class="text-[11px] font-black text-white opacity-0 transition-opacity duration-500 flex items-center gap-1 whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-white animate-ping inline-block"></span><span id="desgasteLabel"></span>
           </span>
         </div>
       </div>
-      <div class="flex justify-between text-xs text-zinc-400 font-medium px-1">
+      <div class="flex justify-between text-[11px] text-zinc-400 font-medium px-1">
         <span class="text-emerald-400">Estável</span><span class="text-amber-400">Desgastado</span><span class="text-red-400 font-bold">Crítico</span><span class="text-zinc-600">Colapso</span>
       </div>
-      <p class="text-xs text-zinc-500 mt-3">Calculado a partir das suas 4 respostas — não é um número genérico.</p>
     </div>
 
-    <div class="glass-dark p-6 rounded-3xl border border-zinc-800 mb-6">
-      <p class="text-sm sm:text-base text-zinc-300 leading-relaxed">
+    <div class="glass-dark p-4 rounded-2xl border border-zinc-800 mb-3.5">
+      <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed">
         Pelo que você respondeu, o vínculo com <b id="nomeDeleResult2" class="text-amber-400"></b> está no padrão clássico do <b class="text-white">Efeito Elástico</b>: quanto mais você puxa por conversa e explicação, mais ele estica pro lado oposto. Isso tem conserto — mas não é insistindo do mesmo jeito.
       </p>
     </div>
 
-    <div class="rounded-2xl p-5 mb-6 bg-gradient-to-br from-amber-500/15 via-amber-500/10 to-amber-600/5 border border-amber-500/20">
-      <p class="text-sm italic text-amber-200 leading-relaxed">✨ "Você não chegou até aqui agora por acaso. Este é o sinal que Deus preparou para você dar o primeiro passo para a restauração."</p>
+    <div class="rounded-xl p-3.5 mb-4 bg-gradient-to-br from-amber-500/15 via-amber-500/10 to-amber-600/5 border border-amber-500/20">
+      <p class="text-xs sm:text-sm italic text-amber-200 leading-relaxed">✨ "Você não chegou até aqui agora por acaso. Este é o sinal que Deus preparou para você dar o primeiro passo para a restauração."</p>
     </div>
 
-    <button onclick="go('semanas')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">
+    <button onclick="go('semanas')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">
       Ver como reverter isso →
     </button>
   </section>
 
   <!-- 11. 4 SEMANAS -->
   <section class="screen" data-screen="semanas">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">O CAMINHO BÍBLICO ESTRUTURADO</span>
-      <h2 class="text-xl sm:text-2xl font-serif font-bold mt-1 text-white">Como funciona o Ciclo das 4 Semanas</h2>
-      <p class="text-zinc-400 text-sm mt-2">Não é simpatia nem joguinho de desinteresse — é um propósito de alinhamento com a Palavra em 4 etapas progressivas.</p>
+    <div class="text-center mb-3">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-emerald-400">O CAMINHO BÍBLICO ESTRUTURADO</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-0.5 text-white">Como funciona o Ciclo das 4 Semanas</h2>
+      <p class="text-zinc-400 text-xs mt-1">Um propósito de alinhamento com a Palavra em 4 etapas progressivas.</p>
     </div>
-    <div class="flex flex-col gap-4 mb-6">
-      <div class="glass-dark p-5 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase">SEMANA 1 · DIAS 01-07</span><span class="text-xl">🕊️</span>
+    <div class="flex flex-col gap-2.5 mb-4">
+      <div class="glass-dark p-3.5 rounded-xl border border-zinc-800">
+        <div class="flex items-center justify-between mb-1">
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase">SEMANA 1 · DIAS 01-07</span><span class="text-base">🕊️</span>
         </div>
-        <h3 class="text-base font-bold text-white mb-1">Cura Emocional & Alívio da Ansiedade</h3>
-        <p class="text-sm text-zinc-300 leading-relaxed">Orações pra arrancar o aperto no peito, quebrar o desespero e curar as feridas acumuladas.</p>
+        <h3 class="text-xs sm:text-sm font-bold text-white mb-0.5">Cura Emocional & Alívio da Ansiedade</h3>
+        <p class="text-[11px] text-zinc-300 leading-relaxed">Orações pra arrancar o aperto no peito e curar feridas acumuladas.</p>
       </div>
-      <div class="glass-dark p-5 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase">SEMANA 2 · DIAS 08-14</span><span class="text-xl">💬</span>
+      <div class="glass-dark p-3.5 rounded-xl border border-zinc-800">
+        <div class="flex items-center justify-between mb-1">
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase">SEMANA 2 · DIAS 08-14</span><span class="text-base">💬</span>
         </div>
-        <h3 class="text-base font-bold text-white mb-1">Reconciliação & Desarme de Mágoas</h3>
-        <p class="text-sm text-zinc-300 leading-relaxed">Orações pra quebrar a dureza do coração dele e preparar o solo pra um diálogo leve.</p>
+        <h3 class="text-xs sm:text-sm font-bold text-white mb-0.5">Reconciliação & Desarme de Mágoas</h3>
+        <p class="text-[11px] text-zinc-300 leading-relaxed">Orações pra quebrar a dureza do coração dele e abrir espaço pro diálogo.</p>
       </div>
-      <div class="glass-dark p-5 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase">SEMANA 3 · DIAS 15-21</span><span class="text-xl">🔥</span>
+      <div class="glass-dark p-3.5 rounded-xl border border-zinc-800">
+        <div class="flex items-center justify-between mb-1">
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase">SEMANA 3 · DIAS 15-21</span><span class="text-base">🔥</span>
         </div>
-        <h3 class="text-base font-bold text-white mb-1">Reativação da Paixão & Compromisso</h3>
-        <p class="text-sm text-zinc-300 leading-relaxed">Orações focadas em restaurar atração, admiração e intimidade.</p>
+        <h3 class="text-xs sm:text-sm font-bold text-white mb-0.5">Reativação da Paixão & Compromisso</h3>
+        <p class="text-[11px] text-zinc-300 leading-relaxed">Orações focadas em restaurar atração, admiração e intimidade.</p>
       </div>
-      <div class="glass-dark p-5 rounded-2xl border border-zinc-800 hover:border-emerald-500/40 transition-colors">
-        <div class="flex items-center justify-between mb-2">
-          <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-xs font-bold uppercase">SEMANA 4 · DIAS 22-28</span><span class="text-xl">🛡️</span>
+      <div class="glass-dark p-3.5 rounded-xl border border-zinc-800">
+        <div class="flex items-center justify-between mb-1">
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-300 text-[10px] font-bold uppercase">SEMANA 4 · DIAS 22-28</span><span class="text-base">🛡️</span>
         </div>
-        <h3 class="text-base font-bold text-white mb-1">Proteção Espiritual & Blindagem do Lar</h3>
-        <p class="text-sm text-zinc-300 leading-relaxed">Orações de autoridade pra fechar brechas contra terceiros e garantir que a união permaneça sólida.</p>
+        <h3 class="text-xs sm:text-sm font-bold text-white mb-0.5">Proteção Espiritual & Blindagem do Lar</h3>
+        <p class="text-[11px] text-zinc-300 leading-relaxed">Orações de autoridade pra fechar brechas e blindar a relação.</p>
       </div>
     </div>
-    <button onclick="go('depoimentos')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">Continuar →</button>
+    <button onclick="go('depoimentos')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">Continuar →</button>
   </section>
 
   <!-- 12. DEPOIMENTOS COM PLAYER DE VÍDEO REAL -->
   <section class="screen" data-screen="depoimentos">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-brand-pink">TRANSFORMAÇÕES REAIS</span>
-      <h2 class="text-xl sm:text-2xl font-serif font-bold mt-1 text-white">Mulheres que pararam de implorar e viram Deus agir</h2>
-      <p class="text-xs text-zinc-400 mt-2">Assista ao relato em vídeo abaixo:</p>
+    <div class="text-center mb-3">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-brand-pink">TRANSFORMAÇÕES REAIS</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-0.5 text-white">Mulheres que pararam de implorar e viram Deus agir</h2>
+      <p class="text-[11px] text-zinc-400 mt-1">Assista ao relato em vídeo abaixo:</p>
     </div>
 
     <!-- VSL / Depoimento em Vídeo Vertical (9:16) -->
-    <div class="w-full max-w-[300px] sm:max-w-[320px] mx-auto p-[3px] rounded-[28px] bg-gradient-to-b from-brand-red via-brand-pink to-amber-500 mb-6 relative shadow-[0_20px_50px_rgba(255,79,79,0.35)]">
-      <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-zinc-900 border border-brand-red text-white text-[11px] font-bold px-4 py-1 rounded-full uppercase tracking-wider z-10 whitespace-nowrap flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-brand-red animate-ping"></span>
+    <div class="w-full max-w-[260px] sm:max-w-[280px] mx-auto p-[2.5px] rounded-[22px] bg-gradient-to-b from-brand-red via-brand-pink to-amber-500 mb-4 relative shadow-[0_15px_40px_rgba(255,79,79,0.35)]">
+      <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-zinc-900 border border-brand-red text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase tracking-wider z-10 whitespace-nowrap flex items-center gap-1">
+        <span class="w-1.5 h-1.5 rounded-full bg-brand-red animate-ping"></span>
         <span>DEPOIMENTO REAL</span>
       </div>
-      <div class="w-full aspect-[9/16] rounded-[25px] overflow-hidden bg-black relative">
+      <div class="w-full aspect-[9/16] rounded-[20px] overflow-hidden bg-black relative">
         <iframe
           src="https://play.tynk.ai/p/93a30184-281f-4791-85c6-432cfee835ab"
           title="Depoimento Real"
@@ -357,156 +358,142 @@ tailwind.config = {
     </div>
 
     <!-- Prints de Depoimentos Reais -->
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
-      <div class="glass-dark p-2 rounded-2xl border border-zinc-800 overflow-hidden">
-        <img src="https://static.wixstatic.com/media/2b14e8_c0de80a7a2dc4c6abeaf10dcb9c1a84a~mv2.png/v1/fill/w_397,h_317,al_c,q_85,enc_avif,quality_auto/newdepo1.png" class="w-full h-auto rounded-xl object-contain" alt="Depoimento 1">
+    <div class="grid grid-cols-3 gap-2 mb-4">
+      <div class="glass-dark p-1 rounded-xl border border-zinc-800 overflow-hidden">
+        <img src="https://static.wixstatic.com/media/2b14e8_c0de80a7a2dc4c6abeaf10dcb9c1a84a~mv2.png/v1/fill/w_397,h_317,al_c,q_85,enc_avif,quality_auto/newdepo1.png" class="w-full h-auto rounded-lg object-contain" alt="Depoimento 1">
       </div>
-      <div class="glass-dark p-2 rounded-2xl border border-zinc-800 overflow-hidden">
-        <img src="https://static.wixstatic.com/media/2b14e8_821cbd56c1fb4d6782d5ce5b6b29cdba~mv2.png/v1/fill/w_423,h_265,al_c,q_85,enc_avif,quality_auto/newdepo2.png" class="w-full h-auto rounded-xl object-contain" alt="Depoimento 2">
+      <div class="glass-dark p-1 rounded-xl border border-zinc-800 overflow-hidden">
+        <img src="https://static.wixstatic.com/media/2b14e8_821cbd56c1fb4d6782d5ce5b6b29cdba~mv2.png/v1/fill/w_423,h_265,al_c,q_85,enc_avif,quality_auto/newdepo2.png" class="w-full h-auto rounded-lg object-contain" alt="Depoimento 2">
       </div>
-      <div class="glass-dark p-2 rounded-2xl border border-zinc-800 overflow-hidden">
-        <img src="https://static.wixstatic.com/media/2b14e8_8ec10a33c8f34068b9dea9465844982e~mv2.png/v1/fill/w_460,h_257,al_c,q_85,enc_avif,quality_auto/newdepo3.png" class="w-full h-auto rounded-xl object-contain" alt="Depoimento 3">
+      <div class="glass-dark p-1 rounded-xl border border-zinc-800 overflow-hidden">
+        <img src="https://static.wixstatic.com/media/2b14e8_8ec10a33c8f34068b9dea9465844982e~mv2.png/v1/fill/w_460,h_257,al_c,q_85,enc_avif,quality_auto/newdepo3.png" class="w-full h-auto rounded-lg object-contain" alt="Depoimento 3">
       </div>
     </div>
 
-    <button onclick="go('bonus')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">Continuar →</button>
+    <button onclick="go('bonus')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">Continuar →</button>
   </section>
 
   <!-- 13. BÔNUS -->
   <section class="screen" data-screen="bonus">
-    <div class="text-center mb-6">
-      <span class="text-xs uppercase font-bold tracking-widest text-amber-400">PRESENTES EXCLUSIVOS</span>
-      <h2 class="text-xl sm:text-2xl font-serif font-bold mt-1 text-white">7 bônus liberados dentro do seu app</h2>
-      <p class="text-zinc-400 text-sm mt-2">Nada pra baixar ou perder em arquivo separado — tudo fica desbloqueado direto na sua conta, junto com os 28 dias.</p>
+    <div class="text-center mb-3">
+      <span class="text-[11px] uppercase font-bold tracking-widest text-amber-400">PRESENTES EXCLUSIVOS</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-0.5 text-white">7 bônus liberados dentro do seu app</h2>
+      <p class="text-zinc-400 text-xs mt-1">Tudo desbloqueado direto na sua conta, junto com os 28 dias.</p>
     </div>
-    <div class="flex flex-col gap-3 mb-6">
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">📓</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 01</span><h4 class="font-bold text-white text-sm">Planner de Evolução e Gratidão</h4><p class="text-xs text-zinc-400">Acompanhe emoções, orações e vitórias nos 28 dias</p></div>
+    <div class="flex flex-col gap-2 mb-4">
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">📓</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 01</span><h4 class="font-bold text-white text-xs">Planner de Evolução e Gratidão</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">💌</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 02</span><h4 class="font-bold text-white text-sm">Guia Conexões Perdidas</h4><p class="text-xs text-zinc-400">25 mensagens pra reaproximação sem parecer desespero</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">💌</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 02</span><h4 class="font-bold text-white text-xs">Guia Conexões Perdidas (25 Mensagens)</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">💬</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 03</span><h4 class="font-bold text-white text-sm">Grupo no WhatsApp com Devocionais</h4><p class="text-xs text-zinc-400">Comunidade e conteúdo devocional diário</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">💬</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 03</span><h4 class="font-bold text-white text-xs">Grupo WhatsApp Devocionais</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">📱</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 04</span><h4 class="font-bold text-white text-sm">1 Mês Grátis · App Divina Conexão</h4><p class="text-xs text-zinc-400">Acesso ao aplicativo complementar</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">📱</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 04</span><h4 class="font-bold text-white text-xs">1 Mês Grátis · App Divina Conexão</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">🎯</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 05</span><h4 class="font-bold text-white text-sm">Guia: Aprenda Como Fazer Falta</h4><p class="text-xs text-zinc-400">O segredo comportamental pra ele sentir sua ausência</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">🎯</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 05</span><h4 class="font-bold text-white text-xs">Guia: Aprenda Como Fazer Falta</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">🗣️</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 06</span><h4 class="font-bold text-white text-sm">12 Frases Instinto do Herói</h4><p class="text-xs text-zinc-400">Frases que ativam o instinto protetor dele</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">🗣️</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 06</span><h4 class="font-bold text-white text-xs">12 Frases Instinto do Herói</h4></div>
       </div>
-      <div class="glass-dark p-4 rounded-2xl border border-zinc-800 flex items-center gap-4">
-        <span class="text-2xl">🎬</span>
-        <div><span class="text-xs font-bold text-amber-400 uppercase">Bônus 07</span><h4 class="font-bold text-white text-sm">Aula Secreta em Vídeo</h4><p class="text-xs text-zinc-400">Posicionamento — o bônus mais pedido do Super Combo</p></div>
+      <div class="glass-dark p-2.5 rounded-xl border border-zinc-800 flex items-center gap-3">
+        <span class="text-xl">🎬</span>
+        <div><span class="text-[10px] font-bold text-amber-400 uppercase">Bônus 07</span><h4 class="font-bold text-white text-xs">Aula Secreta em Vídeo: Posicionamento</h4></div>
       </div>
     </div>
-    <button onclick="go('pitch')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">Ver meu acesso →</button>
+    <button onclick="go('pitch')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">Ver meu acesso →</button>
   </section>
 
   <!-- 14. PITCH: O APP -->
   <section class="screen" data-screen="pitch">
-    <div class="glass-dark p-6 sm:p-8 rounded-3xl border border-zinc-800 relative overflow-hidden">
-      <div class="absolute -right-16 -top-16 w-48 h-48 bg-brand-red/20 rounded-full blur-3xl pointer-events-none"></div>
-      <span class="text-xs uppercase font-bold tracking-widest text-emerald-400">A SOLUÇÃO</span>
-      <h2 class="text-xl sm:text-2xl font-serif font-bold mt-2 mb-3 text-white">O Programa Guiado do Propósito de 28 Dias</h2>
-      <p class="text-sm text-zinc-300 leading-relaxed mb-5">Não é um PDF pra ler uma vez e esquecer. É um <b class="text-white">acesso diário dentro do app</b>: cada dia libera a oração e o passo certo, os 7 bônus ficam guardados na sua conta, e você recebe um lembrete todo dia pra não deixar o propósito parar no meio.</p>
+    <div class="glass-dark p-5 sm:p-7 rounded-2xl border border-zinc-800 relative overflow-hidden text-center">
+      <div class="absolute -right-16 -top-16 w-40 h-40 bg-brand-red/20 rounded-full blur-3xl pointer-events-none"></div>
+      <span class="text-[11px] uppercase font-bold tracking-widest text-emerald-400">A SOLUÇÃO COMPLETA</span>
+      <h2 class="text-lg sm:text-xl font-serif font-bold mt-1 mb-2 text-white">O Programa Guiado do Propósito de 28 Dias</h2>
+      <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4 text-left">Não é um PDF para ler uma vez e esquecer. É um <b class="text-white">acesso diário dentro do aplicativo</b> com notificações e todos os bônus inclusos.</p>
       
-      <div class="space-y-3 mb-6">
-        <div class="flex items-center gap-3 text-sm text-zinc-200"><span class="text-emerald-400 font-bold">✅</span><span>28 dias, um acesso liberado por dia</span></div>
-        <div class="flex items-center gap-3 text-sm text-zinc-200"><span class="text-emerald-400 font-bold">✅</span><span>Progresso salvo — retome de onde parou</span></div>
-        <div class="flex items-center gap-3 text-sm text-zinc-200"><span class="text-emerald-400 font-bold">✅</span><span>Todos os 7 bônus dentro do app, sem arquivo separado</span></div>
-        <div class="flex items-center gap-3 text-sm text-zinc-200"><span class="text-emerald-400 font-bold">🔔</span><span>Lembrete diário pra você ser avisada na hora da oração</span></div>
+      <div class="space-y-2 mb-5 text-left text-xs text-zinc-200">
+        <div class="flex items-center gap-2.5"><span class="text-emerald-400 font-bold">✅</span><span>28 dias guiados com 1 acesso liberado por dia</span></div>
+        <div class="flex items-center gap-2.5"><span class="text-emerald-400 font-bold">✅</span><span>Progresso salvo automaticamente na sua conta</span></div>
+        <div class="flex items-center gap-2.5"><span class="text-emerald-400 font-bold">✅</span><span>Todos os 7 bônus desbloqueados</span></div>
+        <div class="flex items-center gap-2.5"><span class="text-emerald-400 font-bold">🔔</span><span>Lembrete diário no horário da sua oração</span></div>
       </div>
 
-      <button onclick="go('checkout')" class="w-full py-4 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow">
+      <button onclick="go('checkout')" class="w-full py-3.5 bg-brand-green hover:bg-brand-green-dark text-white font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow text-sm">
         Quero acessar o Programa →
       </button>
     </div>
   </section>
 
-  <!-- 15. CHECKOUT COM SELEÇÃO INTERATIVA DOS PLANOS -->
-  <section class="screen" data-screen="checkout">
-    <div class="bg-white text-zinc-900 rounded-3xl p-6 sm:p-8">
-      <div class="text-center mb-6">
-        <span class="text-xs uppercase font-bold tracking-widest text-brand-red">SEU ACESSO ESTÁ LIBERADO</span>
-        <h2 class="text-2xl font-black mt-1">Escolha seu plano</h2>
-        <p class="text-xs text-zinc-500 mt-1">Toque no plano desejado para selecionar e clique no botão abaixo</p>
+  <!-- 15. CHECKOUT / OFERTA COMPACTO COM BOTÃO VISÍVEL -->
+  <section class="screen" id="oferta" data-screen="checkout">
+    <div class="bg-white text-zinc-900 rounded-2xl p-4 sm:p-6 shadow-2xl">
+      <div class="text-center mb-3">
+        <span class="text-[10px] uppercase font-bold tracking-widest text-brand-red">SEU ACESSO ESTÁ LIBERADO</span>
+        <h2 class="text-xl font-black mt-0.5">Escolha seu plano</h2>
+        <p class="text-[11px] text-zinc-500">Toque no plano desejado e finalize com desconto</p>
       </div>
 
-      <div class="flex flex-col gap-4">
-        <!-- PLANO 1: ESSENCIAL (R$ 19,90) -->
-        <div id="cardPlanoEssencial" onclick="selectPlan('essencial')" class="cursor-pointer transition-all duration-300 border-2 border-zinc-200 rounded-3xl p-5 bg-zinc-50 flex flex-col justify-between relative hover:border-zinc-300 opacity-90">
-          <div class="flex items-start justify-between">
-            <div>
-              <div class="inline-block px-3 py-1 rounded-md bg-zinc-200 text-zinc-700 text-xs font-bold uppercase mb-3">ESSENCIAL</div>
-              <h3 class="text-lg font-bold text-zinc-900 mb-1">O Milagre das 4 Semanas</h3>
-              <p class="text-xs text-zinc-500 mb-4">+ 2 bônus iniciais inclusos</p>
-            </div>
-            <!-- Radio Selector -->
-            <div id="radioEssencial" class="w-6 h-6 rounded-full border-2 border-zinc-300 flex items-center justify-center text-xs font-bold text-transparent transition-all"></div>
-          </div>
-
-          <ul class="space-y-2 text-xs text-left mb-5">
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">✅</span>Guia Completo: 30 Orações Bíblicas</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">✅</span>Plano de 4 Semanas Estruturadas</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>Bônus 01: Planner de Evolução</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>Bônus 02: 25 Mensagens de Reaproximação</li>
-            <li class="flex items-center gap-2 text-zinc-400"><span class="font-bold">✖️</span>Bônus 03 a 07 não incluídos</li>
-          </ul>
-
-          <span class="text-xs text-red-500 line-through font-bold block">De R$ 97,00 por:</span>
-          <div class="text-3xl font-black text-zinc-900">R$ 19,90</div>
-          <p class="text-xs text-zinc-500 mt-1">Pagamento único ou em 2x</p>
-        </div>
-
+      <div class="flex flex-col gap-2.5 mb-3.5">
         <!-- PLANO 2: SUPER COMBO (R$ 27,90 - SELECIONADO POR PADRÃO) -->
-        <div id="cardPlanoCombo" onclick="selectPlan('combo')" class="cursor-pointer transition-all duration-300 relative border-2 border-brand-green rounded-3xl p-5 bg-white shadow-xl ring-4 ring-emerald-500/10 flex flex-col justify-between">
-          <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-xs font-black px-3 py-1 rounded-full uppercase whitespace-nowrap shadow-sm">⬇️ 90% escolhem este ⬇️</div>
-          <div class="flex items-start justify-between mt-2">
+        <div id="cardPlanoCombo" onclick="selectPlan('combo')" class="cursor-pointer transition-all duration-200 relative border-2 border-brand-green rounded-2xl p-3.5 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20 flex flex-col justify-between">
+          <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-amber-500 text-black text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase whitespace-nowrap shadow-sm">⬇️ 90% escolhem este ⬇️</div>
+          <div class="flex items-center justify-between mt-1">
             <div>
-              <div class="inline-block px-3 py-1 rounded-md bg-emerald-100 text-emerald-800 text-xs font-bold uppercase mb-3">SUPER COMBO 🔥</div>
-              <p class="text-xs text-emerald-600 font-bold mb-4">TUDO incluso + 7 bônus desbloqueados</p>
+              <div class="flex items-center gap-2">
+                <span class="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold uppercase">SUPER COMBO 🔥</span>
+                <span class="text-[10px] text-emerald-700 font-bold">+ 7 bônus inclusos</span>
+              </div>
+              <h3 class="text-sm font-bold text-zinc-900 mt-0.5">30 Orações + 4 Semanas + 7 Bônus</h3>
             </div>
             <!-- Radio Selector -->
-            <div id="radioCombo" class="w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-xs font-bold shadow transition-all">✓</div>
+            <div id="radioCombo" class="w-5 h-5 rounded-full bg-brand-green text-white flex items-center justify-center text-[11px] font-bold shadow flex-shrink-0">✓</div>
           </div>
+          <div class="flex items-baseline justify-between mt-2 pt-2 border-t border-emerald-200/60">
+            <span class="text-[11px] text-red-500 line-through font-bold">De R$ 197</span>
+            <div class="text-xl font-black text-brand-green">R$ 27,90 <span class="text-[10px] font-medium text-zinc-500">ou 3x de R$ 9,99</span></div>
+          </div>
+        </div>
 
-          <ul class="space-y-2 text-xs text-left mb-5">
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">✅</span>Guia Completo: 30 Orações Bíblicas</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>01: Planner de Evolução e Gratidão</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>02: 25 Mensagens de Reaproximação</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>03: Grupo WhatsApp Devocionais</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>04: 1 Mês Grátis App Divina Conexão</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>05: Guia Aprenda Como Fazer Falta</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎁</span>06: 12 Frases Instinto do Herói</li>
-            <li class="flex items-center gap-2 text-zinc-800 font-medium"><span class="text-emerald-600 font-bold">🎬</span>07: Aula Secreta em Vídeo</li>
-          </ul>
-
-          <span class="text-xs text-red-500 line-through font-bold block">De R$ 197,00 por:</span>
-          <div class="text-4xl font-black text-brand-green">R$ 27,90</div>
-          <p class="text-xs text-zinc-500 mt-1">ou em 3x de R$ 9,99</p>
+        <!-- PLANO 1: ESSENCIAL (R$ 19,90) -->
+        <div id="cardPlanoEssencial" onclick="selectPlan('essencial')" class="cursor-pointer transition-all duration-200 border-2 border-zinc-200 rounded-2xl p-3.5 bg-zinc-50 flex flex-col justify-between relative hover:border-zinc-300 opacity-90">
+          <div class="flex items-center justify-between">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="inline-block px-2 py-0.5 rounded bg-zinc-200 text-zinc-700 text-[10px] font-bold uppercase">ESSENCIAL</span>
+                <span class="text-[10px] text-zinc-500">Básico (2 bônus)</span>
+              </div>
+              <h3 class="text-sm font-bold text-zinc-900 mt-0.5">30 Orações + 4 Semanas</h3>
+            </div>
+            <!-- Radio Selector -->
+            <div id="radioEssencial" class="w-5 h-5 rounded-full border-2 border-zinc-300 flex items-center justify-center text-[11px] font-bold text-transparent flex-shrink-0"></div>
+          </div>
+          <div class="flex items-baseline justify-between mt-2 pt-2 border-t border-zinc-200">
+            <span class="text-[11px] text-red-500 line-through font-bold">De R$ 97</span>
+            <div class="text-lg font-black text-zinc-900">R$ 19,90 <span class="text-[10px] font-medium text-zinc-500">à vista</span></div>
+          </div>
         </div>
       </div>
 
-      <!-- BOTÃO PRINCIPAL DINÂMICO QUE REDIRECIONA PARA O PLANO SELECIONADO -->
-      <a id="btnMainCheckout" href="https://ggcheckout.app/checkout/v2/Ng4ntcoWtKo6HLaKtW7i" target="_blank" rel="noopener" class="w-full mt-6 py-4 bg-brand-green hover:bg-brand-green-dark text-white text-center font-extrabold uppercase tracking-wider rounded-2xl shadow-[0_10px_30px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow block text-lg">
+      <!-- BOTÃO PRINCIPAL DINÂMICO E VISÍVEL -->
+      <a id="btnMainCheckout" href="https://ggcheckout.app/checkout/v2/Ng4ntcoWtKo6HLaKtW7i" target="_blank" rel="noopener" class="w-full py-3.5 sm:py-4 bg-brand-green hover:bg-brand-green-dark text-white text-center font-extrabold uppercase tracking-wider rounded-xl shadow-[0_8px_25px_rgba(65,189,108,0.4)] transition-all animate-pulseGlow block text-sm sm:text-base">
         🔓 Desbloquear Super Combo — R$ 27,90 →
       </a>
 
-      <div class="mt-6 p-4 rounded-2xl bg-zinc-50 border border-zinc-200 flex items-center gap-4 text-left">
-        <span class="text-3xl flex-shrink-0">🛡️</span>
+      <div class="mt-3.5 p-2.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center gap-2.5 text-left">
+        <span class="text-xl flex-shrink-0">🛡️</span>
         <div>
-          <h4 class="text-sm font-bold text-zinc-900">Garantia Incondicional de 7 Dias</h4>
-          <p class="text-xs text-zinc-600 mt-0.5">Se não sentir paz e clareza, é só enviar um e-mail e devolvemos 100% do seu dinheiro. Sem perguntas.</p>
+          <h4 class="text-xs font-bold text-zinc-900">Garantia Incondicional de 7 Dias</h4>
+          <p class="text-[10px] text-zinc-600">Devolvemos 100% do seu dinheiro caso não goste. Sem perguntas.</p>
         </div>
       </div>
     </div>
@@ -543,13 +530,13 @@ function selectPlan(plan) {
 
   if (plan === 'essencial') {
     // Ativa Card Essencial
-    cardEssencial.className = 'cursor-pointer transition-all duration-300 relative border-2 border-brand-green rounded-3xl p-5 bg-white shadow-xl ring-4 ring-emerald-500/10 flex flex-col justify-between';
-    radioEssencial.className = 'w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-xs font-bold shadow transition-all';
+    cardEssencial.className = 'cursor-pointer transition-all duration-200 relative border-2 border-brand-green rounded-2xl p-3.5 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20 flex flex-col justify-between';
+    radioEssencial.className = 'w-5 h-5 rounded-full bg-brand-green text-white flex items-center justify-center text-[11px] font-bold shadow flex-shrink-0';
     radioEssencial.textContent = '✓';
 
     // Desativa Card Combo
-    cardCombo.className = 'cursor-pointer transition-all duration-300 relative border-2 border-zinc-200 rounded-3xl p-5 bg-zinc-50 flex flex-col justify-between hover:border-zinc-300 opacity-90';
-    radioCombo.className = 'w-6 h-6 rounded-full border-2 border-zinc-300 flex items-center justify-center text-xs font-bold text-transparent transition-all';
+    cardCombo.className = 'cursor-pointer transition-all duration-200 relative border-2 border-zinc-200 rounded-2xl p-3.5 bg-zinc-50 flex flex-col justify-between hover:border-zinc-300 opacity-90';
+    radioCombo.className = 'w-5 h-5 rounded-full border-2 border-zinc-300 flex items-center justify-center text-[11px] font-bold text-transparent flex-shrink-0';
     radioCombo.textContent = '';
 
     // Atualiza Botão Principal
@@ -558,13 +545,13 @@ function selectPlan(plan) {
     btnMain.href = utms ? (base + (base.includes('?') ? '&' : '?') + utms) : base;
   } else {
     // Ativa Card Combo (Default)
-    cardCombo.className = 'cursor-pointer transition-all duration-300 relative border-2 border-brand-green rounded-3xl p-5 bg-white shadow-xl ring-4 ring-emerald-500/10 flex flex-col justify-between';
-    radioCombo.className = 'w-6 h-6 rounded-full bg-brand-green text-white flex items-center justify-center text-xs font-bold shadow transition-all';
+    cardCombo.className = 'cursor-pointer transition-all duration-200 relative border-2 border-brand-green rounded-2xl p-3.5 bg-emerald-50/50 shadow-md ring-2 ring-emerald-500/20 flex flex-col justify-between';
+    radioCombo.className = 'w-5 h-5 rounded-full bg-brand-green text-white flex items-center justify-center text-[11px] font-bold shadow flex-shrink-0';
     radioCombo.textContent = '✓';
 
     // Desativa Card Essencial
-    cardEssencial.className = 'cursor-pointer transition-all duration-300 relative border-2 border-zinc-200 rounded-3xl p-5 bg-zinc-50 flex flex-col justify-between hover:border-zinc-300 opacity-90';
-    radioEssencial.className = 'w-6 h-6 rounded-full border-2 border-zinc-300 flex items-center justify-center text-xs font-bold text-transparent transition-all';
+    cardEssencial.className = 'cursor-pointer transition-all duration-200 relative border-2 border-zinc-200 rounded-2xl p-3.5 bg-zinc-50 flex flex-col justify-between hover:border-zinc-300 opacity-90';
+    radioEssencial.className = 'w-5 h-5 rounded-full border-2 border-zinc-300 flex items-center justify-center text-[11px] font-bold text-transparent flex-shrink-0';
     radioEssencial.textContent = '';
 
     // Atualiza Botão Principal
@@ -576,6 +563,10 @@ function selectPlan(plan) {
 
 function initCheckoutUrls() {
   selectPlan('combo');
+  // Se veio com #oferta ou #checkout, vai direto pra tela de checkout
+  if (window.location.hash === '#oferta' || window.location.hash === '#checkout') {
+    go('checkout');
+  }
 }
 initCheckoutUrls();
 
